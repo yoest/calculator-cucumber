@@ -21,6 +21,35 @@ public class CalculatorSteps {
 		op = null; // reset the operation to null before executing each scenario
 	}
 
+	@Given("an arithmetic operation {string}")
+	public void an_arithmetic_operation(String s) {
+		// Write code here that turns the phrase above into concrete actions
+		params = new ArrayList<>(); // create an empty set of parameters to be filled in
+		params.add(new MyNumber(0));
+		try {
+			switch (s) {
+				case "+":
+					op = new Plus(params);
+					break;
+				case "-":
+					op = new Minus(params);
+					break;
+				case "*":
+					op = new Times(params);
+					break;
+				case "/":
+					op = new Divides(params);
+					break;
+				default:
+					System.out.println("Failing here?");
+					fail();
+			}
+		} catch (IllegalConstruction e) {
+			// No problem, we will provide the parameters of the operation (currently empty)
+			// in a later step...
+		}
+	}
+
 	// The following example shows how to use a DataTable provided as input.
 	// (The example looks slighly complex, since DataTables can take as input
 	//  tables in two dimensions, i.e. rows and lines. This is why the input
@@ -35,7 +64,11 @@ public class CalculatorSteps {
 		op = null;
 	}
 
+	// The string in the Given annotation shows how to use regular expressions...
+	// In this example, the notation d+ is used to represent numbers, i.e. nonempty sequences of digits
 	@Given("^the sum of two numbers (\\d+) and (\\d+)$")
+	// The alternative, and in this case simpler, notation would be:
+	// @Given("the sum of two numbers {int} and {int}")
 	public void givenTheSum(int n1, int n2) {
 		try {
 			params = new ArrayList<>();
@@ -97,6 +130,16 @@ public class CalculatorSteps {
 		} catch (IllegalConstruction e) {
 			fail();
 		}
+	}
+
+	@Then("the operation evaluates to {int}")
+	public void the_operation_evaluates_to(int val) {
+		//During previous @When steps, the parameters of the operation have been filled in,
+		//so we provide them to the operation op
+		params.remove(0);//remove the first parameter that we artifically added in method an_arithmetic_operation
+		op.replaceParams(params);
+		assertEquals(Integer.valueOf(val), op.compute());
+
 	}
 
 }

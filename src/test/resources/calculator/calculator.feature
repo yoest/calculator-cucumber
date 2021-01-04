@@ -30,7 +30,7 @@ Feature: Integer Arithmetic Expressions
   # A scenario outline (or template) is a scenario that is parameterised
   # with different values. The outline comes with a set of examples.
   # The scenario will be executed with each of the provided inputs.
-  Scenario Outline: Adding  two integer numbers
+  Scenario Outline: Adding two integer numbers
     Given an arithmetic expression
     When I provide a first number <n1>
     And I provide a second number <n2>
@@ -40,6 +40,19 @@ Feature: Integer Arithmetic Expressions
       |n1|n2|result|
       |4|5|9|
       |5|3|8|
+
+  Scenario Outline: Evaluating arithmetic operations with two integer parameters
+    Given an arithmetic operation <op>
+    When I provide a first number <n1>
+    And I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      | op  |n1|n2|result|
+      | "+" | 4| 5|     9|
+      | "-" | 8| 5|     3|
+      | "*" | 7| 2|    14|
+      | "/" | 6| 2|     3|
 
   Scenario: Subtracting two integer numbers
     Given an arithmetic expression
