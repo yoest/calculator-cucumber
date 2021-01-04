@@ -25,7 +25,6 @@ public class CalculatorSteps {
 	public void an_arithmetic_operation(String s) {
 		// Write code here that turns the phrase above into concrete actions
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
-		params.add(new MyNumber(0));
 		try {
 			switch (s) {
 				case "+":
@@ -45,8 +44,7 @@ public class CalculatorSteps {
 					fail();
 			}
 		} catch (IllegalConstruction e) {
-			// No problem, we will provide the parameters of the operation (currently empty)
-			// in a later step...
+			fail();
 		}
 	}
 
@@ -134,10 +132,9 @@ public class CalculatorSteps {
 
 	@Then("the operation evaluates to {int}")
 	public void the_operation_evaluates_to(int val) {
-		//During previous @When steps, the parameters of the operation have been filled in,
-		//so we provide them to the operation op
-		params.remove(0);//remove the first parameter that we artifically added in method an_arithmetic_operation
-		op.replaceParams(params);
+		//During previous @When steps, extra parameters may have been added to the operation
+		//so we complete its parameter list here:
+		op.addMoreParams(params);
 		assertEquals(Integer.valueOf(val), op.compute());
 
 	}

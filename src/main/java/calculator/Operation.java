@@ -9,10 +9,12 @@ public abstract class Operation implements Expression
   protected String symbol;
   protected int neutral; // the neutral element of the operation (e.g. 1 for *, 0 for +)
   public Notation notation = Notation.INFIX; //by default, printing uses infix notation
-  
+
+  // It is not allowed to create operation that have a null list of arguments.
+  // Note that it is allowed to have an EMPTY list of arguments.
   public /*constructor*/ Operation(List<Expression> elist) throws IllegalConstruction
 	{ 
-	  if (elist.isEmpty()) {
+	  if (elist == null) {
 		  throw new IllegalConstruction(); }
 	  else {
 		  args = new ArrayList<>(elist);
@@ -21,7 +23,7 @@ public abstract class Operation implements Expression
 
   public /*constructor*/ Operation(List<Expression> elist,Notation n) throws IllegalConstruction
   {	
-	  if (elist.isEmpty()) {
+	  if (elist == null) {
 		  throw new IllegalConstruction(); }
 	  else {
 		  notation = n;
@@ -31,6 +33,11 @@ public abstract class Operation implements Expression
   
   abstract protected int op(int l, int r);
     // the operation itself is specified in the subclasses
+
+  // add more arguments to the existing list of arguments args
+  void addMoreParams(List<Expression> params) {
+  	args.addAll(params);
+  }
 
   public Integer compute() {
     // use of Java 8 functional programming capabilities
