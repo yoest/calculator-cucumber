@@ -1,5 +1,6 @@
 package calculator;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,33 +16,23 @@ public class CalculatorSteps {
 	private ArrayList<Expression> params;
 	private Operation op;
 
-	@Given("an arithmetic expression")
-	public void givenAnArithmeticExpression() {
-		params = new ArrayList<>(); // create an empty set of parameters to be filled in
-		op = null; // reset the operation to null before executing each scenario
+	@Before
+    public void resetMemoryBeforeEachScenario() {
+		params = null;
+		op = null;
 	}
 
-	@Given("an arithmetic operation {string}")
-	public void an_arithmetic_operation(String s) {
+	@Given("an integer operation {string}")
+	public void givenAnIntegerOperation(String s) {
 		// Write code here that turns the phrase above into concrete actions
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
 		try {
 			switch (s) {
-				case "+":
-					op = new Plus(params);
-					break;
-				case "-":
-					op = new Minus(params);
-					break;
-				case "*":
-					op = new Times(params);
-					break;
-				case "/":
-					op = new Divides(params);
-					break;
-				default:
-					System.out.println("Failing here?");
-					fail();
+				case "+": op = new Plus(params); break;
+				case "-": op = new Minus(params); break;
+				case "*": op = new Times(params); break;
+				case "/": op = new Divides(params); break;
+				default: fail();
 			}
 		} catch (IllegalConstruction e) {
 			fail();
@@ -52,7 +43,7 @@ public class CalculatorSteps {
 	// (The example looks slighly complex, since DataTables can take as input
 	//  tables in two dimensions, i.e. rows and lines. This is why the input
 	//  is a list of lists.
-	@Given("the following list of numbers")
+	@Given("the following list of integer numbers")
 	public void givenTheFollowingListOfNumbers(List<List<String>> numbers) {
 		params = new ArrayList<>();
 		// Since we only use one line of input, we use get(0) to take the first line of the list,
@@ -90,6 +81,22 @@ public class CalculatorSteps {
 		params.add(new MyNumber(val));
 	}
 
+	@Then("^the (.*) is (\\d+)$")
+	public void thenTheOperationIs(String s, int val) {
+		try {
+			switch (s) {
+				case "sum": op = new Plus(params); break;
+				case "product": op = new Times(params); break;
+				case "quotient": op = new Divides(params); break;
+				case "difference": op = new Minus(params); break;
+				default: fail();
+			}
+			assertEquals(Integer.valueOf(val), op.compute());
+		} catch (IllegalConstruction e) {
+			fail();
+		}
+	}
+/*
 	@Then("the sum is {int}")
 	public void thenTheSumIs(int val) {
 		try {
@@ -100,7 +107,7 @@ public class CalculatorSteps {
 		}
 	}
 
-	@Then("^the difference is (\\d+)$")
+	@Then("the difference is {int}")
 	public void thenTheDifferenceIs(int val) {
 		try {
 			op = new Minus(params);
@@ -110,7 +117,7 @@ public class CalculatorSteps {
 		}
 	}
 
-	@Then("^the product is (\\d+)$")
+	@Then("the product is {int}")
 	public void thenTheProductIs(int val) {
 		try {
 			op = new Times(params);
@@ -120,7 +127,7 @@ public class CalculatorSteps {
 		}
 	}
 
-	@Then("^the quotient is (\\d+)$")
+	@Then("the quotient is {int}")
 	public void thenTheQuotientIs(int val) {
 		try {
 			op = new Divides(params);
@@ -129,7 +136,7 @@ public class CalculatorSteps {
 			fail();
 		}
 	}
-
+*/
 	@Then("the operation evaluates to {int}")
 	public void the_operation_evaluates_to(int val) {
 		//During previous @When steps, extra parameters may have been added to the operation

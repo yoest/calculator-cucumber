@@ -2,16 +2,38 @@ Feature: Integer Arithmetic Expressions
   This feature provides a range of scenarios corresponding to the
   intended behaviour of arithmetic expressions on integers.
 
+  #It is possible to start with a Background: section.
+  #This has not been done for the current feature, since it was not needed.
+  #See the reference documentation of Cucumber and Gherkin for how and why to use it.
+
   # This is just a comment. Below, you can see a list of scenarios.
   # Each scenario can be seen as a test that can be executed with JUnit,
   # provided that each of the steps (Given, When, And and Then) are
   # implemented in a Java mapping file (CalculatorSteps.Java)
 
   Scenario: Adding two integer numbers
-    Given an arithmetic expression
+    Given an integer operation '+'
     When I provide a first number 4
     And I provide a second number 5
-    Then the sum is 9
+    Then the operation evaluates to 9
+
+  Scenario: Subtracting two integer numbers
+    Given an integer operation '-'
+    When I provide a first number 7
+    And I provide a second number 5
+    Then the operation evaluates to 2
+
+  Scenario: Multiplying two integer numbers
+    Given an integer operation '*'
+    When I provide a first number 7
+    And I provide a second number 5
+    Then the operation evaluates to 35
+
+  Scenario: Dividing two integer numbers
+    Given an integer operation '/'
+    When I provide a first number 7
+    And I provide a second number 5
+    Then the operation evaluates to 1
 
   Scenario: Printing the sum of two integer numbers
     Given the sum of two numbers 8 and 6
@@ -22,27 +44,42 @@ Feature: Integer Arithmetic Expressions
   # This is an example of a scenario in which we provide a list of numbers as input.
   # (In fact, this is not entirely true, since what is given as input is a table of
   # strings. In this case, the table is of dimension 1 * 3 (1 line and three columns).
-  Scenario: Adding a list of integer numbers
-    Given the following list of numbers
-      | 3 | 5 | 7 |
-    Then the sum is 15
+  Scenario: Evaluation arithmetic operations over a list of integer numbers
+    Given the following list of integer numbers
+      | 8 | 2 | 2 |
+    Then the sum is 12
+    And the product is 32
+    And the difference is 4
+    And the quotient is 2
 
   # A scenario outline (or template) is a scenario that is parameterised
   # with different values. The outline comes with a set of examples.
   # The scenario will be executed with each of the provided inputs.
   Scenario Outline: Adding two integer numbers
-    Given an arithmetic expression
+    Given an integer operation '+'
     When I provide a first number <n1>
     And I provide a second number <n2>
-    Then the sum is <result>
+    Then the operation evaluates to <result>
 
     Examples:
       |n1|n2|result|
       |4|5|9|
       |5|3|8|
 
+  Scenario Outline: Dividing two integer numbers
+    Given an integer operation '/'
+    When I provide a first number <n1>
+    And I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n1|n2|result|
+      |35|5|7|
+      |7|5|1|
+      |5|7|0|
+
   Scenario Outline: Evaluating arithmetic operations with two integer parameters
-    Given an arithmetic operation <op>
+    Given an integer operation <op>
     When I provide a first number <n1>
     And I provide a second number <n2>
     Then the operation evaluates to <result>
@@ -53,27 +90,3 @@ Feature: Integer Arithmetic Expressions
       | "-" | 8| 5|     3|
       | "*" | 7| 2|    14|
       | "/" | 6| 2|     3|
-
-  Scenario: Subtracting two integer numbers
-    Given an arithmetic expression
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the difference is 2
-
-  Scenario: Multiplying two integer numbers
-    Given an arithmetic expression
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the product is 35
-
-  Scenario Outline: Dividing two integer numbers
-    Given an arithmetic expression
-    When I provide a first number <n1>
-    And I provide a second number <n2>
-    Then the quotient is <result>
-
-    Examples:
-      |n1|n2|result|
-      |35|5|7|
-      |7|5|1|
-      |5|7|0|
