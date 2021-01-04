@@ -2,19 +2,20 @@ package calculator;
 
 import org.junit.Before;
 import org.junit.Test;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.fail;
 
-public class TestMinus implements TestInterface {
+
+public class TestTimes implements TestInterface {
 
 	int value1, value2;
 	MyNumber number1, number2;
-	Minus op;
+	Times op;
 	List<Expression> params;
 
 	@Before
@@ -25,19 +26,20 @@ public class TestMinus implements TestInterface {
 		  number2 = new MyNumber(value2);
 		  params = new ArrayList<>();
 		  Collections.addAll(params, number1, number2);
-		  try { op = new Minus(params); }
+		  try { op = new Times(params); }
 		  catch(IllegalConstruction e) { fail(); }
 	}
 
 	@Test(expected=IllegalConstruction.class)
 	public void testNullParamList() throws IllegalConstruction {
 		params = null;
-		op = new Minus(params);
+		op = new Times(params);
 	}
+
 	@Test
 	public void test_compute() {
-		assertEquals(value1-value2, op.compute().intValue());
-		assertEquals(2, op.compute().intValue());
+		assertEquals(value1*value2, op.compute().intValue());
+		assertEquals(48, op.compute().intValue());
 	}
 
 	@Test
@@ -58,25 +60,25 @@ public class TestMinus implements TestInterface {
 	@Test
 	public void test_toString() {
 		// default printing notation is infix
-		assertEquals("( 8 - 6 )", op.toString());
+		assertEquals("( 8 * 6 )", op.toString());
 	}
 
 	@Test
 	public void test_prefix() {
 		op.notation = Notation.PREFIX;
-		assertEquals("- (8, 6)", op.toString());
+		assertEquals("* (8, 6)", op.toString());
 	}
 
 	@Test
 	public void test_infix() {
 		op.notation = Notation.INFIX;
-		assertEquals("( 8 - 6 )", op.toString());
+		assertEquals("( 8 * 6 )", op.toString());
 	}
 
 	@Test
 	public void test_postfix() {
 		op.notation = Notation.POSTFIX;
-		assertEquals("(8, 6) -", op.toString());
+		assertEquals("(8, 6) *", op.toString());
 	}
 
 }
