@@ -37,8 +37,8 @@ Feature: Binary Arithmetic Expressions
 
   Scenario Outline: Dividing two integer numbers
     Given an arithmetic expression
-    When I provide a number <n1>
-    And I provide a number <n2>
+    When I provide a first number <n1>
+    And I provide a second number <n2>
     Then the quotient is <result>
 
     Examples:

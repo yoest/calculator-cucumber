@@ -1,13 +1,13 @@
 package calculator;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
-
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.fail;
 
 public class CalculatorSteps {
 
@@ -41,11 +41,10 @@ public class CalculatorSteps {
 
 	@When("^I provide a (.*) number (\\d+)$")
 	public void whenIProvideANumber(String s, int val) {
-		// The first string s is never used, it is just for allowing for more textual patterns to match the when clause
 		params.add(new MyNumber(val));
 	}
 
-	@Then("^the sum is (\\d+)$")
+	@Then("the sum is {int}")
 	public void thenTheSumIs(int val) {
 		try {
 			op = new Plus(params);

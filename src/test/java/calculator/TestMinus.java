@@ -2,7 +2,7 @@ package calculator;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
