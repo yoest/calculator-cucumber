@@ -1,9 +1,8 @@
 package calculator;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import static junit.framework.TestCase.assertEquals;
+//Import Junit5 libraries for unit testing:
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +12,7 @@ public class TestOperation implements TestInterface {
 
 	Operation o;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		List<Expression> params = new ArrayList<>();
 		Collections.addAll(params, new MyNumber(3), new MyNumber(4), new MyNumber(5));
@@ -47,7 +46,7 @@ public class TestOperation implements TestInterface {
 		assertEquals(Integer.valueOf(6), o.countNbs());
 	}
 
-	@Ignore
+	@Disabled
 	public void test_toString() {
 		//test not implemented for this class
 	}

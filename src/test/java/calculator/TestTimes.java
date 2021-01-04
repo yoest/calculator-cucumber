@@ -1,15 +1,12 @@
 package calculator;
 
-import org.junit.Before;
-import org.junit.Test;
+//Import Junit5 libraries for unit testing:
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
-
 
 public class TestTimes implements TestInterface {
 
@@ -18,7 +15,7 @@ public class TestTimes implements TestInterface {
 	Times op;
 	List<Expression> params;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		  value1 = 8;
 		  value2 = 6;
@@ -30,10 +27,10 @@ public class TestTimes implements TestInterface {
 		  catch(IllegalConstruction e) { fail(); }
 	}
 
-	@Test(expected=IllegalConstruction.class)
-	public void testNullParamList() throws IllegalConstruction {
+	@Test
+	public void testNullParamList() {
 		params = null;
-		op = new Times(params);
+		assertThrows(IllegalConstruction.class, () -> {op = new Times(params);});
 	}
 
 	@Test

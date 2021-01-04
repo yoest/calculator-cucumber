@@ -1,16 +1,15 @@
 package calculator;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static junit.framework.TestCase.assertEquals;
+//Import Junit5 libraries for unit testing:
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 public class TestMyNumber implements TestInterface {
 
 	int value;
 	MyNumber number;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		value = 8;
 		number = new MyNumber(value);

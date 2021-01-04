@@ -1,14 +1,12 @@
 package calculator;
 
-import org.junit.Before;
-import org.junit.Test;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
+//Import Junit5 libraries for unit testing:
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 public class TestMinus implements TestInterface {
 
@@ -17,7 +15,7 @@ public class TestMinus implements TestInterface {
 	Minus op;
 	List<Expression> params;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		  value1 = 8;
 		  value2 = 6;
@@ -29,11 +27,12 @@ public class TestMinus implements TestInterface {
 		  catch(IllegalConstruction e) { fail(); }
 	}
 
-	@Test(expected=IllegalConstruction.class)
-	public void testNullParamList() throws IllegalConstruction {
+	@Test
+	public void testNullParamList() {
 		params = null;
-		op = new Minus(params);
+		assertThrows(IllegalConstruction.class, () -> {op = new Minus(params);});
 	}
+
 	@Test
 	public void test_compute() {
 		assertEquals(value1-value2, op.compute().intValue());
