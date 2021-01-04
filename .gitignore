@@ -1,2 +1,4 @@
 # Default ignored files
-/calculator-cucumber.iws
+*.iws
+*.iml
+*.ipr
