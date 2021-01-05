@@ -5,9 +5,11 @@
 This repository contains Java 11 code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions,
 such as a more sophisticated Calculator application.
 
-The code was written by Tom Mens in January 2021 for educational purposes.
-(Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium)
+The code was written in January 2021 for educational purposes at the Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
 
+Contributors:
+* Tom Mens
+* Gauvain Devillez
 
 ## Unit testing and BDD
 
