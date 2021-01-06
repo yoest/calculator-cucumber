@@ -46,7 +46,7 @@ public class CalculatorSteps {
 	}
 
 	// The following example shows how to use a DataTable provided as input.
-	// (The example looks slighly complex, since DataTables can take as input
+	// (The example looks slightly complex, since DataTables can take as input
 	//  tables in two dimensions, i.e. rows and lines. This is why the input
 	//  is a list of lists.
 	@Given("the following list of integer numbers")
@@ -54,7 +54,7 @@ public class CalculatorSteps {
 		params = new ArrayList<>();
 		// Since we only use one line of input, we use get(0) to take the first line of the list,
 		// which is a list of strings, that we will manually convert to integers:
-		numbers.get(0).forEach(n -> params.add(new MyNumber(Integer.valueOf(n))));
+		numbers.get(0).forEach(n -> params.add(new MyNumber(Integer.parseInt(n))));
 	    params.forEach(n -> System.out.println("value ="+ n));
 		op = null;
 	}
