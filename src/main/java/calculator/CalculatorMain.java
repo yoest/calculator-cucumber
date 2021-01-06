@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /***************************************
- * A very simple Calculator in Java 11 *
+ * A very simple Calculator in Java    *
  * Tom Mens, January 2021              *
  * University of Mons - UMONS          *
  * Département d'Informatique          *
