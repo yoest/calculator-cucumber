@@ -15,11 +15,17 @@ public class CalculatorSteps {
 
 	private ArrayList<Expression> params;
 	private Operation op;
+	private Calculator c;
 
 	@Before
     public void resetMemoryBeforeEachScenario() {
 		params = null;
 		op = null;
+	}
+
+	@Given("I initialise a calculator")
+	public void givenIInitialiseACalculator() {
+		c = new Calculator();
 	}
 
 	@Given("an integer operation {string}")
@@ -91,58 +97,18 @@ public class CalculatorSteps {
 				case "difference": op = new Minus(params); break;
 				default: fail();
 			}
-			assertEquals(Integer.valueOf(val), op.compute());
-		} catch (IllegalConstruction e) {
-			fail();
-		}
-	}
-/*
-	@Then("the sum is {int}")
-	public void thenTheSumIs(int val) {
-		try {
-			op = new Plus(params);
-			assertEquals(Integer.valueOf(val), op.compute());
+			assertEquals(val, c.eval(op));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
 	}
 
-	@Then("the difference is {int}")
-	public void thenTheDifferenceIs(int val) {
-		try {
-			op = new Minus(params);
-			assertEquals(Integer.valueOf(val), op.compute());
-		} catch (IllegalConstruction e) {
-			fail();
-		}
-	}
-
-	@Then("the product is {int}")
-	public void thenTheProductIs(int val) {
-		try {
-			op = new Times(params);
-			assertEquals(Integer.valueOf(val), op.compute());
-		} catch (IllegalConstruction e) {
-			fail();
-		}
-	}
-
-	@Then("the quotient is {int}")
-	public void thenTheQuotientIs(int val) {
-		try {
-			op = new Divides(params);
-			assertEquals(Integer.valueOf(val), op.compute());
-		} catch (IllegalConstruction e) {
-			fail();
-		}
-	}
-*/
 	@Then("the operation evaluates to {int}")
 	public void the_operation_evaluates_to(int val) {
 		//During previous @When steps, extra parameters may have been added to the operation
 		//so we complete its parameter list here:
 		op.addMoreParams(params);
-		assertEquals(Integer.valueOf(val), op.compute());
+		assertEquals(val, c.eval(op));
 
 	}
 

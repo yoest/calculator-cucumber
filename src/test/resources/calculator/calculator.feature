@@ -11,6 +11,9 @@ Feature: Integer Arithmetic Expressions
   # provided that each of the steps (Given, When, And and Then) are
   # implemented in a Java mapping file (CalculatorSteps.Java)
 
+  Background:
+    Given I initialise a calculator
+
   Scenario: Adding two integer numbers
     Given an integer operation '+'
     When I provide a first number 4
