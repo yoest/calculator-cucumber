@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c9755ff55480468694a102aabf437f87)](https://app.codacy.com/gh/tommens/calculator-cucumber?utm_source=github.com&utm_medium=referral&utm_content=tommens/calculator-cucumber&utm_campaign=Badge_Grade_Settings)
 [![BCH compliance](https://bettercodehub.com/edge/badge/tommens/calculator-cucumber?branch=master)](https://bettercodehub.com/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6856a0f94d25446ca346cbc15a701d43)](https://www.codacy.com/gh/tommens/calculator-cucumber/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tommens/calculator-cucumber&amp;utm_campaign=Badge_Grade)
 
