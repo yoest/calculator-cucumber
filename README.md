@@ -1,3 +1,5 @@
+[![BCH compliance](https://bettercodehub.com/edge/badge/tommens/calculator-cucumber?branch=master)](https://bettercodehub.com/)
+
 # Calculating arithmetic expressions
 
 ## About
