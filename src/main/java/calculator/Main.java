@@ -14,23 +14,14 @@ import java.util.List;
 
 public class Main {
 
-  private static void displayResult(Expression e) {
-	System.out.println("The result of evaluating expression " + e);
-	System.out.println("is: " + e.compute() + ".");
-	System.out.println("It contains " + e.countDepth() + " levels of nested expressions,");
-	System.out.print(e.countOps() + " operations");
-	System.out.println(" and " + e.countNbs() + " numbers.");
-	
-		System.out.println();
-	}	
-
-  // Here is an example of how to use the calculator:
   public static void main(String[] args) {
 
   	Expression e;
   	Calculator c = new Calculator();
 
 	try{
+		// Here is an example of how to use the calculator:
+
 		e = new MyNumber(8);
 		c.print(e);
 		c.eval(e);
