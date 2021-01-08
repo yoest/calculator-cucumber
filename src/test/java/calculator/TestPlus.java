@@ -11,10 +11,10 @@ import org.junit.jupiter.api.*;
 
 public class TestPlus implements TestInterface {
 
-	int value1, value2;
-	MyNumber number1, number2;
-	Plus op;
-	List<Expression> params;
+	private int value1, value2;
+	private MyNumber number1, number2;
+	private Plus op;
+	private List<Expression> params;
 
 	@BeforeEach
 	public void setUp() {
@@ -35,46 +35,49 @@ public class TestPlus implements TestInterface {
 	}
 
 	@Test
-	public void test_compute() {
+	public void testCompute() {
 		assertEquals(value1+value2, op.compute().intValue());
 		assertEquals(14, op.compute().intValue());
 	}
 
 	@Test
-	public void test_countDepth() {
+	public void testCountDepth() {
 		assertEquals(Integer.valueOf(1), op.countDepth());
 	}
 
 	@Test
-	public void test_countOps() {
+	public void testCountOps() {
 		assertEquals(Integer.valueOf(1), op.countOps());
 	}
 
 	@Test
-	public void test_countNbs() {
+	public void testCountNbs() {
 		assertEquals(Integer.valueOf(2), op.countNbs());
 	}
 
 	@Test
-	public void test_toString() {
+	public void testToString() {
 		// default printing notation is infix
 		assertEquals("( 8 + 6 )", op.toString());
 	}
 
 	@Test
-	public void test_prefix() {
+	public void testPrefix() {
+		assertEquals("+ (8, 6)", op.toString(Notation.PREFIX));
 		op.notation = Notation.PREFIX;
 		assertEquals("+ (8, 6)", op.toString());
 	}
 
 	@Test
-	public void test_infix() {
+	public void testInfix() {
+		assertEquals("( 8 + 6 )", op.toString(Notation.INFIX));
 		op.notation = Notation.INFIX;
 		assertEquals("( 8 + 6 )", op.toString());
 	}
 
 	@Test
-	public void test_postfix() {
+	public void testPostfix() {
+		assertEquals("(8, 6) +", op.toString(Notation.POSTFIX));
 		op.notation = Notation.POSTFIX;
 		assertEquals("(8, 6) +", op.toString());
 	}

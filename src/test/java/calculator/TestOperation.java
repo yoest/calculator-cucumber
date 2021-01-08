@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TestOperation implements TestInterface {
 
-	Operation o;
+	private Operation o;
 	
 	@BeforeEach
 	public void setUp() throws Exception {
@@ -27,27 +27,27 @@ public class TestOperation implements TestInterface {
 	}
 
 	@Test
-	public void test_compute() {
+	public void testCompute() {
 		assertEquals(Integer.valueOf(1), o.compute());
 	}
 
 	@Test
-	public void test_countDepth() {
+	public void testCountDepth() {
 		assertEquals(Integer.valueOf(2), o.countDepth());
 	}
 
 	@Test
-	public void test_countOps() {
+	public void testCountOps() {
 		assertEquals(Integer.valueOf(3), o.countOps());
 	}
 
 	@Test
-	public void test_countNbs() {
+	public void testCountNbs() {
 		assertEquals(Integer.valueOf(6), o.countNbs());
 	}
 
 	@Disabled
-	public void test_toString() {
+	public void testToString() {
 		//test not implemented for this class
 	}
 

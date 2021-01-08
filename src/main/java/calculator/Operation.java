@@ -81,7 +81,7 @@ public abstract class Operation implements Expression
 
   final public String toString(Notation n) {
    Stream<String> s = args.stream().map(Object::toString);
-   switch (notation) {
+   switch (n) {
 	   case INFIX: return "( " +
 			              s.reduce((s1,s2) -> s1 + " " + symbol + " " + s2).get() +
 			              " )";

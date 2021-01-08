@@ -91,10 +91,10 @@ public class CalculatorSteps {
 	public void thenTheOperationIs(String s, int val) {
 		try {
 			switch (s) {
-				case "sum": op = new Plus(params); break;
-				case "product": op = new Times(params); break;
-				case "quotient": op = new Divides(params); break;
-				case "difference": op = new Minus(params); break;
+				case "sum": { op = new Plus(params); break; }
+				case "product": { op = new Times(params); break; }
+				case "quotient": { op = new Divides(params); break; }
+				case "difference": { op = new Minus(params); break; }
 				default: fail();
 			}
 			assertEquals(val, c.eval(op));
@@ -104,7 +104,7 @@ public class CalculatorSteps {
 	}
 
 	@Then("the operation evaluates to {int}")
-	public void the_operation_evaluates_to(int val) {
+	public void thenTheOperationEvaluatesTo(int val) {
 		//During previous @When steps, extra parameters may have been added to the operation
 		//so we complete its parameter list here:
 		op.addMoreParams(params);
