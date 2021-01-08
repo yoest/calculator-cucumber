@@ -34,11 +34,11 @@ public class CalculatorSteps {
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
 		try {
 			switch (s) {
-				case "+": op = new Plus(params); break;
-				case "-": op = new Minus(params); break;
-				case "*": op = new Times(params); break;
-				case "/": op = new Divides(params); break;
-				default: fail();
+				case "+": { op = new Plus(params); break; }
+				case "-": { op = new Minus(params); break; }
+				case "*": { op = new Times(params); break; }
+				case "/": { op = new Divides(params); break; }
+				default: { fail(); }
 			}
 		} catch (IllegalConstruction e) {
 			fail();
