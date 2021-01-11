@@ -30,8 +30,7 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 
 ### Test coverage and JavaDoc reporting
 
-  *  In addition to testing the code, "mvn test" will also generate a test coverage report (in HTML format) using JaCoCo. This test coverage is generated
-in target/site/jacoco.
+  *  In addition to testing the code, "mvn test" will also generate a test coverage report (in HTML format) using JaCoCo. This test coverage is generated in target/site/jacoco.
   *  When packaging the code using "mvn package" the JavaDoc code documentation will be generated and stored in target/site/apidocs.
 
 ## Built With
