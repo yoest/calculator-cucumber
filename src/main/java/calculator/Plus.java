@@ -15,9 +15,27 @@ final public class Plus extends Operation
 		super(elist,n);
 		symbol = "+";
 		neutral = 0;
-}
+  }
 
-protected int op(int l, int r)
-    { return (l+r); }
+  protected int op(int l, int r) {
+  	return (l+r);
+  }
 
+  //Two Plus expressions are equal if their list of arguments is equal as well
+  @Override
+  public boolean equals(Object o) {
+		if (!(o instanceof Plus)) {
+			return false;
+		}
+		Plus other = (Plus) o;
+		return this.args.equals(other.getArgs());
+	}
+
+  /*TO DO: The method hashCode also needs to be overridden it the equals method is overridden;
+	otherwise there may be problems when you use your object in hashed collections such as HashMap, HashSet, LinkedHashSet
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+   */
 }

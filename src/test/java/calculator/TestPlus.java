@@ -29,6 +29,35 @@ public class TestPlus implements TestInterface {
 	}
 
 	@Test
+	public void testConstructor1() {
+		// It should not be possible to create a Plus expression without null parameter list
+		assertThrows(IllegalConstruction.class, () -> op = new Plus(null));
+	}
+
+	@Test
+	public void testConstructor2() {
+		// A Times expression should not be the same as a Plus expression
+		try {
+			assertNotEquals(op, new Times(new ArrayList<Expression>()));
+		} catch (IllegalConstruction e) {
+			fail();
+		}
+	}
+
+	@Test
+	public void testEquals() {
+		// Two similar expressions, constructed separately (and using different constructors) should beequal
+		ArrayList<Expression> p = new ArrayList<>();
+		p.add(new MyNumber(8));
+		p.add(new MyNumber(6));
+		try {
+			Plus e = new Plus(p, Notation.INFIX);
+			assertEquals(op, e);
+		}
+		catch(IllegalConstruction e) { fail(); }
+	}
+
+	@Test
 	public void testNullParamList() {
 		params = null;
 		assertThrows(IllegalConstruction.class, () -> {op = new Plus(params);});

@@ -4,6 +4,8 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+
 public class TestMyNumber implements TestInterface {
 
 	private int value;
@@ -13,6 +15,14 @@ public class TestMyNumber implements TestInterface {
 	public void setUp() {
 		value = 8;
 		number = new MyNumber(value);
+	}
+
+	@Test
+	public void testEquals() {
+		// Two distinct MyNumber, constructed separately (using a different constructor) but containing the same value should be equal
+		assertEquals(new MyNumber(8), number);
+		// Two MyNumbers containing a distinct value should not be equal:
+		assertNotEquals(new MyNumber(7),number);
 	}
 
 	@Test

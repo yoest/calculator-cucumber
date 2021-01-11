@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 public abstract class Operation implements Expression
 {  
-  private List<Expression> args;
+  protected List<Expression> args;
   protected String symbol;
   protected int neutral; // the neutral element of the operation (e.g. 1 for *, 0 for +)
   public Notation notation = Notation.INFIX; //by default, expressions are rendered as strings using infix notation
@@ -22,6 +22,10 @@ public abstract class Operation implements Expression
 		  args = new ArrayList<>(elist);
  	  }
     }
+
+  public List<Expression> getArgs() {
+  	return args;
+  }
 
   public /*constructor*/ Operation(List<Expression> elist,Notation n)
 		  throws IllegalConstruction

@@ -28,6 +28,35 @@ public class TestTimes implements TestInterface {
 	}
 
 	@Test
+	public void testConstructor1() {
+		// It should not be possible to create ans expression without null parameter list
+		assertThrows(IllegalConstruction.class, () -> op = new Times(null));
+	}
+
+	@Test
+	public void testConstructor2() {
+		// A Plus expression should not be the same as a Times expression
+		try {
+			assertNotEquals(op, new Plus(new ArrayList<Expression>()));
+		} catch (IllegalConstruction e) {
+			fail();
+		}
+	}
+
+	@Test
+	public void testEquals() {
+		// Two similar expressions, constructed separately (and using different constructors) should not be equal
+		ArrayList<Expression> p = new ArrayList<>();
+		p.add(new MyNumber(8));
+		p.add(new MyNumber(6));
+		try {
+			Times e = new Times(p, Notation.INFIX);
+			assertEquals(op, e);
+		}
+		catch(IllegalConstruction e) { fail(); }
+	}
+
+	@Test
 	public void testNullParamList() {
 		params = null;
 		assertThrows(IllegalConstruction.class, () -> {op = new Times(params);});
