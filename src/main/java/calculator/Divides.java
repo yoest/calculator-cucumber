@@ -1,6 +1,5 @@
 package calculator;
 
-import java.util.HashMap;
 import java.util.List;
 
 final public class Divides extends Operation
