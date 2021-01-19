@@ -47,8 +47,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Contributors
 
 * Tom Mens
-* Gauvain Devillez
-* Damien Legay 
+* Gauvain Devillez @GauvainD
+* Damien Legay @DamienLegay
 
 ## Licence
 
