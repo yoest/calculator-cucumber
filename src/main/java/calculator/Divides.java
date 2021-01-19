@@ -23,11 +23,13 @@ final public class Divides extends Operation
    //Two Divides expressions are equal if their list of arguments is equal as well
   @Override
   public boolean equals(Object o) {
-  	if (!(o instanceof Divides)) {
+	  if (o == null) return false;
+
+	  if (!(o instanceof Divides)) {
   		return false;
 	  }
-  	Divides other = (Divides) o;
-  	return this.args.equals(other.getArgs());
+	  Divides other = (Divides) o;
+	  return this.args.equals(other.getArgs());
   }
 
   /*TO DO: The method hashCode also needs to be overridden it the equals method is overridden;
