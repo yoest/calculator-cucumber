@@ -23,11 +23,13 @@ final public class Times extends Operation
   //Two Times expressions are equal if their list of arguments is equal as well
   @Override
   public boolean equals(Object o) {
-		if (!(o instanceof Times)) {
+	  if (o == null) return false;
+
+	  if (!(o instanceof Times)) {
 			return false;
-		}
-		Times other = (Times) o;
-		return this.args.equals(other.getArgs());
+	  }
+	  Times other = (Times) o;
+	  return this.args.equals(other.getArgs());
 	}
 
   /*TO DO: The method hashCode also needs to be overridden it the equals method is overridden;

@@ -24,11 +24,13 @@ final public class Plus extends Operation
   //Two Plus expressions are equal if their list of arguments is equal as well
   @Override
   public boolean equals(Object o) {
-		if (!(o instanceof Plus)) {
+	  if (o == null) return false;
+
+	  if (!(o instanceof Plus)) {
 			return false;
-		}
-		Plus other = (Plus) o;
-		return this.args.equals(other.getArgs());
+	  }
+	  Plus other = (Plus) o;
+	  return this.args.equals(other.getArgs());
 	}
 
   /*TO DO: The method hashCode also needs to be overridden it the equals method is overridden;
