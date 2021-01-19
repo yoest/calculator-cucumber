@@ -44,10 +44,11 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/tommens/calculator-cucumber/tags). 
 
-## Authors
+## Contributors
 
-*  Tom Mens
-*  Gauvain Devillez
+* Tom Mens
+* Gauvain Devillez
+* Damien Legay 
 
 ## Licence
 
