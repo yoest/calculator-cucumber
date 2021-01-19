@@ -67,7 +67,7 @@ public abstract class Operation implements Expression
 	return 1 + args.stream()
 			   .mapToInt(Expression::countOps)
 			   .reduce(Integer::sum)
-			   .getAsInt();  
+			   .getAsInt();
   }
 
   final public Integer countNbs() {
@@ -100,5 +100,29 @@ public abstract class Operation implements Expression
 	   default: return "This case should never occur.";
 	  }
   }
+
+	//Two Operation expressions are equal if their list of arguments is equal and they are the same operation
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) return false; // No object should be equal to null
+
+		if (this == o) return true; // If it's the same object, they're obviously equal
+
+		if (getClass() != o.getClass()) return false; // getClass() instead of instanceof() because an addition is not the same as a multiplication
+
+		Operation other = (Operation) o;
+		return this.args.equals(other.getArgs());
+	  }
+
+    // The method hashCode also needs to be overridden it the equals method is overridden; otherwise there may be problems when you use your object in hashed collections such as HashMap, HashSet, LinkedHashSet
+	@Override
+	public int hashCode()
+	{
+		int result = 5, prime = 37;
+		result = prime * result + neutral;
+		result = prime * result + symbol.hashCode();
+		result = prime * result + args.hashCode();
+		return result;
+	}
 
 }
