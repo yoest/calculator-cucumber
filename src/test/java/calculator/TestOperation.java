@@ -11,6 +11,7 @@ import java.util.List;
 public class TestOperation implements TestInterface {
 
 	private Operation o;
+	private Operation o2;
 	
 	@BeforeEach
 	public void setUp() throws Exception {
@@ -23,7 +24,12 @@ public class TestOperation implements TestInterface {
 		List<Expression> params3 = new ArrayList<>();
 		Collections.addAll(params3, new Plus(params), new Minus(params2), new MyNumber(7));
 		o = new Divides(params3);
+		o2 = new Divides(params3);
 
+	}
+	@Test
+	public void testEquals() {
+		assertEquals(o,o2);
 	}
 
 	@Test
