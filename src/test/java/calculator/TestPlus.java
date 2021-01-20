@@ -57,7 +57,7 @@ public class TestPlus implements TestInterface {
 			assertEquals(e, e);
 			assertNotEquals(e, new Plus(new ArrayList<>(Arrays.asList(new MyNumber(5), new MyNumber(4))), Notation.INFIX));
 			assertEquals(e.hashCode(), op.hashCode());
-//			assertDoesNotThrow(() -> { e.equals(null); }); // Direct way to to test if the null case is handled. Unnecessary given the try-catch clause
+			assertDoesNotThrow(() -> { e.equals(null); }); // Direct way to to test if the null case is handled. Redundant with catching the NPE, but counts for coverage this way
 		}
 		catch(IllegalConstruction | NullPointerException e) { fail(); }
 	}

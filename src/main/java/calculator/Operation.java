@@ -29,13 +29,9 @@ public abstract class Operation implements Expression
 
   public /*constructor*/ Operation(List<Expression> elist,Notation n)
 		  throws IllegalConstruction
-  {	
-	  if (elist == null) {
-		  throw new IllegalConstruction(); }
-	  else {
-		  notation = n;
-		  args = new ArrayList<>(elist);
- 	  }
+  {
+  	this(elist);
+  	notation = n;
   }
   
   abstract protected int op(int l, int r);
