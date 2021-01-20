@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TestMyNumber implements TestInterface {
 
@@ -23,6 +24,8 @@ public class TestMyNumber implements TestInterface {
 		assertEquals(new MyNumber(8), number);
 		// Two MyNumbers containing a distinct value should not be equal:
 		assertNotEquals(new MyNumber(7),number);
+		assertEquals(number, number); // Identity check (for coverage, as this should always be true)
+		assertNotEquals(number, value);
 		try {
 			assertNotEquals(new Times(new ArrayList<>()), number);
 		}

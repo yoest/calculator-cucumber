@@ -29,13 +29,9 @@ public abstract class Operation implements Expression
 
   public /*constructor*/ Operation(List<Expression> elist,Notation n)
 		  throws IllegalConstruction
-  {	
-	  if (elist == null) {
-		  throw new IllegalConstruction(); }
-	  else {
-		  notation = n;
-		  args = new ArrayList<>(elist);
- 	  }
+  {
+  	this(elist);
+  	notation = n;
   }
   
   abstract protected int op(int l, int r);
@@ -118,7 +114,7 @@ public abstract class Operation implements Expression
 	@Override
 	public int hashCode()
 	{
-		int result = 5, prime = 37;
+		int result = 5, prime = 31;
 		result = prime * result + neutral;
 		result = prime * result + symbol.hashCode();
 		result = prime * result + args.hashCode();

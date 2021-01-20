@@ -1,6 +1,7 @@
 package calculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,8 +54,12 @@ public class TestPlus implements TestInterface {
 		try {
 			Plus e = new Plus(p, Notation.INFIX);
 			assertEquals(op, e);
+			assertEquals(e, e);
+			assertNotEquals(e, new Plus(new ArrayList<>(Arrays.asList(new MyNumber(5), new MyNumber(4))), Notation.INFIX));
+			assertEquals(e.hashCode(), op.hashCode());
+			assertDoesNotThrow(() -> { e.equals(null); }); // Direct way to to test if the null case is handled. Redundant with catching the NPE, but counts for coverage this way
 		}
-		catch(IllegalConstruction e) { fail(); }
+		catch(IllegalConstruction | NullPointerException e) { fail(); }
 	}
 
 	@Test
