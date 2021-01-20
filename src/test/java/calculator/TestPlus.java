@@ -38,7 +38,7 @@ public class TestPlus implements TestInterface {
 	public void testConstructor2() {
 		// A Times expression should not be the same as a Plus expression
 		try {
-			assertNotEquals(op, new Times(new ArrayList<Expression>()));
+			assertNotEquals(op, new Times(new ArrayList<>()));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -46,7 +46,7 @@ public class TestPlus implements TestInterface {
 
 	@Test
 	public void testEquals() {
-		// Two similar expressions, constructed separately (and using different constructors) should beequal
+		// Two similar expressions, constructed separately (and using different constructors) should be equal
 		ArrayList<Expression> p = new ArrayList<>();
 		p.add(new MyNumber(8));
 		p.add(new MyNumber(6));
@@ -60,7 +60,7 @@ public class TestPlus implements TestInterface {
 	@Test
 	public void testNullParamList() {
 		params = null;
-		assertThrows(IllegalConstruction.class, () -> {op = new Plus(params);});
+		assertThrows(IllegalConstruction.class, () -> op = new Plus(params));
 	}
 
 	@Test

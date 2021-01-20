@@ -14,4 +14,4 @@ Provide a clear and concise description of the feature request.
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
 **Additional context**
-Add any other context, details about how this feature request could be integrated, possibly accompanied with screenshots or other additional information.
+Add any other context, details about how this feature request could be integrated, possibly accompanied by screenshots or other additional information.

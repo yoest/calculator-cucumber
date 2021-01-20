@@ -37,7 +37,7 @@ public class TestTimes implements TestInterface {
 	public void testConstructor2() {
 		// A Plus expression should not be the same as a Times expression
 		try {
-			assertNotEquals(op, new Plus(new ArrayList<Expression>()));
+			assertNotEquals(op, new Plus(new ArrayList<>()));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -59,7 +59,7 @@ public class TestTimes implements TestInterface {
 	@Test
 	public void testNullParamList() {
 		params = null;
-		assertThrows(IllegalConstruction.class, () -> {op = new Times(params);});
+		assertThrows(IllegalConstruction.class, () -> op = new Times(params));
 	}
 
 	@Test

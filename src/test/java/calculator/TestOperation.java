@@ -52,6 +52,7 @@ public class TestOperation implements TestInterface {
 		assertEquals(Integer.valueOf(6), o.countNbs());
 	}
 
+	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	@Disabled
 	public void testToString() {
 		//test not implemented for this class

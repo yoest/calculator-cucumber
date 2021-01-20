@@ -24,7 +24,7 @@ public class TestMyNumber implements TestInterface {
 		// Two MyNumbers containing a distinct value should not be equal:
 		assertNotEquals(new MyNumber(7),number);
 		try {
-			assertNotEquals(new Times(new ArrayList<Expression>()), number);
+			assertNotEquals(new Times(new ArrayList<>()), number);
 		}
 		catch (IllegalConstruction e) {fail();}
 	}

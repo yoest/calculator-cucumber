@@ -37,7 +37,7 @@ public class TestMinus implements TestInterface {
 	public void testConstructor2() {
 		// A Times expression should not be the same as a Minus expression
 		try {
-			assertNotEquals(op, new Times(new ArrayList<Expression>()));
+			assertNotEquals(op, new Times(new ArrayList<>()));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -59,7 +59,7 @@ public class TestMinus implements TestInterface {
 	@Test
 	public void testNullParamList() {
 		params = null;
-		assertThrows(IllegalConstruction.class, () -> {op = new Minus(params);});
+		assertThrows(IllegalConstruction.class, () -> op = new Minus(params));
 	}
 
 	@Test
