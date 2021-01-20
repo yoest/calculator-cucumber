@@ -5,24 +5,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class TestTimes implements TestInterface {
 
-	private int value1, value2;
-	private MyNumber number1, number2;
+	private final int value1 = 8;
+	private final int value2 = 6;
 	private Times op;
 	private List<Expression> params;
 
 	@BeforeEach
 	public void setUp() {
-		  value1 = 8;
-		  value2 = 6;
-		  number1 = new MyNumber(value1);
-		  number2 = new MyNumber(value2);
-		  params = new ArrayList<>();
-		  Collections.addAll(params, number1, number2);
+		  params = new ArrayList<>(Arrays.asList(new MyNumber(value1),new MyNumber(value2)));
 		  try { op = new Times(params); }
 		  catch(IllegalConstruction e) { fail(); }
 	}
@@ -46,12 +41,26 @@ public class TestTimes implements TestInterface {
 	@Test
 	public void testEquals() {
 		// Two similar expressions, constructed separately (and using different constructors) should not be equal
-		ArrayList<Expression> p = new ArrayList<>();
-		p.add(new MyNumber(8));
-		p.add(new MyNumber(6));
+		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
 		try {
 			Times e = new Times(p, Notation.INFIX);
 			assertEquals(op, e);
+		}
+		catch(IllegalConstruction e) { fail(); }
+	}
+
+	@Test
+	public void testEquals2() {
+		assertDoesNotThrow(() -> op.equals(null)); // Direct way to to test if the null case is handled.
+	}
+
+	@Test
+	public void testHashCode() {
+		// Two similar expressions, constructed separately (and using different constructors) should have the same hashcode
+		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+		try {
+			Times e = new Times(p, Notation.INFIX);
+			assertEquals(e.hashCode(), op.hashCode());
 		}
 		catch(IllegalConstruction e) { fail(); }
 	}
@@ -84,30 +93,27 @@ public class TestTimes implements TestInterface {
 	}
 
 	@Test
-	public void testToString() {
-		// default printing notation is infix
-		assertEquals("( 8 * 6 )", op.toString());
-	}
-
-	@Test
 	public void testPrefix() {
-		assertEquals("* (8, 6)", op.toString(Notation.PREFIX));
+		String prefix = "* (" + value1 + ", " + value2 + ")";
+		assertEquals(prefix, op.toString(Notation.PREFIX));
 		op.notation = Notation.PREFIX;
-		assertEquals("* (8, 6)", op.toString());
+		assertEquals(prefix, op.toString());
 	}
 
 	@Test
 	public void testInfix() {
-		assertEquals("( 8 * 6 )", op.toString(Notation.INFIX));
+		String infix = "( " + value1 + " * " + value2 + " )";
+		assertEquals(infix, op.toString(Notation.INFIX));
 		op.notation = Notation.INFIX;
-		assertEquals("( 8 * 6 )", op.toString());
+		assertEquals(infix, op.toString());
 	}
 
 	@Test
 	public void testPostfix() {
-		assertEquals("(8, 6) *", op.toString(Notation.POSTFIX));
+		String postfix = "(" + value1 + ", " + value2 + ") *";
+		assertEquals(postfix, op.toString(Notation.POSTFIX));
 		op.notation = Notation.POSTFIX;
-		assertEquals("(8, 6) *", op.toString());
+		assertEquals(postfix, op.toString());
 	}
 
 }

@@ -5,25 +5,24 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TestMyNumber implements TestInterface {
 
-	private int value;
+	private final int value =8;
 	private MyNumber number;
 	
 	@BeforeEach
 	public void setUp() {
-		value = 8;
 		number = new MyNumber(value);
 	}
 
 	@Test
 	public void testEquals() {
 		// Two distinct MyNumber, constructed separately (using a different constructor) but containing the same value should be equal
-		assertEquals(new MyNumber(8), number);
+		assertEquals(new MyNumber(value), number);
 		// Two MyNumbers containing a distinct value should not be equal:
-		assertNotEquals(new MyNumber(7),number);
+		int otherValue = 7;
+		assertNotEquals(new MyNumber(otherValue),number);
 		assertEquals(number, number); // Identity check (for coverage, as this should always be true)
 		assertNotEquals(number, value);
 		try {

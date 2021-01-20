@@ -2,7 +2,7 @@ package calculator;
 
 public class MyNumber implements Expression
 {
-  private int value;
+  private final int value;
 
   public /*constructor*/ MyNumber(int v) {
 	  value=v;

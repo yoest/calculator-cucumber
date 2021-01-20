@@ -5,7 +5,8 @@ public interface TestInterface {
   void testCountDepth();
   void testCountOps();
   void testCountNbs();
-  void testToString();
+  void testEquals();
+
 
 }
 
