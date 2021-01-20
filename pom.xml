@@ -105,6 +105,11 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>calculator/Main.class</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>
