@@ -114,7 +114,7 @@ public abstract class Operation implements Expression
 	@Override
 	public int hashCode()
 	{
-		int result = 5, prime = 37;
+		int result = 5, prime = 31;
 		result = prime * result + neutral;
 		result = prime * result + symbol.hashCode();
 		result = prime * result + args.hashCode();
