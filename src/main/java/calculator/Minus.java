@@ -6,15 +6,13 @@ final public class Minus extends Operation
 {
 
   public /*constructor*/ Minus(List<Expression> elist) throws IllegalConstruction {
-	super(elist);
-	symbol = "-";
-	neutral = 0;
-	}
+  	this(elist, null);
+  }
 
   public Minus(List<Expression> elist, Notation n) throws IllegalConstruction {
-		super(elist,n);
-		symbol = "-";
-		neutral = 0;
+  	super(elist,n);
+  	symbol = "-";
+  	neutral = 0;
   }
   
   protected int op(int l, int r) {
