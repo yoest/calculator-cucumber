@@ -50,7 +50,7 @@ public class Main {
 		c.print(e);
 		c.eval(e);
 	}
-	
+
 	catch(IllegalConstruction exception) {
 		System.out.println("cannot create operations without parameters");
 		}
