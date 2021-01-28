@@ -33,7 +33,7 @@ public class Main {
 		c.eval(e);
 	
 		List<Expression> params2 = new ArrayList<>();
-		Collections.addAll(params2, new MyNumber(5), new MyNumber(4));
+		Collections.addAll(params2, new MyNumber(5), new MyNumber(3));
 		e = new Minus(params2, Notation.INFIX);
 		c.print(e);
 		c.eval(e);
@@ -45,12 +45,12 @@ public class Main {
 		c.eval(e);
 
 		List<Expression> params4 = new ArrayList<>();
-		Collections.addAll(params4, new Plus(params), new Minus(params2), new MyNumber(7));
+		Collections.addAll(params4, new Plus(params), new Minus(params2), new MyNumber(5));
 		e = new Divides(params4,Notation.POSTFIX);
 		c.print(e);
 		c.eval(e);
 	}
-	
+
 	catch(IllegalConstruction exception) {
 		System.out.println("cannot create operations without parameters");
 		}

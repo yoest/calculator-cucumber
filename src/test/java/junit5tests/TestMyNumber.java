@@ -1,12 +1,14 @@
-package calculator;
+package junit5tests;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import calculator.*;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
-public class TestMyNumber implements TestInterface {
+public class TestMyNumber {
 
 	private final int value =8;
 	private MyNumber number;
@@ -26,15 +28,9 @@ public class TestMyNumber implements TestInterface {
 		assertEquals(number, number); // Identity check (for coverage, as this should always be true)
 		assertNotEquals(number, value);
 		try {
-			assertNotEquals(new Times(new ArrayList<>()), number);
+			Assertions.assertNotEquals(new Times(new ArrayList<>()), number);
 		}
 		catch (IllegalConstruction e) {fail();}
-	}
-
-	@Test
-	public void testCompute() {
-		//test whether the value returned by compute is the same as the value stored
-		assertEquals(value, number.compute().intValue());
 	}
 
 	@Test

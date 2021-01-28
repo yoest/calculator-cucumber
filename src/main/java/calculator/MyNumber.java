@@ -1,18 +1,23 @@
 package calculator;
 
+import visitor.Visitor;
+
 public class MyNumber implements Expression
 {
   private final int value;
+
+  public Integer getValue() { return value; }
 
   public /*constructor*/ MyNumber(int v) {
 	  value=v;
 	  }
 
-  public Integer compute() {
-	  return value;
-	  }
-  
-  public Integer countDepth() {
+  public void accept(Visitor v) {
+      v.visit(this);
+  }
+
+
+    public Integer countDepth() {
 	  return 0;
   }
   

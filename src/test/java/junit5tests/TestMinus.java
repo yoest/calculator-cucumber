@@ -1,39 +1,41 @@
-package calculator;
+package junit5tests;
+
+//Import Junit5 libraries for unit testing:
+import static org.junit.jupiter.api.Assertions.*;
+
+import calculator.*;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//Import Junit5 libraries for unit testing:
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.*;
-
-
-public class TestPlus implements TestInterface {
+public class TestMinus {
 
 	private final int value1 = 8;
 	private final int value2 = 6;
-	private Plus op;
+	private Minus op;
 	private List<Expression> params;
 
 	@BeforeEach
 	public void setUp() {
 		  params = new ArrayList<>(Arrays.asList(new MyNumber(value1),new MyNumber(value2)));
-		  try { op = new Plus(params); }
+		  try { op = new Minus(params); }
 		  catch(IllegalConstruction e) { fail(); }
 	}
 
 	@Test
 	public void testConstructor1() {
-		// It should not be possible to create a Plus expression without null parameter list
-		assertThrows(IllegalConstruction.class, () -> op = new Plus(null));
+		// It should not be possible to create an expression without null parameter list
+		assertThrows(IllegalConstruction.class, () -> op = new Minus(null));
 	}
 
+	@SuppressWarnings("AssertBetweenInconvertibleTypes")
 	@Test
 	public void testConstructor2() {
-		// A Times expression should not be the same as a Plus expression
+		// A Times expression should not be the same as a Minus expression
 		try {
-			assertNotEquals(op, new Times(new ArrayList<>()));
+			Assertions.assertNotEquals(op, new Times(new ArrayList<>()));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -41,20 +43,19 @@ public class TestPlus implements TestInterface {
 
 	@Test
 	public void testEquals() {
-		// Two similar expressions, constructed separately (and using different constructors) should be equal
+		// Two similar expressions, constructed separately (and using different constructors) should not be equal
 		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
 		try {
-			Plus e = new Plus(p, Notation.INFIX);
+			Minus e = new Minus(p, Notation.INFIX);
 			assertEquals(op, e);
-			assertEquals(e, e);
-			assertNotEquals(e, new Plus(new ArrayList<>(Arrays.asList(new MyNumber(5), new MyNumber(4))), Notation.INFIX));
 		}
 		catch(IllegalConstruction e) { fail(); }
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	@Test
 	public void testEquals2() {
-			assertDoesNotThrow(() -> op.equals(null)); // Direct way to to test if the null case is handled.
+		assertDoesNotThrow(() -> op.equals(null)); // Direct way to to test if the null case is handled.
 	}
 
 	@Test
@@ -62,7 +63,7 @@ public class TestPlus implements TestInterface {
 		// Two similar expressions, constructed separately (and using different constructors) should have the same hashcode
 		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
 		try {
-			Plus e = new Plus(p, Notation.INFIX);
+			Minus e = new Minus(p, Notation.INFIX);
 			assertEquals(e.hashCode(), op.hashCode());
 		}
 		catch(IllegalConstruction e) { fail(); }
@@ -71,13 +72,7 @@ public class TestPlus implements TestInterface {
 	@Test
 	public void testNullParamList() {
 		params = null;
-		assertThrows(IllegalConstruction.class, () -> op = new Plus(params));
-	}
-
-	@Test
-	public void testCompute() {
-		assertEquals(value1+value2, op.compute().intValue());
-		assertEquals(14, op.compute().intValue());
+		assertThrows(IllegalConstruction.class, () -> op = new Minus(params));
 	}
 
 	@Test
@@ -97,7 +92,7 @@ public class TestPlus implements TestInterface {
 
 	@Test
 	public void testPrefix() {
-		String prefix = "+ (" + value1 + ", " + value2 + ")";
+		String prefix = "- (" + value1 + ", " + value2 + ")";
 		assertEquals(prefix, op.toString(Notation.PREFIX));
 		op.notation = Notation.PREFIX;
 		assertEquals(prefix, op.toString());
@@ -105,7 +100,7 @@ public class TestPlus implements TestInterface {
 
 	@Test
 	public void testInfix() {
-		String infix = "( " + value1 + " + " + value2 + " )";
+		String infix = "( " + value1 + " - " + value2 + " )";
 		assertEquals(infix, op.toString(Notation.INFIX));
 		op.notation = Notation.INFIX;
 		assertEquals(infix, op.toString());
@@ -113,7 +108,7 @@ public class TestPlus implements TestInterface {
 
 	@Test
 	public void testPostfix() {
-		String postfix = "(" + value1 + ", " + value2 + ") +";
+		String postfix = "(" + value1 + ", " + value2 + ") -";
 		assertEquals(postfix, op.toString(Notation.POSTFIX));
 		op.notation = Notation.POSTFIX;
 		assertEquals(postfix, op.toString());

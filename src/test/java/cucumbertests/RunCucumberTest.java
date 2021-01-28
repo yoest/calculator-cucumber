@@ -1,4 +1,4 @@
-package calculator;
+package cucumbertests;
 
 import io.cucumber.junit.CucumberOptions;
 import io.cucumber.junit.Cucumber;

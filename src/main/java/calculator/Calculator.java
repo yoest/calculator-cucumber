@@ -1,5 +1,7 @@
 package calculator;
 
+import visitor.Evaluator;
+
 public class Calculator {
 
     /*
@@ -13,7 +15,7 @@ public class Calculator {
 
     public void print(Expression e) {
         System.out.println("The result of evaluating expression " + e);
-        System.out.println("is: " + e.compute() + ".");
+        System.out.println("is: " + eval(e) + ".");
         System.out.println();
     }
 
@@ -26,7 +28,12 @@ public class Calculator {
     }
 
     public int eval(Expression e) {
-        return e.compute();
+        // create a new visitor to evaluate expressions
+        Evaluator v = new Evaluator();
+        // and ask the expression to accept this visitor to start the evaluation process
+        e.accept(v);
+        // and return the result of the evaluation at the end of the process
+        return v.getResult();
     }
 
     /*

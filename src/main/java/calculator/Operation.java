@@ -1,12 +1,14 @@
 package calculator;
 
+import visitor.Visitor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class Operation implements Expression
 {  
-  protected List<Expression> args;
+  public List<Expression> args;
   protected String symbol;
   protected int neutral; // the neutral element of the operation (e.g. 1 for *, 0 for +)
   public Notation notation = Notation.INFIX; //by default, expressions are rendered as strings using infix notation
@@ -34,23 +36,22 @@ public abstract class Operation implements Expression
   	notation = n;
   }
   
-  abstract protected int op(int l, int r);
+  abstract public int op(int l, int r);
     // the operation itself is specified in the subclasses
 
   // add more arguments to the existing list of arguments args
-  void addMoreParams(List<Expression> params) {
+  public void addMoreParams(List<Expression> params) {
   	args.addAll(params);
   }
 
-  public Integer compute() {
-    // use of Java 8 functional programming capabilities
-	return args.stream()
-			   .mapToInt(Expression::compute)
-			   .reduce(this::op)
-			   .getAsInt();
-    }
-  
-  final public Integer countDepth() {
+  public void accept(Visitor v) {
+  	// ask each of the argument expressions of the current operation to accept the visitor
+  	for(Expression a:args) { a.accept(v); }
+  	// and then visit the current operation itself
+    v.visit(this);
+  }
+
+	final public Integer countDepth() {
 	    // use of Java 8 functional programming capabilities
 	return 1 + args.stream()
 			   .mapToInt(Expression::countDepth)

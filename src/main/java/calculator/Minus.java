@@ -17,7 +17,7 @@ final public class Minus extends Operation
 		neutral = 0;
   }
   
-  protected int op(int l, int r) {
+  public int op(int l, int r) {
   	return (l-r);
   }
 }

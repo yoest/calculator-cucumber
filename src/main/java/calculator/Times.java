@@ -17,6 +17,6 @@ final public class Times extends Operation
 		neutral = 1;
 		}
   
-  protected int op(int l, int r)
+  public int op(int l, int r)
     { return (l*r); }
 }

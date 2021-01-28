@@ -1,14 +1,16 @@
-package calculator;
+package junit5tests;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import calculator.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestDivides implements TestInterface {
+public class TestDivides {
 
 	private final int value1 = 8;
 	private final int value2 = 6;
@@ -31,6 +33,7 @@ public class TestDivides implements TestInterface {
 		assertThrows(IllegalConstruction.class, () -> op = new Divides(null));
 	}
 
+	@SuppressWarnings("AssertBetweenInconvertibleTypes")
 	@Test
 	public void testConstructor2() {
 		// A Times expression should not be the same as a Divides expression
@@ -52,6 +55,7 @@ public class TestDivides implements TestInterface {
 		catch(IllegalConstruction e) { fail(); }
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	@Test
 	public void testEquals2() {
 		assertDoesNotThrow(() -> op.equals(null)); // Direct way to to test if the null case is handled.
@@ -72,12 +76,6 @@ public class TestDivides implements TestInterface {
 	public void testNullParamList() {
 		params = null;
 		assertThrows(IllegalConstruction.class, () -> op = new Divides(params));
-	}
-
-	@Test
-	public void testCompute() {
-		assertEquals(value1/value2, op.compute().intValue());
-		assertEquals(1, op.compute().intValue());
 	}
 
 	@Test

@@ -1,18 +1,16 @@
 Feature: Integer Arithmetic Expressions
   This feature provides a range of scenarios corresponding to the
-  intended behaviour of arithmetic expressions on integers.
+  intended external behaviour of arithmetic expressions on integers.
 
-  #It is possible to start with a Background: section.
-  #This has not been done for the current feature, since it was not needed.
-  #See the reference documentation of Cucumber and Gherkin for how and why to use it.
-
-  # This is just a comment. Below, you can see a list of scenarios.
-  # Each scenario can be seen as a test that can be executed with JUnit,
-  # provided that each of the steps (Given, When, And and Then) are
-  # implemented in a Java mapping file (CalculatorSteps.Java)
+  # This is just a comment.
+  # You can start with a Background: that will be run before executing each scenario.
 
   Background:
     Given I initialise a calculator
+
+  # Each scenario can be seen as a test that can be executed with JUnit,
+  # provided that each of the steps (Given, When, And and Then) are
+  # implemented in a Java mapping file (CalculatorSteps.Java)
 
   Scenario: Adding two integer numbers
     Given an integer operation '+'

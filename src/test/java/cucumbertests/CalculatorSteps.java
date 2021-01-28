@@ -1,5 +1,6 @@
-package calculator;
+package cucumbertests;
 
+import calculator.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
