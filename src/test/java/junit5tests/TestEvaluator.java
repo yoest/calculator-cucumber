@@ -12,10 +12,10 @@ import java.util.Arrays;
 public class TestEvaluator {
 
     @SuppressWarnings("unused")
-    Evaluator visitor;
-    Calculator calc;
-    int value1, value2;
-    Expression op;
+    private Evaluator visitor;
+    private Calculator calc;
+    private int value1, value2;
+    private Expression op;
 
     @BeforeEach
     public void setUp() {

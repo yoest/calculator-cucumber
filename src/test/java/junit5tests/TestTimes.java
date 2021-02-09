@@ -35,7 +35,7 @@ public class TestTimes {
 	public void testConstructor2() {
 		// A Plus expression should not be the same as a Times expression
 		try {
-			Assertions.assertNotEquals(op, new Plus(new ArrayList<>()));
+			assertNotEquals(op, new Plus(new ArrayList<>()));
 		} catch (IllegalConstruction e) {
 			fail();
 		}

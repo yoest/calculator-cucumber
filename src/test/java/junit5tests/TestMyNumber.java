@@ -28,7 +28,7 @@ public class TestMyNumber {
 		assertEquals(number, number); // Identity check (for coverage, as this should always be true)
 		assertNotEquals(number, value);
 		try {
-			Assertions.assertNotEquals(new Times(new ArrayList<>()), number);
+			assertNotEquals(new Times(new ArrayList<>()), number);
 		}
 		catch (IllegalConstruction e) {fail();}
 	}
