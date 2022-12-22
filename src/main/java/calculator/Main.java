@@ -4,23 +4,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/***************************************
- * A very simple Calculator in Java    *
- * Tom Mens, February 2021             *
+/**
+ * @author tommens                     *
+ * A very simple calculator in Java    *
  * University of Mons - UMONS          *
  * Département d'Informatique          *
  * Faculté des Sciences                *
- ***************************************/
-
+ */
 public class Main {
 
-  public static void main(String[] args) {
+	/**
+	 * This is the main method of the application.
+	 * It provides examples of how to use it to construct and evaluate arithmetic expressions.
+	 *
+	 * @param args	Command-line parameters are not used in this version
+	 */
+	public static void main(String[] args) {
 
   	Expression e;
   	Calculator c = new Calculator();
 
 	try{
-		// Here is an example of how to use the calculator:
 
 		e = new MyNumber(8);
 		c.print(e);

@@ -6,16 +6,32 @@ import calculator.Operation;
 
 import java.util.ArrayList;
 
+/** Evaluation is a concrete visitor that serves to
+ * compute and evaluate the results of arithmetic expressions.
+ */
 public class Evaluator extends Visitor {
 
+    /** The result of the evaluation will be stored in this private variable */
     private int computedValue;
 
+    /** getter method to obtain the result of the evaluation
+     *
+     * @return an Integer object containing the result of the evaluation
+     */
     public Integer getResult() { return computedValue; }
 
+    /** Use the visitor design pattern to visit a number.
+     *
+     * @param n The number being visited
+     */
     public void visit(MyNumber n) {
         computedValue = n.getValue();
     }
 
+    /** Use the visitor design pattern to visit an operation
+     *
+     * @param o The operation being visited
+     */
     public void visit(Operation o) {
         ArrayList<Integer> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
