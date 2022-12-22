@@ -1,12 +1,15 @@
+Code quality: ![Maven Build](https://github.com/tommens/calculator-cucumber/actions/workflows/maven.yml/badge.svg)
 [![BCH compliance](https://bettercodehub.com/edge/badge/tommens/calculator-cucumber?branch=master)](https://bettercodehub.com/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6856a0f94d25446ca346cbc15a701d43)](https://www.codacy.com/gh/tommens/calculator-cucumber/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tommens/calculator-cucumber&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/6856a0f94d25446ca346cbc15a701d43)](https://www.codacy.com/gh/tommens/calculator-cucumber/dashboard?utm_source=github.com&utm_medium=referral&utm_content=tommens/calculator-cucumber&utm_campaign=Badge_Coverage)
+
+Test coverage: ![Coverage](.github/badges/jacoco.svg)
+![Branches](.github/badges/branches.svg)
 
 # Calculating arithmetic expressions
 
 ## About
 
-This repository contains Java 11 code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium.
+This repository contains Java 11 code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium in the context of the software evolution course.
 
 
 ### Unit testing and BDD

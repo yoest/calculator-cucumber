@@ -17,12 +17,8 @@ public abstract class Operation implements Expression
   // Note that it is allowed to have an EMPTY list of arguments.
   public /*constructor*/ Operation(List<Expression> elist)
 		  throws IllegalConstruction
-	{ 
-	  if (elist == null) {
-		  throw new IllegalConstruction(); }
-	  else {
-		  args = new ArrayList<>(elist);
- 	  }
+	{
+		this(elist, null);
     }
 
   public List<Expression> getArgs() {
@@ -32,8 +28,12 @@ public abstract class Operation implements Expression
   public /*constructor*/ Operation(List<Expression> elist,Notation n)
 		  throws IllegalConstruction
   {
-  	this(elist);
-  	notation = n;
+	  if (elist == null) {
+		  throw new IllegalConstruction(); }
+	  else {
+		  args = new ArrayList<>(elist);
+	  }
+	  if (n!=null) notation = n;
   }
   
   abstract public int op(int l, int r);
