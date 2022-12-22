@@ -9,7 +9,7 @@ Test coverage: ![Coverage](.github/badges/jacoco.svg)
 
 ## About
 
-This repository contains Java 11 code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium in the context of the software evolution course.
+This repository contains Java 17 code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium in the context of the software evolution course.
 
 
 ### Unit testing and BDD
@@ -21,7 +21,7 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 
 ### Prerequisites
 
-*  You will need to have a running version of Java 11 on your machine in order to be able to compile and execute this code.
+*  You will need to have a running version of Java 17 on your machine in order to be able to compile and execute this code.
 *  You will also need to have a running version of Maven, since this project is accompanied by a pom.xml file so that it can be installed, compiled, tested and run using Maven.
 
 ### Installation and testing instructions
@@ -43,6 +43,7 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 *  [JUnit5](https://junit.org/junit5/) - a unit testing framework for Java
 *  [Cucumber](https://cucumber.io/docs/cucumber/) - a tool for Behaviour-Driven Development
 *  [JaCoCo](https://www.jacoco.org) - a code coverage library for Java
+*  [JavaDoc](https://docs.oracle.com/en/java/javase/17/javadoc/javadoc.html) - a code documentation tool for Java
 
 ## Versioning
 
