@@ -35,11 +35,11 @@ public class CalculatorSteps {
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
 		try {
 			switch (s) {
-				case "+": { op = new Plus(params); break; }
-				case "-": { op = new Minus(params); break; }
-				case "*": { op = new Times(params); break; }
-				case "/": { op = new Divides(params); break; }
-				default: { fail(); }
+				case "+"	->	op = new Plus(params);
+				case "-"	->	op = new Minus(params);
+				case "*"	->	op = new Times(params);
+				case "/"	->	op = new Divides(params);
+				default		->	fail();
 			}
 		} catch (IllegalConstruction e) {
 			fail();
@@ -47,7 +47,7 @@ public class CalculatorSteps {
 	}
 
 	// The following example shows how to use a DataTable provided as input.
-	// (The example looks slightly complex, since DataTables can take as input
+	// The example looks slightly complex, since DataTables can take as input
 	//  tables in two dimensions, i.e. rows and lines. This is why the input
 	//  is a list of lists.
 	@Given("the following list of integer numbers")
@@ -92,11 +92,11 @@ public class CalculatorSteps {
 	public void thenTheOperationIs(String s, int val) {
 		try {
 			switch (s) {
-				case "sum": { op = new Plus(params); break; }
-				case "product": { op = new Times(params); break; }
-				case "quotient": { op = new Divides(params); break; }
-				case "difference": { op = new Minus(params); break; }
-				default: fail();
+				case "sum"			->	op = new Plus(params);
+				case "product"		->	op = new Times(params);
+				case "quotient"		->	op = new Divides(params);
+				case "difference"	->	op = new Minus(params);
+				default -> fail();
 			}
 			assertEquals(val, c.eval(op));
 		} catch (IllegalConstruction e) {

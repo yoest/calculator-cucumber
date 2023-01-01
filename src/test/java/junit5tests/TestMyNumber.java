@@ -26,7 +26,7 @@ public class TestMyNumber {
 		int otherValue = 7;
 		assertNotEquals(new MyNumber(otherValue),number);
 		assertEquals(number, number); // Identity check (for coverage, as this should always be true)
-		assertNotEquals(number, value);
+		assertNotEquals(number, value); // number is of type MyNumber, while value is of type int, so not equal
 		try {
 			assertNotEquals(new Times(new ArrayList<>()), number);
 		}

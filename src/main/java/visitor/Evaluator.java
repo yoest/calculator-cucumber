@@ -39,7 +39,7 @@ public class Evaluator extends Visitor {
             a.accept(this);
             evaluatedArgs.add(computedValue);
         }
-        //second loop to accummulate all the evaluated subresults
+        //second loop to accumulate all the evaluated subresults
         int temp = evaluatedArgs.get(0);
         int max = evaluatedArgs.size();
         for(int counter=1; counter<max; counter++) {

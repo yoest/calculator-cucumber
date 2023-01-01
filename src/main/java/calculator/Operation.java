@@ -52,7 +52,7 @@ public abstract class Operation implements Expression
 	 * as well as the Notation used to represent the operation.
 	 *
 	 * @param elist	The list of expressions passed as argument to the arithmetic operation
-	 * @param n 	The otation to be used to represent the operation
+	 * @param n 	The notation to be used to represent the operation
 	 * @throws IllegalConstruction	Exception thrown if a null list of expressions is passed as argument
 	 */
 	public /*constructor*/ Operation(List<Expression> elist,Notation n)
@@ -76,7 +76,7 @@ public abstract class Operation implements Expression
   }
 
 	/**
-	 * Abstract method representing the actual binary aritmetic operation to compute
+	 * Abstract method representing the actual binary arithmetic operation to compute
 	 * @param l	 first argument of the binary operation
 	 * @param r	second argument of the binary operation
 	 * @return	result of computing the binary operation
@@ -160,20 +160,19 @@ public abstract class Operation implements Expression
    */
    final public String toString(Notation n) {
 	   Stream<String> s = args.stream().map(Object::toString);
-	   switch (n) {
-		   case INFIX: return "( " +
-			              s.reduce((s1,s2) -> s1 + " " + symbol + " " + s2).get() +
-			              " )";
-		   case PREFIX: return symbol + " " +
-			               "(" +
-			               s.reduce((s1,s2) -> s1 + ", " + s2).get() +
-			               ")";
-		   case POSTFIX: return "(" +
-			                s.reduce((s1,s2) -> s1 + ", " + s2).get() +
-			                ")" +
-			                " " + symbol;
-		   default: return "This case should never occur.";
-	  }
+	   return switch (n) {
+		   case INFIX -> "( " +
+				   s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2).get() +
+				   " )";
+		   case PREFIX -> symbol + " " +
+				   "(" +
+				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+				   ")";
+		   case POSTFIX -> "(" +
+				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+				   ")" +
+				   " " + symbol;
+	   };
   }
 
 	/**
