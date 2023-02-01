@@ -18,6 +18,9 @@
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <jacoco.version>0.8.8</jacoco.version>
         <javadoc.version>3.4.1</javadoc.version>
+        <sonar.organization>tommens</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+</properties>
     </properties>
 
     <dependencies>
