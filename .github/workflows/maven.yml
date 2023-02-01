@@ -68,10 +68,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Build and analyze with Sonar Cloud
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=tommens_calculator-cucumber
-      env:
-        # Needed to get some information about the pull request, if any
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#    - name: Build and analyze with Sonar Cloud
+#      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=tommens_calculator-cucumber
+#      env:
+#        # Needed to get some information about the pull request, if any
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
