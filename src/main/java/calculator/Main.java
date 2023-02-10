@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * @author tommens                     *
+ *
  * A very simple calculator in Java    *
  * University of Mons - UMONS          *
  * Département d'Informatique          *
