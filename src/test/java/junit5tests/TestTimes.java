@@ -26,7 +26,7 @@ public class TestTimes {
 
 	@Test
 	public void testConstructor1() {
-		// It should not be possible to create ans expression without null parameter list
+		// It should not be possible to create an expression without null parameter list
 		assertThrows(IllegalConstruction.class, () -> op = new Times(null));
 	}
 
@@ -35,7 +35,7 @@ public class TestTimes {
 	public void testConstructor2() {
 		// A Plus expression should not be the same as a Times expression
 		try {
-			assertNotEquals(op, new Plus(new ArrayList<>()));
+			assertNotSame(op, new Plus(new ArrayList<>()));
 		} catch (IllegalConstruction e) {
 			fail();
 		}

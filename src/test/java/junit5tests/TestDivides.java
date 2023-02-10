@@ -38,7 +38,7 @@ public class TestDivides {
 	public void testConstructor2() {
 		// A Times expression should not be the same as a Divides expression
 		try {
-			assertNotEquals(op, new Times(new ArrayList<>()));
+			assertNotSame(op, new Times(new ArrayList<>()));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
