@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestDivides {
+class TestDivides {
 
 	private final int value1 = 8;
 	private final int value2 = 6;
@@ -18,7 +18,7 @@ public class TestDivides {
 	private List<Expression> params;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		  params = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
 		  try {
 		  	op = new Divides(params);
@@ -28,14 +28,14 @@ public class TestDivides {
 	}
 
 	@Test
-	public void testConstructor1() {
+	void testConstructor1() {
 		// It should not be possible to create an expression without null parameter list
 		assertThrows(IllegalConstruction.class, () -> op = new Divides(null));
 	}
 
 	@SuppressWarnings("AssertBetweenInconvertibleTypes")
 	@Test
-	public void testConstructor2() {
+	void testConstructor2() {
 		// A Times expression should not be the same as a Divides expression
 		try {
 			assertNotSame(op, new Times(new ArrayList<>()));
@@ -45,7 +45,7 @@ public class TestDivides {
 	}
 
 	@Test
-	public void testEquals() {
+	void testEquals() {
 		// Two similar expressions, constructed separately (and using different constructors) should be equal
 		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
 		try {
@@ -57,12 +57,12 @@ public class TestDivides {
 
 	@SuppressWarnings("ConstantConditions")
 	@Test
-	public void testNull() {
+	void testNull() {
 		assertDoesNotThrow(() -> op==null); // Direct way to to test if the null case is handled.
 	}
 
 	@Test
-	public void testHashCode() {
+	void testHashCode() {
 		// Two similar expressions, constructed separately (and using different constructors) should have the same hashcode
 		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
 		try {
@@ -73,28 +73,28 @@ public class TestDivides {
 	}
 
 	@Test
-	public void testNullParamList() {
+	void testNullParamList() {
 		params = null;
 		assertThrows(IllegalConstruction.class, () -> op = new Divides(params));
 	}
 
 	@Test
-	public void testCountDepth() {
+	void testCountDepth() {
 		assertEquals(Integer.valueOf(1), op.countDepth());
 	}
 
 	@Test
-	public void testCountOps() {
+	void testCountOps() {
 		assertEquals(Integer.valueOf(1), op.countOps());
 	}
 
 	@Test
-	public void testCountNbs() {
+	void testCountNbs() {
 		assertEquals(Integer.valueOf(2), op.countNbs());
 	}
 
 	@Test
-	public void testPrefix() {
+	void testPrefix() {
 		String prefix = "/ (" + value1 + ", " + value2 + ")";
 		assertEquals(prefix, op.toString(Notation.PREFIX));
 		op.notation = Notation.PREFIX;
@@ -102,7 +102,7 @@ public class TestDivides {
 	}
 
 	@Test
-	public void testInfix() {
+	void testInfix() {
 		String infix = "( " + value1 + " / " + value2 + " )";
 		assertEquals(infix, op.toString(Notation.INFIX));
 		op.notation = Notation.INFIX;
@@ -110,7 +110,7 @@ public class TestDivides {
 	}
 
 	@Test
-	public void testPostfix() {
+	void testPostfix() {
 		String postfix = "(" + value1 + ", " + value2 + ") /";
 		assertEquals(postfix, op.toString(Notation.POSTFIX));
 		op.notation = Notation.POSTFIX;

@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author tommens                     *
+ * A very simple calculator in Java
+ * University of Mons - UMONS
+ * Département d'Informatique
+ * Faculté des Sciences
  *
- * A very simple calculator in Java    *
- * University of Mons - UMONS          *
- * Département d'Informatique          *
- * Faculté des Sciences                *
+ * @author tommens
  */
 public class Main {
 

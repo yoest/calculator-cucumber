@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestOperation {
+class TestOperation {
 
 	private Operation o;
 	private Operation o2;
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		List<Expression> params1 =
 				new ArrayList<>(Arrays.asList(new MyNumber(3), new MyNumber(4), new MyNumber(5)));
 		List<Expression> params2 =
@@ -28,22 +28,22 @@ public class TestOperation {
 	}
 
 	@Test
-	public void testEquals() {
+	void testEquals() {
 		assertEquals(o,o2);
 	}
 
 	@Test
-	public void testCountDepth() {
+	void testCountDepth() {
 		assertEquals(Integer.valueOf(2), o.countDepth());
 	}
 
 	@Test
-	public void testCountOps() {
+	void testCountOps() {
 		assertEquals(Integer.valueOf(3), o.countOps());
 	}
 
 	@Test
-	public void testCountNbs() {
+	void testCountNbs() {
 		assertEquals(Integer.valueOf(6), o.countNbs());
 	}
 

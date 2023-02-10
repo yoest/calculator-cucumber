@@ -9,8 +9,9 @@ import java.util.List;
  * @see Minus
  * @see Times
  * @see Plus
- */final public class Divides extends Operation
-{
+ */
+public final class Divides extends Operation
+ {
 
   /**
    * Class constructor specifying a number of Expressions to divide.

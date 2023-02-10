@@ -8,18 +8,18 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
-public class TestMyNumber {
+class TestMyNumber {
 
 	private final int value =8;
 	private MyNumber number;
 	
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		number = new MyNumber(value);
 	}
 
 	@Test
-	public void testEquals() {
+	void testEquals() {
 		// Two distinct MyNumber, constructed separately (using a different constructor) but containing the same value should be equal
 		assertEquals(new MyNumber(value), number);
 		// Two MyNumbers containing a distinct value should not be equal:
@@ -34,25 +34,25 @@ public class TestMyNumber {
 	}
 
 	@Test
-	public void testCountDepth() {
+	void testCountDepth() {
 		//test whether a number has zero depth (i.e. no nested expressions)
 		assertEquals(Integer.valueOf(0), number.countDepth());
 	}
 
 	@Test
-	public void testCountOps() {
+	void testCountOps() {
 		//test whether a number contains zero operations
 		assertEquals(Integer.valueOf(0), number.countOps());
 	}
 
 	@Test
-	public void testCountNbs() {
+	void testCountNbs() {
 		//test whether a number contains 1 number
 		assertEquals(Integer.valueOf(1), number.countNbs());
 	}
 
 	@Test
-	public void testToString() {
+	void testToString() {
 		assertEquals(Integer.toString(value), number.toString());
 	}
 

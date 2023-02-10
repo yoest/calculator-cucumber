@@ -3,9 +3,10 @@ package calculator;
 import visitor.Evaluator;
 
 /**
- * @author tommens
  * This class represents the core logic of a Calculator.
  * It can be used to print and evaluate artihmetic expressions.
+ *
+ * @author tommens
  */
 public class Calculator {
 

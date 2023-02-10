@@ -9,7 +9,7 @@ import visitor.Evaluator;
 
 import java.util.Arrays;
 
-public class TestEvaluator {
+class TestEvaluator {
 
     @SuppressWarnings("unused")
     private Evaluator visitor;
@@ -18,7 +18,7 @@ public class TestEvaluator {
     private Expression op;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         visitor = new Evaluator();
         calc = new Calculator();
         value1 = 8;
@@ -26,13 +26,13 @@ public class TestEvaluator {
     }
 
     @Test
-    public void testEvaluatorMyNumber() {
+    void testEvaluatorMyNumber() {
         assertEquals( value1,
                       calc.eval(new MyNumber(value1)));
     }
 
     @Test
-    public void testEvaluatorDivides() {
+    void testEvaluatorDivides() {
         try { op = new Divides(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
           assertEquals( value1 / value2,
                         calc.eval(op) );
@@ -43,7 +43,7 @@ public class TestEvaluator {
     }
 
     @Test
-    public void testEvaluatorPlus() {
+    void testEvaluatorPlus() {
         try { op = new Plus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
             assertEquals( value1 + value2,
                     calc.eval(op) );
@@ -54,7 +54,7 @@ public class TestEvaluator {
     }
 
     @Test
-    public void testEvaluatorMinus() {
+    void testEvaluatorMinus() {
         try { op = new Minus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
             assertEquals( value1 - value2,
                     calc.eval(op) );
@@ -65,7 +65,7 @@ public class TestEvaluator {
     }
 
     @Test
-    public void testEvaluatorTimes() {
+    void testEvaluatorTimes() {
         try { op = new Times(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
             assertEquals( value1 * value2,
                     calc.eval(op) );

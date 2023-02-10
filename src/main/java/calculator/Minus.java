@@ -9,8 +9,9 @@ import java.util.List;
  * @see Plus
  * @see Times
  * @see Divides
- */final public class Minus extends Operation
-{
+ */
+public final class Minus extends Operation
+ {
 
   /**
    * Class constructor specifying a number of Expressions to subtract.
