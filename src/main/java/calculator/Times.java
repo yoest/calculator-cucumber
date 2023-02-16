@@ -9,8 +9,9 @@ import java.util.List;
  * @see Minus
  * @see Plus
  * @see Divides
- */final public class Times extends Operation
-{
+ */
+public final class Times extends Operation
+ {
   /**
    * Class constructor specifying a number of Expressions to multiply.
    *

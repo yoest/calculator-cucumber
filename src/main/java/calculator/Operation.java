@@ -42,7 +42,7 @@ public abstract class Operation implements Expression
    * @param elist	The list of expressions passed as argument to the arithmetic operation
    * @throws IllegalConstruction	Exception thrown if a null list of expressions is passed as argument
    */
-  public /*constructor*/ Operation(List<Expression> elist)
+  protected /*constructor*/ Operation(List<Expression> elist)
 		  throws IllegalConstruction
 	{
 		this(elist, null);
@@ -55,7 +55,7 @@ public abstract class Operation implements Expression
 	 * @param n 	The notation to be used to represent the operation
 	 * @throws IllegalConstruction	Exception thrown if a null list of expressions is passed as argument
 	 */
-	public /*constructor*/ Operation(List<Expression> elist,Notation n)
+	protected /*constructor*/ Operation(List<Expression> elist,Notation n)
 			throws IllegalConstruction
 	{
 		if (elist == null) {
@@ -81,7 +81,7 @@ public abstract class Operation implements Expression
 	 * @param r	second argument of the binary operation
 	 * @return	result of computing the binary operation
 	 */
-  abstract public int op(int l, int r);
+   public abstract int op(int l, int r);
     // the operation itself is specified in the subclasses
 
 	/** Add more parameters to the existing list of parameters
@@ -110,7 +110,7 @@ public abstract class Operation implements Expression
 	 *
  	 * @return	The depth of the arithmetic expression being traversed
 	 */
-	final public Integer countDepth() {
+	public final Integer countDepth() {
 	    // use of Java 8 functional programming capabilities
 	return 1 + args.stream()
 			   .mapToInt(Expression::countDepth)
@@ -124,7 +124,7 @@ public abstract class Operation implements Expression
 	 *
 	 * @return	The number of operations contained in an arithmetic expression being traversed
 	 */
-	final public Integer countOps() {
+	public final Integer countOps() {
 	    // use of Java 8 functional programming capabilities
 	return 1 + args.stream()
 			   .mapToInt(Expression::countOps)
@@ -132,7 +132,7 @@ public abstract class Operation implements Expression
 			   .getAsInt();
   }
 
-  final public Integer countNbs() {
+  public final Integer countNbs() {
 	    // use of Java 8 functional programming capabilities
 	return args.stream()
 			   .mapToInt(Expression::countNbs)
@@ -147,7 +147,7 @@ public abstract class Operation implements Expression
    * @return	The String that is the result of the conversion.
    */
   @Override
-  final public String toString() {
+  public final String toString() {
   	return toString(notation);
   }
 
@@ -158,7 +158,7 @@ public abstract class Operation implements Expression
    * @param n	The notation to be used for representing the operation (prefix, infix or postfix)
    * @return	The String that is the result of the conversion.
    */
-   final public String toString(Notation n) {
+  public final String toString(Notation n) {
 	   Stream<String> s = args.stream().map(Object::toString);
 	   return switch (n) {
 		   case INFIX -> "( " +

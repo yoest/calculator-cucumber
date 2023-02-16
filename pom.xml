@@ -4,7 +4,7 @@
 
     <groupId>calculator</groupId>
     <artifactId>calculator-cucumber</artifactId>
-    <version>0.3.5</version>
+    <version>0.4.1</version>
     <packaging>jar</packaging>
     <name>Calculator with Cucumber tests</name>
 
@@ -12,12 +12,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
-        <junit.version>5.9.1</junit.version>
-        <cucumber.version>7.10.1</cucumber.version>
+        <junit.version>5.9.2</junit.version>
+        <cucumber.version>7.11.1</cucumber.version>
         <maven.compiler.version>3.10.1</maven.compiler.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <jacoco.version>0.8.8</jacoco.version>
         <javadoc.version>3.4.1</javadoc.version>
+        <sonar.organization>tommens</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>

@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-
+    name: build and analyse
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +21,7 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: 17
+        cache: 'maven'
     - name: Build with Maven (including running of all tests)
       run: mvn -B package --file pom.xml
       
@@ -66,3 +67,11 @@ jobs:
       continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+#    - name: Build and analyze with Sonar Cloud
+#      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=tommens_calculator-cucumber
+#      env:
+#        # Needed to get some information about the pull request, if any
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
