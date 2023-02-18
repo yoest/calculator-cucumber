@@ -16,13 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestCounting {
 
-    private Calculator calc;
     private int value1, value2;
     private Expression e;
 
     @BeforeEach
     void setUp() {
-        calc = new Calculator();
         value1 = 8;
         value2 = 6;
         e = null;
