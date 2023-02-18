@@ -34,7 +34,7 @@ class TestNotation {
 		testNotation("(" + value1 + ", " + value2 + ") " + symbol, op, Notation.POSTFIX);
 	}
 	@Test
-	void testPrefix() {
+	void testOutput() {
 		int value1 = 8;
 		int value2 = 6;
 		List<Expression> params = new ArrayList<>(Arrays.asList(new MyNumber(value1),new MyNumber(value2)));
