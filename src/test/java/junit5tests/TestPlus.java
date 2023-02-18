@@ -1,15 +1,14 @@
 package junit5tests;
 
+//Import Junit5 libraries for unit testing:
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
+import calculator.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-//Import Junit5 libraries for unit testing:
-import static org.junit.jupiter.api.Assertions.*;
-
-import calculator.*;
-import org.junit.jupiter.api.*;
-
 
 class TestPlus {
 
