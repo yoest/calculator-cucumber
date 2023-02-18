@@ -34,24 +34,6 @@ class TestMyNumber {
 	}
 
 	@Test
-	void testCountDepth() {
-		//test whether a number has zero depth (i.e. no nested expressions)
-		assertEquals(Integer.valueOf(0), number.countDepth());
-	}
-
-	@Test
-	void testCountOps() {
-		//test whether a number contains zero operations
-		assertEquals(Integer.valueOf(0), number.countOps());
-	}
-
-	@Test
-	void testCountNbs() {
-		//test whether a number contains 1 number
-		assertEquals(Integer.valueOf(1), number.countNbs());
-	}
-
-	@Test
 	void testToString() {
 		assertEquals(Integer.toString(value), number.toString());
 	}

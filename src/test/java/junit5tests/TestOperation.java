@@ -31,12 +31,12 @@ class TestOperation {
 
 	@Test
 	void testCountDepth() {
-		assertEquals(Integer.valueOf(2), o.countDepth());
+		assertEquals(2, o.countDepth());
 	}
 
 	@Test
 	void testCountOps() {
-		assertEquals(Integer.valueOf(3), o.countOps());
+		assertEquals(3, o.countOps());
 	}
 
 	@Test

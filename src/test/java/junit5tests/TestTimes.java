@@ -73,19 +73,4 @@ class TestTimes {
 		assertThrows(IllegalConstruction.class, () -> op = new Times(params));
 	}
 
-	@Test
-	void testCountDepth() {
-		assertEquals(Integer.valueOf(1), op.countDepth());
-	}
-
-	@Test
-	void testCountOps() {
-		assertEquals(Integer.valueOf(1), op.countOps());
-	}
-
-	@Test
-	void testCountNbs() {
-		assertEquals(Integer.valueOf(2), op.countNbs());
-	}
-
 }

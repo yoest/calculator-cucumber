@@ -23,19 +23,19 @@ public interface Expression {
     *
     * @return The depth of an arithmetic expression
     */
-   Integer countDepth();
+   int countDepth();
 
    /**
     * Counts the number of operations recursively contained in an arithmetic expression
     *
     * @return The number of operations contained in an arithmetic expression
     */
-   Integer countOps();
+   int countOps();
 
    /**
     * Counts the number of values recursively contained in an arithmetic expression
     *
     * @return The number of values contained in an arithmetic expression
     */
-   Integer countNbs();
+   int countNbs();
 }
