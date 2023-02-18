@@ -1,12 +1,17 @@
 package junit5tests;
 
 //Import Junit5 libraries for unit testing:
+import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import calculator.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class TestEvaluator {
 
@@ -23,50 +28,24 @@ class TestEvaluator {
 
     @Test
     void testEvaluatorMyNumber() {
-        assertEquals( value1,
-                      calc.eval(new MyNumber(value1)));
+        assertEquals( value1, calc.eval(new MyNumber(value1)));
     }
 
-    @Test
-    void testEvaluatorDivides() {
-        try { op = new Divides(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-          assertEquals( value1 / value2,
-                        calc.eval(op) );
-          }
-        catch(IllegalConstruction e) {
-            fail();
-        }
-    }
-
-    @Test
-    void testEvaluatorPlus() {
-        try { op = new Plus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-            assertEquals( value1 + value2,
-                    calc.eval(op) );
-        }
-        catch(IllegalConstruction e) {
-            fail();
-        }
-    }
-
-    @Test
-    void testEvaluatorMinus() {
-        try { op = new Minus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-            assertEquals( value1 - value2,
-                    calc.eval(op) );
-        }
-        catch(IllegalConstruction e) {
-            fail();
-        }
-    }
-
-    @Test
-    void testEvaluatorTimes() {
-        try { op = new Times(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-            assertEquals( value1 * value2,
-                    calc.eval(op) );
-        }
-        catch(IllegalConstruction e) {
+    @ParameterizedTest
+    @ValueSource(strings = {"*", "+", "/", "-"})
+    void testEvaluateOperations(String symbol) {
+        List<Expression> params = Arrays.asList(new MyNumber(value1),new MyNumber(value2));
+        try {
+            //construct another type of operation depending on the input value
+            //of the parameterised test
+            switch (symbol) {
+                case "+"	->	assertEquals( value1 + value2, calc.eval(new Plus(params)));
+                case "-"	->	assertEquals( value1 - value2, calc.eval(new Minus(params)));
+                case "*"	->	assertEquals( value1 * value2, calc.eval(new Times(params)));
+                case "/"	->	assertEquals( value1 / value2, calc.eval(new Divides(params)));
+                default		->	fail();
+            }
+        } catch (IllegalConstruction e) {
             fail();
         }
     }
