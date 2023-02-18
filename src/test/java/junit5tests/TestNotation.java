@@ -2,9 +2,13 @@ package junit5tests;
 
 //Import Junit5 libraries for unit testing:
 import org.junit.jupiter.api.*;
+
+import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.*;
 
 import calculator.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +17,7 @@ import java.util.List;
 
 class TestNotation {
 
-    /* This is an auxilary method to avoid code duplication in the next three tests.
-       Could probably be improved further by writing a @ParameterizedTest
+    /* This is an auxilary method to avoid code duplication.
      */
 	void testNotation(String s,Operation o,Notation n) {
 		assertEquals(s, o.toString(n));
@@ -23,7 +26,6 @@ class TestNotation {
 	}
 
 	/* This is an auxilary method to avoid code duplication.
-       Could probably be improved further by writing a @ParameterizedTest
      */
 	void testNotations(String symbol,int value1,int value2,Operation op) {
 		//prefix notation:
@@ -33,18 +35,28 @@ class TestNotation {
 		//postfix notation:
 		testNotation("(" + value1 + ", " + value2 + ") " + symbol, op, Notation.POSTFIX);
 	}
-	@Test
-	void testOutput() {
+
+	@ParameterizedTest
+	@ValueSource(strings = {"*", "+", "/", "-"})
+	void testOutput(String symbol) {
 		int value1 = 8;
 		int value2 = 6;
+		Operation op = null;
 		List<Expression> params = new ArrayList<>(Arrays.asList(new MyNumber(value1),new MyNumber(value2)));
 		try {
-		  testNotations("*", value1, value2,new Times(params));
-		  testNotations("+", value1, value2,new Plus(params));
-		  testNotations("/", value1, value2,new Divides(params));
-		  testNotations("-", value1, value2,new Minus(params));
-		  }
-		catch(IllegalConstruction e) { fail(); }
+			//construct another type of operation depending on the input value
+			//of the parameterised test
+			switch (symbol) {
+				case "+"	->	op = new Plus(params);
+				case "-"	->	op = new Minus(params);
+				case "*"	->	op = new Times(params);
+				case "/"	->	op = new Divides(params);
+				default		->	fail();
+			}
+		} catch (IllegalConstruction e) {
+			fail();
+		}
+		testNotations(symbol, value1, value2, op);
 	}
 
 }
