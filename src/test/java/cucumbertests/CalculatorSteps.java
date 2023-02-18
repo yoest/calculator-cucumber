@@ -85,7 +85,10 @@ public class CalculatorSteps {
 
 	@When("^I provide a (.*) number (\\d+)$")
 	public void whenIProvideANumber(String s, int val) {
+		//add extra parameter to the operation
+		params = new ArrayList<>();
 		params.add(new MyNumber(val));
+		op.addMoreParams(params);
 	}
 
 	@Then("^the (.*) is (\\d+)$")
@@ -106,11 +109,7 @@ public class CalculatorSteps {
 
 	@Then("the operation evaluates to {int}")
 	public void thenTheOperationEvaluatesTo(int val) {
-		//During previous @When steps, extra parameters may have been added to the operation
-		//so we complete its parameter list here:
-		op.addMoreParams(params);
 		assertEquals(val, c.eval(op));
-
 	}
 
 }
