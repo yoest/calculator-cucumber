@@ -10,7 +10,7 @@ import java.util.List;
  * @see Times
  * @see Plus
  */
-final public class Divides extends Operation
+public final class Divides extends Operation
 {
 
   /**
