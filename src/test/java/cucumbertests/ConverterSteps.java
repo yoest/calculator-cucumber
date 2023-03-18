@@ -1,20 +1,12 @@
 package cucumbertests;
 
-import calculator.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import unit_converter.CurrencyConverter;
-import unit_converter.LengthConverter;
-import unit_converter.MeasureConverter;
-import unit_converter.Unit;
-
-import java.util.ArrayList;
-import java.util.List;
+import unit_converter.*;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
 
 
 public class ConverterSteps {
@@ -42,6 +34,8 @@ public class ConverterSteps {
         switch (converterType) {
             case "Length" -> converter = new LengthConverter(value, LengthConverter.LengthUnits.valueOf(unit));
             case "Currency" -> converter = new CurrencyConverter(value, CurrencyConverter.CurrencyUnits.valueOf(unit));
+            case "Temperature" -> converter = new TemperatureConverter(value, TemperatureConverter.TemperatureUnits.valueOf(unit));
+            case "Time" -> converter = new TimeConverter(value, TimeConverter.TimeUnits.valueOf(unit));
         }
     }
 
@@ -50,6 +44,8 @@ public class ConverterSteps {
         switch (converterType) {
             case "Length" -> result = converter.getAs(LengthConverter.LengthUnits.valueOf(unit));
             case "Currency" -> result = converter.getAs(CurrencyConverter.CurrencyUnits.valueOf(unit));
+            case "Temperature" -> result = converter.getAs(TemperatureConverter.TemperatureUnits.valueOf(unit));
+            case "Time" -> result = converter.getAs(TimeConverter.TimeUnits.valueOf(unit));
         }
     }
 

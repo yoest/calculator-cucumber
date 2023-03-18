@@ -42,7 +42,7 @@ public abstract class MeasureConverter {
      *
      * @param unit: requested unit
      */
-    private void checkCondition(Unit unit) {
+    protected void checkCondition(Unit unit) {
         if(!unit.getType().equals(this.TYPE))
             throw new RuntimeException("This unit measure should be '" + this.TYPE + "' and not " + unit.getType());
     }
