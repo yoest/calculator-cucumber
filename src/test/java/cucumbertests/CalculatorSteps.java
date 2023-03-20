@@ -5,7 +5,9 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import real.Rounding;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class CalculatorSteps {
 	private Operation op;
 	private Calculator c;
 
+	private int precision = 2;
+	private Rounding rounding = Rounding.ROUND_HALF_UP;
+
 	@Before
     public void resetMemoryBeforeEachScenario() {
 		params = null;
@@ -26,7 +31,7 @@ public class CalculatorSteps {
 
 	@Given("I initialise a calculator")
 	public void givenIInitialiseACalculator() {
-		c = new Calculator();
+		c = new Calculator(precision, rounding);
 	}
 
 	@Given("an integer operation {string}")
@@ -101,7 +106,7 @@ public class CalculatorSteps {
 				case "difference"	->	op = new Minus(params);
 				default -> fail();
 			}
-			assertEquals(val, c.eval(op));
+			assertEquals(new BigDecimal(val).setScale(precision, rounding.toRoundingMode()), c.eval(op));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -109,7 +114,12 @@ public class CalculatorSteps {
 
 	@Then("the operation evaluates to {int}")
 	public void thenTheOperationEvaluatesTo(int val) throws IllegalConstruction {
-		assertEquals(val, c.eval(op));
+		assertEquals(new BigDecimal(val).setScale(precision, rounding.toRoundingMode()), c.eval(op));
 	}
 
+	@Then("the real operation evaluates to {double}")
+	public void theRealOperationEvaluatesTo(double val) throws IllegalConstruction {
+		assertEquals(new BigDecimal(val).setScale(precision, rounding.toRoundingMode()), c.eval(op));
+
+	}
 }
