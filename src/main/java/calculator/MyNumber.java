@@ -40,6 +40,15 @@ public class MyNumber implements Expression
     public /*constructor*/ MyNumber(String v) {
         value=new BigDecimal(v);
     }
+
+    public /*constructor*/ MyNumber(long v) {
+        value=BigDecimal.valueOf(v);
+    }
+
+    public /*constructor*/ MyNumber(float v) {
+        value=BigDecimal.valueOf(v);
+    }
+
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.
      * Each number will pass itself to the visitor object to get processed by the visitor.

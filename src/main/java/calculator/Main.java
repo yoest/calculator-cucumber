@@ -1,5 +1,7 @@
 package calculator;
 
+import real.Rounding;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +26,7 @@ public class Main {
 	public static void main(String[] args) {
 
   	Expression e;
-  	Calculator c = new Calculator();
+  	Calculator c = new Calculator(15, Rounding.ROUND_HALF_UP);
 
 	try{
 
