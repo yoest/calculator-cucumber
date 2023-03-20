@@ -108,7 +108,7 @@ public class CalculatorSteps {
 	}
 
 	@Then("the operation evaluates to {int}")
-	public void thenTheOperationEvaluatesTo(int val) {
+	public void thenTheOperationEvaluatesTo(int val) throws IllegalConstruction {
 		assertEquals(val, c.eval(op));
 	}
 

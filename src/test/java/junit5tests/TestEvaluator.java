@@ -27,7 +27,7 @@ class TestEvaluator {
     }
 
     @Test
-    void testEvaluatorMyNumber() {
+    void testEvaluatorMyNumber() throws IllegalConstruction {
         assertEquals( value1, calc.eval(new MyNumber(value1)));
     }
 

@@ -80,10 +80,14 @@ public class Main {
 		c.print(e);
 		c.eval(e);
 
+		List<Expression> params6 = new ArrayList<>();
+		Collections.addAll(params6, new MyNumber(6.7), new MyNumber(0));
+		e = new Divides(params6,Notation.INFIX);
+		c.print(e);
 	}
 
 	catch(IllegalConstruction exception) {
-		System.out.println("cannot create operations without parameters");
+		System.out.println("IllegalConstruction exception: " + exception.getMessage());
 		}
  	}
 

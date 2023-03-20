@@ -60,7 +60,7 @@ public abstract class Operation implements Expression
 			throws IllegalConstruction
 	{
 		if (elist == null) {
-			throw new IllegalConstruction(); }
+			throw new IllegalConstruction(""); }
 		else {
 			args = new ArrayList<>(elist);
 		}
@@ -82,7 +82,7 @@ public abstract class Operation implements Expression
 	 * @param r	second argument of the binary operation
 	 * @return	result of computing the binary operation
 	 */
-   public abstract BigDecimal op(BigDecimal l, BigDecimal r);
+   public abstract BigDecimal op(BigDecimal l, BigDecimal r) throws IllegalConstruction;
     // the operation itself is specified in the subclasses
 
 	/** Add more parameters to the existing list of parameters
@@ -100,7 +100,7 @@ public abstract class Operation implements Expression
 	 *
 	 * @param v	The visitor object
 	 */
-  public void accept(Visitor v) {
+  public void accept(Visitor v) throws IllegalConstruction {
   	for(Expression a:args) { a.accept(v); }
   	v.visit(this);
   }

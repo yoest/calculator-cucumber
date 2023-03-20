@@ -1,6 +1,7 @@
 package visitor;
 
 import calculator.Expression;
+import calculator.IllegalConstruction;
 import calculator.MyNumber;
 import calculator.Operation;
 
@@ -33,7 +34,7 @@ public class Evaluator extends Visitor {
      *
      * @param o The operation being visited
      */
-    public void visit(Operation o) {
+    public void visit(Operation o) throws IllegalConstruction {
         ArrayList<BigDecimal> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
         for(Expression a:o.args) {
