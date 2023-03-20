@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /** This class represents the arithmetic operation "-".
@@ -40,13 +41,15 @@ public final class Minus extends Operation
   	neutral = 0;
   }
 
-    /**
-     * The actual computation of the (binary) arithmetic subtraction of two integers
-     * @param l The first integer
-     * @param r The second integer that should be subtracted from the first
-     * @return The integer that is the result of the subtraction
-     */
-  public int op(int l, int r) {
-  	return (l-r);
-  }
+     /**
+      * Abstract method representing the actual binary arithmetic operation to compute
+      *
+      * @param l first argument of the binary operation
+      * @param r second argument of the binary operation
+      * @return result of computing the binary operation
+      */
+     @Override
+     public BigDecimal op(BigDecimal l, BigDecimal r) {
+                return (l.subtract(r));
+     }
 }

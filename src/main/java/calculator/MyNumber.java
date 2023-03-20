@@ -1,6 +1,7 @@
 package calculator;
 
 import visitor.Visitor;
+import java.math.BigDecimal;
 
 /**
  * MyNumber is a concrete class that represents arithmetic numbers,
@@ -11,23 +12,34 @@ import visitor.Visitor;
  */
 public class MyNumber implements Expression
 {
-  private final int value;
+  private final BigDecimal value;
 
     /** getter method to obtain the value contained in the object
      *
      * @return The integer number contained in the object
      */
-  public Integer getValue() { return value; }
+  public BigDecimal getValue() { return value; }
 
     /**
      * Constructor method
      *
      * @param v The integer value to be contained in the object
      */
-    public /*constructor*/ MyNumber(int v) {
+    public /*constructor*/ MyNumber(BigDecimal v) {
 	  value=v;
 	  }
 
+    public /*constructor*/ MyNumber(int v) {
+        value=BigDecimal.valueOf(v);
+    }
+
+    public /*constructor*/ MyNumber(double v) {
+        value=BigDecimal.valueOf(v);
+    }
+
+    public /*constructor*/ MyNumber(String v) {
+        value=new BigDecimal(v);
+    }
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.
      * Each number will pass itself to the visitor object to get processed by the visitor.
@@ -70,7 +82,7 @@ public class MyNumber implements Expression
      */
   @Override
   public String toString() {
-	  return Integer.toString(value);
+        return value.toString();
   }
 
   /** Two MyNumber expressions are equal if the values they contain are equal
@@ -105,7 +117,7 @@ public class MyNumber implements Expression
      */
   @Override
   public int hashCode() {
-		return value;
+      return value.hashCode();
   }
 
 }

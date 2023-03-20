@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +53,12 @@ public class Main {
 		List<Expression> params4 = new ArrayList<>();
 		Collections.addAll(params4, new Plus(params), new Minus(params2), new MyNumber(5));
 		e = new Divides(params4,Notation.POSTFIX);
+		c.print(e);
+		c.eval(e);
+
+		List<Expression> params5 = new ArrayList<>();
+		Collections.addAll(params5, new MyNumber(6.7), new MyNumber(3.4));
+		e = new Divides(params5,Notation.INFIX);
 		c.print(e);
 		c.eval(e);
 	}
