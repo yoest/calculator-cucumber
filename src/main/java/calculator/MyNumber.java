@@ -129,4 +129,22 @@ public class MyNumber implements Expression
       return value.hashCode();
   }
 
+    /**
+     * this method is used to convert numbers from degrees to radians
+     *
+     * @return the value of the number in radians
+     */
+    public MyNumber toRadians() {
+        return new MyNumber(value.multiply(BigDecimal.valueOf(Math.PI / 180)));
+    }
+
+    /**
+     * this method is used to convert numbers from radians to degrees
+     *
+     * @return the value of the number in degrees
+     */
+    public MyNumber toDegrees() {
+        return new MyNumber(value.multiply(BigDecimal.valueOf(180 / Math.PI)));
+    }
+
 }

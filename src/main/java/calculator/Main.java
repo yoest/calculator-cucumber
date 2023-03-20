@@ -80,10 +80,14 @@ public class Main {
 		c.print(e);
 		c.eval(e);
 
-		List<Expression> params6 = new ArrayList<>();
-		Collections.addAll(params6, new MyNumber(6.7), new MyNumber(0));
-		e = new Divides(params6,Notation.INFIX);
-		c.print(e);
+		//test radian to degree
+		MyNumber nbr = new MyNumber(33.9);
+		System.out.println("radian to degree: " + nbr.toDegrees());
+
+		//test degree to radian
+		nbr = new MyNumber(1948.0565);
+		System.out.println("degree to radian: " + nbr.toRadians());
+
 	}
 
 	catch(IllegalConstruction exception) {
