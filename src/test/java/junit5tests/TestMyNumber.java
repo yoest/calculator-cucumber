@@ -38,4 +38,19 @@ class TestMyNumber {
 		assertEquals(Integer.toString(value), number.toString());
 	}
 
+	@Test
+	void testRadixConversion() {
+		int radix = 2;
+		number = new MyNumber(Integer.toString(value, radix), radix);
+		assertEquals(Integer.toString(value, radix), number.toString());
+		number.setRadix(10);
+		assertEquals(Integer.toString(value), number.toString());
+	}
+
+	@Test
+	void testRadixException() {
+		int radix = 37;
+		assertThrows(IllegalArgumentException.class, () -> number.setRadix(radix));
+		assertThrows(IllegalArgumentException.class, () -> new MyNumber("1", radix));
+	}
 }

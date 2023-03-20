@@ -2,6 +2,7 @@ package cucumbertests;
 
 import calculator.*;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -93,6 +94,22 @@ public class CalculatorSteps {
 		op.addMoreParams(params);
 	}
 
+	@When("I provide a first number {string} in radix {int}")
+	public void whenIProvideAFirstNumberInRadix(String val, int radix) {
+		//add extra parameter to the operation
+		params = new ArrayList<>();
+		params.add(new MyNumber(val, radix));
+		op.addMoreParams(params);
+	}
+
+	@When("I provide a second number {string} in radix {int}")
+	public void whenIProvideASecondNumberInRadix(String val, int radix) {
+		//add extra parameter to the operation
+		params = new ArrayList<>();
+		params.add(new MyNumber(val, radix));
+		op.addMoreParams(params);
+	}
+
 	@Then("^the (.*) is (\\d+)$")
 	public void thenTheOperationIs(String s, int val) {
 		try {
@@ -112,6 +129,12 @@ public class CalculatorSteps {
 	@Then("the operation evaluates to {int}")
 	public void thenTheOperationEvaluatesTo(int val) {
 		assertEquals(0, BigInteger.valueOf(val).compareTo(c.eval(op)));
+	}
+
+	@Then("the operation evaluates to {string} in radix {int}")
+	public void thenTheOperationEvaluatesToInRadix(String val, int radix) {
+		BigInteger result = c.eval(op);
+		assertEquals(0, val.compareTo(result.toString(radix)));
 	}
 
 	@Then ("the operation throws an arithmetic exception")

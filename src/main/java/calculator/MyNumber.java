@@ -16,23 +16,32 @@ public class MyNumber implements Expression
 {
   private final BigInteger value;
 
+  private int radix;
+
     /** getter method to obtain the value contained in the object
      *
      * @return The integer number contained in the object
      */
-  public BigInteger getValue() { return value; }
+  public BigInteger getValue() {
+      return value; //Return the value in radix 10
+  }
 
     /**
      * Constructor method
      *
      * @param v The integer value to be contained in the object
      */
-    public /*constructor*/ MyNumber(String v) {
-	  value= new BigInteger(v);
-	  }
-    public /*constructor*/ MyNumber(Integer v) {
-        value= new BigInteger(Integer.toString(v));
+  public /*constructor*/ MyNumber(String v, Integer radix){
+    this.value= new BigInteger(v, radix);
+    if (radix > 36) {
+        throw new IllegalArgumentException("The radix must be less than 36");
     }
+    this.radix = radix;
+  }
+  public /*constructor*/ MyNumber(Integer v) {
+      this.value= new BigInteger(Integer.toString(v));
+      this.radix = 10;
+  }
 
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.
@@ -43,7 +52,6 @@ public class MyNumber implements Expression
   public void accept(Visitor v) {
       v.visit(this);
   }
-
 
     /** The depth of a number expression is always 0
      *
@@ -76,7 +84,7 @@ public class MyNumber implements Expression
      */
   @Override
   public String toString() {
-	  return value.toString();
+	  return value.toString(radix); //Display the value in the specified radix
   }
 
   /** Two MyNumber expressions are equal if the values they contain are equal
@@ -114,4 +122,15 @@ public class MyNumber implements Expression
 		return value.hashCode();
   }
 
+  public int getRadix() {
+      return radix;
+    }
+
+  public void setRadix(int radix) {
+    //If the radix is greater than 36, throw an exception
+    if (radix > 36) {
+      throw new IllegalArgumentException("The radix must be less than 36");
+    }
+    this.radix = radix;
+  }
 }
