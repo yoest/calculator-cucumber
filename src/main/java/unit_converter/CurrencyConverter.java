@@ -5,7 +5,7 @@ public class CurrencyConverter extends MeasureConverter {
     public enum CurrencyUnits implements Unit {
 
         EURO(1),
-        DOLLARS(1.08),
+        DOLLAR(1.08),
         YEN(142.10),
         BRITISH_POUND(0.88),
         SWISS_FRANC(0.99);

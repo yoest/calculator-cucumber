@@ -36,6 +36,8 @@ public class ConverterSteps {
             case "Currency" -> converter = new CurrencyConverter(value, CurrencyConverter.CurrencyUnits.valueOf(unit));
             case "Temperature" -> converter = new TemperatureConverter(value, TemperatureConverter.TemperatureUnits.valueOf(unit));
             case "Time" -> converter = new TimeConverter(value, TimeConverter.TimeUnits.valueOf(unit));
+            case "Energy" -> converter = new EnergyConverter(value, EnergyConverter.EnergyUnits.valueOf(unit));
+            case "Mass" -> converter = new MassConverter(value, MassConverter.MassUnits.valueOf(unit));
         }
     }
 
@@ -46,6 +48,8 @@ public class ConverterSteps {
             case "Currency" -> result = converter.getAs(CurrencyConverter.CurrencyUnits.valueOf(unit));
             case "Temperature" -> result = converter.getAs(TemperatureConverter.TemperatureUnits.valueOf(unit));
             case "Time" -> result = converter.getAs(TimeConverter.TimeUnits.valueOf(unit));
+            case "Energy" -> result = converter.getAs(EnergyConverter.EnergyUnits.valueOf(unit));
+            case "Mass" -> result = converter.getAs(MassConverter.MassUnits.valueOf(unit));
         }
     }
 

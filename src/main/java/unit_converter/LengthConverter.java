@@ -8,12 +8,12 @@ public class LengthConverter extends MeasureConverter {
         CENTIMETER(100),
         DECIMETER(10),
         METER(1),
-        KILOMETER(1000),
+        KILOMETER(0.001),
         FEET(3.28084),
-        INCHES(39.3701),
-        MILES(0.000621371),
-        NAUTICAL_MILES(0.000539957),
-        YARDS(1.09361);
+        INCH(39.3701),
+        MILE(0.000621371),
+        NAUTICAL_MILE(0.000539957),
+        YARD(1.09361);
 
         private final double RATIO;
 

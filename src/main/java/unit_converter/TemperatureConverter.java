@@ -11,7 +11,7 @@ public class TemperatureConverter extends MeasureConverter {
         private final double RATIO;
         private final double ADDONS;
 
-        /** Units related to temperature (degree, kelvin, ...)
+        /** Units related to temperature (celsius, kelvin, ...)
          *
          * @param ratio: ratio from the baseline measure to this unit
          * @param addons: value to add to obtain the conversion (specific for temperature)
