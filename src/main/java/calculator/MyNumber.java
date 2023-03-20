@@ -2,6 +2,9 @@ package calculator;
 
 import visitor.Visitor;
 
+import java.math.BigInteger;
+import java.util.Objects;
+
 /**
  * MyNumber is a concrete class that represents arithmetic numbers,
  * which are a special kind of Expressions, just like operations are.
@@ -11,22 +14,25 @@ import visitor.Visitor;
  */
 public class MyNumber implements Expression
 {
-  private final int value;
+  private final BigInteger value;
 
     /** getter method to obtain the value contained in the object
      *
      * @return The integer number contained in the object
      */
-  public Integer getValue() { return value; }
+  public BigInteger getValue() { return value; }
 
     /**
      * Constructor method
      *
      * @param v The integer value to be contained in the object
      */
-    public /*constructor*/ MyNumber(int v) {
-	  value=v;
+    public /*constructor*/ MyNumber(String v) {
+	  value= new BigInteger(v);
 	  }
+    public /*constructor*/ MyNumber(Integer v) {
+        value= new BigInteger(Integer.toString(v));
+    }
 
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.
@@ -70,7 +76,7 @@ public class MyNumber implements Expression
      */
   @Override
   public String toString() {
-	  return Integer.toString(value);
+	  return value.toString();
   }
 
   /** Two MyNumber expressions are equal if the values they contain are equal
@@ -92,7 +98,7 @@ public class MyNumber implements Expression
       if (!(o instanceof MyNumber)) {
             return false;
       }
-      return this.value == ((MyNumber)o).value;
+      return Objects.equals(this.value, ((MyNumber) o).value);
       // Used == since the contained value is a primitive value
       // If it had been a Java object, .equals() would be needed
   }
@@ -105,7 +111,7 @@ public class MyNumber implements Expression
      */
   @Override
   public int hashCode() {
-		return value;
+		return value.hashCode();
   }
 
 }

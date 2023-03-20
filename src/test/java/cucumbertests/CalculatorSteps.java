@@ -6,11 +6,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
+import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class CalculatorSteps {
 
@@ -101,7 +103,7 @@ public class CalculatorSteps {
 				case "difference"	->	op = new Minus(params);
 				default -> fail();
 			}
-			assertEquals(val, c.eval(op));
+			assertEquals(0, BigInteger.valueOf(val).compareTo(c.eval(op)));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -109,7 +111,11 @@ public class CalculatorSteps {
 
 	@Then("the operation evaluates to {int}")
 	public void thenTheOperationEvaluatesTo(int val) {
-		assertEquals(val, c.eval(op));
+		assertEquals(0, BigInteger.valueOf(val).compareTo(c.eval(op)));
 	}
 
+	@Then ("the operation throws an arithmetic exception")
+	public void thenTheOperationThrowsAnException() {
+		assertThrows(ArithmeticException.class, () -> c.eval(op));
+	}
 }

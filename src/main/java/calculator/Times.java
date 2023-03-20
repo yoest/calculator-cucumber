@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /** This class represents the arithmetic multiplication operation "*".
@@ -36,7 +37,7 @@ public final class Times extends Operation
   public Times(List<Expression> elist, Notation n) throws IllegalConstruction {
   	super(elist,n);
   	symbol = "*";
-  	neutral = 1;
+  	neutral = new BigInteger("1");
   }
 
   /**
@@ -45,6 +46,7 @@ public final class Times extends Operation
    * @param r The second integer that should be multiplied with the first
    * @return The integer that is the result of the multiplication
    */
-  public int op(int l, int r)
-    { return (l*r); }
+  public BigInteger op(BigInteger l, BigInteger r) {
+  	return (l.multiply(r));
+  }
 }

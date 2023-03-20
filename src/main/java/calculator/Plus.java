@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /** This class represents the arithmetic sum operation "+".
@@ -37,7 +38,7 @@ public final class Plus extends Operation
   public Plus(List<Expression> elist, Notation n) throws IllegalConstruction {
   	super(elist,n);
   	symbol = "+";
-  	neutral = 0;
+  	neutral = new BigInteger("0");
   }
 
   /**
@@ -46,7 +47,7 @@ public final class Plus extends Operation
    * @param r The second integer that should be added to the first
    * @return The integer that is the result of the addition
    */
-  public int op(int l, int r) {
-  	return (l+r);
+  public BigInteger op(BigInteger l, BigInteger r) {
+  	return (l.add(r));
   }
 }
