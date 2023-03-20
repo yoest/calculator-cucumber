@@ -1,6 +1,8 @@
 package cucumbertests;
 
 import calculator.*;
+import integerArithmetics.InverseModulo;
+import integerArithmetics.Modulo;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -42,6 +44,8 @@ public class CalculatorSteps {
 				case "-"	->	op = new Minus(params);
 				case "*"	->	op = new Times(params);
 				case "/"	->	op = new Divides(params);
+				case "mod"	->	op = new Modulo(params);
+				case "mod-1"	->	op = new InverseModulo(params);
 				default		->	fail();
 			}
 		} catch (IllegalConstruction e) {

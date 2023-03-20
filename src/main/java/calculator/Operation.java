@@ -204,7 +204,7 @@ public abstract class Operation implements Expression
 	public int hashCode()
 	{
 		int result = 5, prime = 31;
-		result = prime * result + neutral.intValue(); //Neutral is a small integer, so it's ok to use intValue()
+		result = prime * result + neutral.intValue();
 		result = prime * result + symbol.hashCode();
 		result = prime * result + args.hashCode();
 		return result;
