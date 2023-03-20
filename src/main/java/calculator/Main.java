@@ -61,6 +61,23 @@ public class Main {
 		e = new Divides(params5,Notation.INFIX);
 		c.print(e);
 		c.eval(e);
+
+		e = new MyNumber(602200000000000000000000.0);
+		c.print(e);
+		c.eval(e);
+
+		e = new MyNumber(0.000000000000000000000000000000000016);
+		c.print(e);
+		c.eval(e);
+
+		e = new MyNumber("6.022E+23");
+		c.print(e);
+		c.eval(e);
+
+		e = new MyNumber("1.6E-35");
+		c.print(e);
+		c.eval(e);
+
 	}
 
 	catch(IllegalConstruction exception) {
