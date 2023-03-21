@@ -48,4 +48,15 @@ public final class Divides extends Operation
      */
   public int op(int l, int r)
     { return (l/r); }
+
+    /**
+     * The actual computation of the (binary) arithmetic division of two times
+     * @param l The first time
+     * @param r The second time that should divide the first
+     * @return nothing because the division of two times cannot be done
+     */
+    @Override
+    public long op(long l, long r) {
+        throw new RuntimeException("Cannot use division with time");
+    }
 }

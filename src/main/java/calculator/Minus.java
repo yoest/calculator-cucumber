@@ -49,4 +49,16 @@ public final class Minus extends Operation
   public int op(int l, int r) {
   	return (l-r);
   }
-}
+
+     /**
+      * The actual computation of the (binary) arithmetic subtraction of two times
+      * @param l The first time
+      * @param r The second time that should be subtracted from the first
+      * @return The time that is the result of the subtraction
+      */
+     @Override
+     public long op(long l, long r) {
+         return (l - r);
+     }
+
+ }

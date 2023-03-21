@@ -84,6 +84,15 @@ public abstract class Operation implements Expression
    public abstract int op(int l, int r);
     // the operation itself is specified in the subclasses
 
+	/**
+	 * Abstract method representing the actual binary arithmetic operation to compute but for two times
+	 * @param l	 first argument of the binary operation
+	 * @param r	second argument of the binary operation
+	 * @return	result of computing the binary operation
+	 */
+	public abstract long op(long l, long r);
+
+
 	/** Add more parameters to the existing list of parameters
 	 *
 	 * @param params	The list of parameters to be added

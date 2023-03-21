@@ -2,6 +2,7 @@ package visitor;
 
 import calculator.Expression;
 import calculator.MyNumber;
+import calculator.MyTime;
 import calculator.Operation;
 
 import java.util.ArrayList;
@@ -26,6 +27,15 @@ public class Evaluator extends Visitor {
      */
     public void visit(MyNumber n) {
         computedValue = n.getValue();
+    }
+
+    /** Cannot use this visitor to visit a time.
+     *
+     * @param t The time that cannot be visited
+     */
+    @Override
+    public void visit(MyTime t) {
+        throw new RuntimeException("Cannot use Evaluator with MyTime");
     }
 
     /** Use the visitor design pattern to visit an operation

@@ -49,4 +49,16 @@ public final class Plus extends Operation
   public int op(int l, int r) {
   	return (l+r);
   }
-}
+
+     /**
+      * The actual computation of the (binary) arithmetic addition of two time
+      * @param l The first time
+      * @param r The second time that should be added to the first
+      * @return The time that is the result of the addition
+      */
+     @Override
+     public long op(long l, long r) {
+         return (l + r);
+     }
+
+ }
