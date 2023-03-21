@@ -55,9 +55,9 @@ public class MyTime implements Expression {
                     time = text;
             }
 
-            // 12 or 24 hour format
-            if(text.equals("am") || text.equals("pm")) {
-                timeFormat = text;
+            // 12 or 24 hours format
+            if(text.equalsIgnoreCase("am") || text.equalsIgnoreCase("pm")) {
+                timeFormat = text.toLowerCase();
             }
 
             // Timezone
@@ -110,7 +110,7 @@ public class MyTime implements Expression {
      */
     public static MyTime getAsDays(int v) {
         long associatedTime = v * 24 * 60 * 60L;
-        return new MyTime(associatedTime, associatedTime + " days");
+        return new MyTime(associatedTime, v + " days");
     }
 
     /**
