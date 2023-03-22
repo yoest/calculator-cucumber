@@ -16,10 +16,12 @@ class TestDivides {
 	private final int value2 = 6;
 	private Divides op;
 	private List<Expression> params;
+	private Calculator calc;
 
 	@BeforeEach
 	void setUp() {
 		  params = Arrays.asList(new MyNumber(value1), new MyNumber(value2));
+		  calc = new Calculator();
 		  try {
 		  	op = new Divides(params);
 			op.notation = Notation.INFIX; // reset the notation to infix (which is the default) before each test
@@ -76,6 +78,13 @@ class TestDivides {
 	void testNullParamList() {
 		params = null;
 		assertThrows(IllegalConstruction.class, () -> op = new Divides(params));
+	}
+
+	@Test
+	void testDivideByZero() throws IllegalConstruction {
+		params = Arrays.asList(new MyNumber(value1), new MyNumber(0));
+		op = new Divides(params);
+		assertThrows(IllegalConstruction.class, () -> calc.eval(op));
 	}
 
 }

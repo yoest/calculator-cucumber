@@ -122,4 +122,45 @@ public class CalculatorSteps {
 		assertEquals(new BigDecimal(val).setScale(precision, rounding.toRoundingMode()), c.eval(op));
 
 	}
+
+	@When("I provide a value {double} in degrees")
+	public void iProvideAValueValueInDegrees(double val) {
+		//verify that the value is in degrees
+		if (val < 0 || val > 360) {
+			fail("The value is not in degrees");
+		}
+		MyNumber number = new MyNumber(val);
+		MyNumber numberRad = number.toRadians();
+		params = new ArrayList<>();
+		params.add(numberRad);
+	}
+
+	@Then("the conversion to radians is {double} radians")
+	public void the_conversion_to_radians_is_radians(Double result) {
+		MyNumber number = (MyNumber) params.get(0);
+		BigDecimal expected = number.getValue().setScale(precision, rounding.toRoundingMode());
+		BigDecimal actual = new BigDecimal(result).setScale(precision, rounding.toRoundingMode());
+		assertEquals(expected, actual);
+	}
+
+	@When("I provide a value {double} in radians")
+	public void iProvideAValueRadianInRadians(double val) {
+		//verify that the value is in radians
+		if (val < 0 || val > 2 * Math.PI) {
+			fail("The value is not in radians");
+		}
+		MyNumber number = new MyNumber(val);
+		MyNumber numberDeg = number.toDegrees();
+		params = new ArrayList<>();
+		params.add(numberDeg);
+	}
+
+	@Then("the conversion to degrees is {double} degrees")
+	public void the_conversion_to_degrees_is_degrees(Double result) {
+		MyNumber number = (MyNumber) params.get(0);
+		BigDecimal expected = number.getValue().setScale(precision, rounding.toRoundingMode());
+		BigDecimal actual = new BigDecimal(result).setScale(precision, rounding.toRoundingMode());
+		assertEquals(expected, actual);
+	}
+
 }

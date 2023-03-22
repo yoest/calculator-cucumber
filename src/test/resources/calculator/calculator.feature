@@ -91,3 +91,27 @@ Feature: Integer Arithmetic Expressions
       | "-" | 8| 5|     3|
       | "*" | 7| 2|    14|
       | "/" | 6| 2|     3|
+
+    Scenario Outline: Evaluating conversion of degrees to radians
+      When I provide a value <degree> in degrees
+      Then the conversion to radians is <result> radians
+
+        Examples:
+            | degree | result |
+            | 0      | 0      |
+            | 90     | 1.57   |
+            | 180    | 3.14   |
+            | 270    | 4.71   |
+            | 360    | 6.28   |
+
+    Scenario Outline: Evaluating conversion of radians to degrees
+        When I provide a value <radian> in radians
+        Then the conversion to degrees is <result> degrees
+
+            Examples:
+                | radian | result |
+                | 0      | 0      |
+                | 1.57   | 89.95  |
+                | 3.14   | 179.91 |
+                | 4.71   | 269.86 |
+                | 6.28   | 359.82 |
