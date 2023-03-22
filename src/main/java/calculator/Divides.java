@@ -1,6 +1,7 @@
 package calculator;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /** This class represents the arithmetic division operation "/".
@@ -41,11 +42,10 @@ public final class Divides extends Operation
 	neutral = 1;
   }
 
-  private boolean verify(BigDecimal l, BigDecimal r) throws IllegalConstruction {
+  private void verify(BigDecimal l, BigDecimal r) throws IllegalConstruction {
         if (r.compareTo(BigDecimal.ZERO) == 0) {
             throw new IllegalConstruction("Division by zero");
         }
-        return true;
   }
 
     /**
@@ -57,9 +57,7 @@ public final class Divides extends Operation
      */
     @Override
     public BigDecimal op(BigDecimal l, BigDecimal r) throws IllegalConstruction {
-        if (verify(l, r)) {
-            return (l.divide(r, 10, BigDecimal.ROUND_HALF_UP));
-        }
-        return null;
+        verify(l, r);
+        return (l.divide(r, 10, RoundingMode.HALF_UP));
     }
 }

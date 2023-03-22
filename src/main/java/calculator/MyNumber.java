@@ -113,7 +113,7 @@ public class MyNumber implements Expression
       if (!(o instanceof MyNumber)) {
             return false;
       }
-      return this.value == ((MyNumber)o).value;
+      return this.value.equals(((MyNumber) o).value);
       // Used == since the contained value is a primitive value
       // If it had been a Java object, .equals() would be needed
   }

@@ -1,7 +1,6 @@
 package junit5tests;
 
 //Import Junit5 libraries for unit testing:
-import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
@@ -11,7 +10,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import real.Rounding;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,8 +19,8 @@ class TestEvaluator {
     private int value1, value2;
     private Expression op;
 
-    private int precision = 2;
-    private Rounding rounding = Rounding.ROUND_HALF_UP;
+    private final int precision = 2;
+    private final Rounding rounding = Rounding.ROUND_HALF_UP;
 
     @BeforeEach
     void setUp() {
@@ -50,10 +48,10 @@ class TestEvaluator {
                 case "-"	->	assertEquals( v1.subtract(v2).setScale(precision, rounding.toRoundingMode()), calc.eval(new Minus(params)));
                 case "*"	->	assertEquals( v1.multiply(v2).setScale(precision, rounding.toRoundingMode()), calc.eval(new Times(params)));
                 case "/"	->	assertEquals( v1.divide(v2, precision, rounding.toRoundingMode()), calc.eval(new Divides(params)));
-                default		->	fail();
+                default		->	Assertions.fail();
             }
         } catch (IllegalConstruction e) {
-            fail();
+            Assertions.fail();
         }
     }
 

@@ -20,8 +20,8 @@ public class CalculatorSteps {
 	private Operation op;
 	private Calculator c;
 
-	private int precision = 2;
-	private Rounding rounding = Rounding.ROUND_HALF_UP;
+	private final int precision = 2;
+	private final Rounding rounding = Rounding.ROUND_HALF_UP;
 
 	@Before
     public void resetMemoryBeforeEachScenario() {
