@@ -3,6 +3,9 @@ package memory;
 import calculator.*;
 
 import java.io.*;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Snapshot {
@@ -12,7 +15,8 @@ public class Snapshot {
     // Create a constructor for the Snapshot class that takes an Expression as input parameter.
 
     private Expression e;
-    private String destinationFolder = "saves/";
+    private final String destinationFolder = "saves/";
+    private LocalTime time;
     public  Snapshot(Expression e) {
         // TODO
         this.e = e;
@@ -27,6 +31,31 @@ public class Snapshot {
         objectOut.writeObject(e);
         // Close object output stream
         objectOut.close();
+        // get the time of the save
+        this.time = java.time.LocalTime.now();
+    }
+
+    public void store(String name, int maxSize) throws IOException {
+        // TODO : check if the size of the file is bigger than maxSize
+        FileOutputStream fileOut = new FileOutputStream(destinationFolder + name + ".ser");
+        // Create object output stream to write objects to file
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        // Get the size of the file
+        File file = new File(destinationFolder + name + ".ser");
+        long fileSize = file.length(); // in bytes
+        // If the size of the file is bigger than maxSize, delete the file and throw an exception
+        if (fileSize > maxSize) {
+            file.delete();
+            throw new IOException("The memory is too small to store the expression");
+        }
+
+        // Write object to file
+        objectOut.writeObject(e);
+        // Close object output stream
+        objectOut.close();
+        // get the time of the save
+        LocalTime time = java.time.LocalTime.now();
+        this.time = time;
     }
     // Method to load the expression from a file
     public Expression load(String name) throws IOException, ClassNotFoundException {
@@ -40,4 +69,13 @@ public class Snapshot {
         return e;
     }
 
+    // Getter
+    public Expression getExpression() {
+        return e;
+    }
+
+    // get the time of the save
+    public LocalTime getTime() {
+        return time;
+    }
 }
