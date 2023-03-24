@@ -9,27 +9,85 @@ import java.util.ArrayList;
 
 public class MemoryCalculator extends Calculator {
     // Constructor
-    private Caretaker caretaker = new Caretaker();
-    private Snapshot lastSnapshot = null;
+    private final Caretaker caretaker; // the class that stores the history of the expressions
+    private Snapshot lastSnapshot = null; // the last snapshot saved in the memory
+    private Snapshot lastErased = null; // the last snapshot erased from the memory
+    private int counter; // the number of snapshots saved in the memory, used to generate the name of the file
+    private int maxSize = 1000; //bytes, the maximum size of the file that stores the history
+
+    /** Simple constructor
+     *
+     */
+    public MemoryCalculator() {
+        super();
+        this.caretaker = new Caretaker();
+    }
+
+    /** Simple constructor, taking a Caretaker (the class that stores the history of the expressions) as argument
+     *
+     * @param caretaker : the caretaker of the memory,
+     * */
     public MemoryCalculator(Caretaker caretaker) {
         super();
         this.caretaker = caretaker;
     }
-    public void save(Expression e, String name) throws IOException {
-        Snapshot snapshot = new Snapshot(e);
-        snapshot.store(name);
-        caretaker.add(snapshot);
+
+   /** Evaluate an expression and save it in the memory
+    *
+    * @param e : the expression to be evaluated, saved in the memory and in the history
+    * @return the value of the expression
+    */
+   @Override
+    public int eval(Expression e) {
+        int res = super.eval(e);
+        Expression computed = new MyNumber(res);
+        save(e, computed);
+        return res;
     }
 
-    public void save(Expression e, String name, int maxSize) throws IOException {
-        Snapshot snapshot = new Snapshot(e);
-        snapshot.store(name, maxSize);
+    /** Public version of the save method
+     *
+     * @param e : the expression to be saved
+     */
+    public void save(Expression e) throws IOException {
+        Expression computed = new MyNumber(eval(e)) ;
+        Snapshot snapshot = new Snapshot(e, computed);
+        snapshot.store(generateName(), maxSize);
+        caretaker.add(snapshot);
+        lastSnapshot = snapshot; //useful for the undo method
+    }
+
+    /** Private version the save method, used by the eval method
+     *
+     * @param e : the expression to be saved
+     * @param computed : the value of the expression
+     */
+    private void save(Expression e,
+                      Expression computed) {
+        Snapshot snapshot = new Snapshot(e, computed);
+        try {
+            snapshot.store(generateName(), maxSize);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex); //Can happen if the file is too big
+        }
         caretaker.add(snapshot);
         lastSnapshot = snapshot;
     }
-    public Expression load(String name) throws IOException, ClassNotFoundException {
+
+    /** Load a snapshot using its name
+     */
+    public Expression load(String name) {
         Snapshot snapshot = new Snapshot(null);
-        return snapshot.load(name);
+        try {
+            return snapshot.load(name);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // load the last snapshot
+    public Expression load() {
+        return load(lastSnapshot.getName());
     }
 
     // get the history of the expressions stored in the memory
@@ -46,21 +104,28 @@ public class MemoryCalculator extends Calculator {
             System.out.println(snapshot.getExpression());
         }
     }
-
-    //get the time of all the expressions stored in the memory
-    public List<LocalTime> getTimeOfAllSaves() {
-        List<Snapshot> history = getHistory();
-        List<LocalTime> time = new ArrayList<>();
-        for (Snapshot snapshot : history) {
-            time.add(snapshot.getTime());
+    // generate the name of the file that will store the snapshot
+    private String generateName() {
+        String time = java.time.LocalTime.now().toString(); //TIME OF THE CREATION != TIME OF THE SAVE NEED TO BE CHANGED
+        counter += 1;
+        return counter + time;
         }
-        return time;
-    }
 
-    // undo the last snapshot
+    /** undo the last snapshot
+     * For now, only one snapshot can be undone and redone, but in the future, it will be possible to undo and redo multiple snapshots
+     * using arrays or lists
+     */
     public void undo() {
         if (lastSnapshot != null) {
-            caretaker.remove(lastSnapshot);
+            lastErased = caretaker.remove(lastSnapshot);
+            updateLastSnapshot();
+        }
+    }
+
+    // redo the last snapshot
+    public void redo() {
+        if (lastSnapshot != null) {
+            caretaker.add(lastErased);
             updateLastSnapshot();
         }
     }
@@ -72,14 +137,16 @@ public class MemoryCalculator extends Calculator {
             lastSnapshot = history.get(history.size() - 1);
         }
     }
-
-
-    // redo the last snapshot
-    public void redo() {
-        if (lastSnapshot != null) {
-            caretaker.add(lastSnapshot);
-        }
+    // set max size of the memory
+    public void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
     }
 
+    /** Clear the history of the memory
+     * This method is here only for testing purposes, for now, it may cause problems if used
+     */
+    public void clearHistory() {
+        caretaker.clearHistory();
+    }
 
 }
