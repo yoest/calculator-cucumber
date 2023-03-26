@@ -30,7 +30,7 @@ public class Caretaker implements Serializable {
     }
 
     ///Save the history
-    public void serializeHistory() {
+    public void serializeHistory() { //to call when the user wants to save the history, at the end of the program
         try {
             String outputFolder = "saves/history/ser/";
             String time = LocalTime.now().toString();
@@ -41,7 +41,6 @@ public class Caretaker implements Serializable {
             if(file.exists()){
                 file.delete();
             }
-
                 // TODO : check if the size of the file is bigger than maxSize
                 FileOutputStream fileOut = new FileOutputStream(outputFolder + time + ".ser");
                 // Create object output stream to write objects to file
@@ -63,7 +62,7 @@ public class Caretaker implements Serializable {
 
     }
 
-    public List<Snapshot> deserializeHistory() {
+    public List<Snapshot> deserializeHistory() { // TO call when the user wants to load the history, at the beginning of the program
         List<Snapshot> snapshots = new ArrayList<>();
 
         try {
@@ -91,9 +90,6 @@ public class Caretaker implements Serializable {
         return snapshots;
     }
 
-
-
-
     // Save the history in a text file
     public void saveHistoryTxt() {
         // for snapshot in history
@@ -104,15 +100,13 @@ public class Caretaker implements Serializable {
             String name = snapshot.getName();
             Expression e = snapshot.getExpression();
             // if snapshot has a computed value
-            if (snapshot.getComputed() != null) {
+                System.out.println("The expression has a " + snapshot.getComputed().toString());
                 // get the computed value
                 Expression e_ = snapshot.getComputed();
-                outputString += "The expression has a " + e_.toString()
+                outputString += "The expression is " + e.toString() + " has a value of " +e_.toString()
                         + " and was saved under the name " + name + " at " + snapshot.getTime() + "\n";
-            } else {
-                outputString += "The expression " + e + " was saved under the name " + name + " at " + snapshot.getTime() + "\n";
             }
-        }
+
         try {
             String time = LocalTime.now().toString();
             FileWriter writer = new FileWriter("saves/history/txt/+ " + time + ".txt");
@@ -121,24 +115,6 @@ public class Caretaker implements Serializable {
         } catch (IOException e) {
             System.out.println("An error occurred while saving to file.");
             e.printStackTrace();
-        }
-    }
-    public void display() {
-        // for snapshot in history
-        for (Snapshot snapshot : history) {
-            System.out.println("For snapshot : " + snapshot);
-            // save the snapshot
-            String name = snapshot.getName();
-            Expression e = snapshot.getExpression();
-            // if snapshot has a computed value
-            if (snapshot.getComputed() != null) {
-                // get the computed value
-                Expression e_ = snapshot.getComputed();
-                System.out.println("The expression has a " + e_.toString()
-                        + " and was saved under the name " + name + " at " + snapshot.getTime());
-            } else {
-                System.out.println("The expression " + e + "was saved under the name " + name + " at " + snapshot.getTime());
-            }
         }
     }
 

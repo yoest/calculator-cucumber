@@ -4,17 +4,17 @@ import calculator.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.time.LocalTime;
-import java.util.ArrayList;
+
+import java.util.Stack;
 
 public class MemoryCalculator extends Calculator {
     // Constructor
     private final Caretaker caretaker; // the class that stores the history of the expressions
     private Snapshot lastSnapshot = null; // the last snapshot saved in the memory
     private Snapshot lastErased = null; // the last snapshot erased from the memory
+    private final Stack erased = new Stack();
     private int counter; // the number of snapshots saved in the memory, used to generate the name of the file
-    private int maxSize = 1000; //bytes, the maximum size of the file that stores the history
-
+    private int maxSize = 1000; //bytes, the maximum size of the file that is saved in the memory
     /** Simple constructor
      *
      */
@@ -111,22 +111,26 @@ public class MemoryCalculator extends Calculator {
         return counter + time;
         }
 
-    /** undo the last snapshot
-     * For now, only one snapshot can be undone and redone, but in the future, it will be possible to undo and redo multiple snapshots
-     * using arrays or lists
-     */
+    // undo the last snapshot
     public void undo() {
         if (lastSnapshot != null) {
             lastErased = caretaker.remove(lastSnapshot);
+            erased.push(lastErased);
             updateLastSnapshot();
         }
     }
 
     // redo the last snapshot
     public void redo() {
-        if (lastSnapshot != null) {
-            caretaker.add(lastErased);
-            updateLastSnapshot();
+        try {
+            if (lastErased != null) {
+                caretaker.add(lastErased);
+                erased.pop();
+                updateLastSnapshot();
+            }
+        } catch (Exception e) {
+            System.out.println("No snapshot to redo");
+            throw new RuntimeException(e);
         }
     }
 
