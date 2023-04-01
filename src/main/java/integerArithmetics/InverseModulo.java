@@ -1,28 +1,23 @@
-package calculator;
+package integerArithmetics;
+
+import calculator.Expression;
+import calculator.IllegalConstruction;
+import calculator.Notation;
+import calculator.Operation;
 
 import java.math.BigInteger;
 import java.util.List;
 
-/** This class represents the arithmetic sum operation "+".
- * The class extends an abstract superclass Operation.
- * Other subclasses of Operation represent other arithmetic operations.
- * @see Operation
- * @see Minus
- * @see Times
- * @see Divides
- */
-public final class Plus extends Operation
- {
-
+public class InverseModulo extends Operation {
   /**
    * Class constructor specifying a number of Expressions to add.
    *
    * @param elist The list of Expressions to add
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Plus(List<Expression>,Notation)
+   * @see #InverseModulo(List < Expression >, Notation )
    */
-  public /*constructor*/ Plus(List<Expression> elist) throws IllegalConstruction {
-	this(elist, null);
+  public /*constructor*/ InverseModulo(List<Expression> elist) throws IllegalConstruction {
+    this(elist, null);
   }
 
   /**
@@ -32,13 +27,12 @@ public final class Plus extends Operation
    * @param elist The list of Expressions to add
    * @param n The Notation to be used to represent the operation
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Plus(List<Expression>)
-   * @see Operation#Operation(List<Expression>,Notation)
+   * @see #InverseModulo(List<Expression>)
    */
-  public Plus(List<Expression> elist, Notation n) throws IllegalConstruction {
-  	super(elist,n);
-  	symbol = "+";
-  	neutral = new BigInteger("0");
+  public InverseModulo(List<Expression> elist, Notation n) throws IllegalConstruction {
+    super(elist,n);
+    symbol = "mod-1";
+    neutral = new BigInteger("0");
   }
 
   /**
@@ -48,6 +42,6 @@ public final class Plus extends Operation
    * @return The integer that is the result of the addition
    */
   public BigInteger op(BigInteger l, BigInteger r) {
-  	return (l.add(r));
+    return (l.modInverse(r));
   }
 }

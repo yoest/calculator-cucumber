@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /** This class represents the arithmetic division operation "/".
@@ -37,7 +38,7 @@ public final class Divides extends Operation
   public Divides(List<Expression> elist, Notation n) throws IllegalConstruction {
 	super(elist,n);
 	symbol = "/";
-	neutral = 1;
+	neutral = new BigInteger("1");
   }
 
     /**
@@ -46,6 +47,11 @@ public final class Divides extends Operation
      * @param r The second integer that should divide the first
      * @return The integer that is the result of the division
      */
-  public int op(int l, int r)
-    { return (l/r); }
+  public BigInteger op(BigInteger l, BigInteger r)
+    {
+        if (r.equals(BigInteger.ZERO))
+            throw new ArithmeticException("Division by zero");
+        else
+            return (l.divide(r));
+    }
 }
