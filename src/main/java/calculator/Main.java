@@ -1,5 +1,7 @@
 package calculator;
 
+import real.Rounding;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,20 +22,18 @@ public class Main {
 	 *
 	 * @param args	Command-line parameters are not used in this version
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalConstruction {
 
   	Expression e;
-  	Calculator c = new Calculator();
-
-	try{
+  	Calculator c = new Calculator(15, Rounding.ROUND_HALF_UP);
 
 		e = new MyNumber(8);
 		c.print(e);
 		c.eval(e);
 
-	    List<Expression> params = new ArrayList<>();
-	    Collections.addAll(params, new MyNumber(3), new MyNumber(4), new MyNumber(5));
-	    e = new Plus(params,Notation.PREFIX);
+		List<Expression> params = new ArrayList<>();
+		Collections.addAll(params, new MyNumber(3), new MyNumber(4), new MyNumber(5));
+		e = new Plus(params,Notation.PREFIX);
 		c.printExpressionDetails(e);
 		c.eval(e);
 	
@@ -54,11 +54,6 @@ public class Main {
 		e = new Divides(params4,Notation.POSTFIX);
 		c.print(e);
 		c.eval(e);
+
 	}
-
-	catch(IllegalConstruction exception) {
-		System.out.println("cannot create operations without parameters");
-		}
- 	}
-
 }

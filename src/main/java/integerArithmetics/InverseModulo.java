@@ -35,6 +35,10 @@ public class InverseModulo extends Operation {
     neutral = new BigInteger("0");
   }
 
+  public Number op(Number l, Number r) {
+  	return op((BigInteger)l, (BigInteger)r);
+  }
+
   /**
    * The actual computation of the (binary) arithmetic addition of two integers
    * @param l The first integer

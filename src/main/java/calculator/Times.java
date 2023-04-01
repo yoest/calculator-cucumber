@@ -1,6 +1,7 @@
 package calculator;
 
 import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 /** This class represents the arithmetic multiplication operation "*".
@@ -40,6 +41,16 @@ public final class Times extends Operation
   	neutral = new BigInteger("1");
   }
 
+  public Number op(Number l, Number r) {
+  	if (l instanceof BigInteger && r instanceof BigInteger) {
+  		return op((BigInteger)l, (BigInteger)r);
+  	} else if (l instanceof BigDecimal && r instanceof BigDecimal) {
+  		return op((BigDecimal)l, (BigDecimal)r);
+  	} else {
+  		throw new IllegalArgumentException("Unsupported type");
+  	}
+  }
+
   /**
    * The actual computation of the (binary) arithmetic multiplication of two integers
    * @param l The first integer
@@ -49,4 +60,14 @@ public final class Times extends Operation
   public BigInteger op(BigInteger l, BigInteger r) {
   	return (l.multiply(r));
   }
+   /**
+    * Abstract method representing the actual binary arithmetic operation to compute
+    *
+    * @param l first argument of the binary operation
+    * @param r second argument of the binary operation
+    * @return result of computing the binary operation
+    */
+   public BigDecimal op(BigDecimal l, BigDecimal r) {
+              return (l.multiply(r));
+   }
 }

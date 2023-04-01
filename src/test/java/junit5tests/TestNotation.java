@@ -3,14 +3,12 @@ package junit5tests;
 //Import Junit5 libraries for unit testing:
 import org.junit.jupiter.api.*;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.*;
 
 import calculator.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,10 +50,10 @@ class TestNotation {
 				case "-"	->	op = new Minus(params);
 				case "*"	->	op = new Times(params);
 				case "/"	->	op = new Divides(params);
-				default		->	fail();
+				default		->	Assertions.fail();
 			}
 		} catch (IllegalConstruction e) {
-			fail();
+			Assertions.fail();
 		}
 		testNotations(symbol, value1, value2, op);
 	}

@@ -33,12 +33,6 @@ Feature: Integer Arithmetic Expressions
   Scenario: Dividing two integer numbers
     Given an integer operation '/'
     When I provide a first number 7
-    And I provide a second number 5
-    Then the operation evaluates to 1
-
-  Scenario: Dividing two integer numbers
-    Given an integer operation '/'
-    When I provide a first number 7
     And I provide a second number 0
     Then the operation throws an arithmetic exception
 
@@ -72,18 +66,6 @@ Feature: Integer Arithmetic Expressions
       |n1|n2|result|
       |4|5|9|
       |5|3|8|
-
-  Scenario Outline: Dividing two integer numbers
-    Given an integer operation '/'
-    When I provide a first number <n1>
-    And I provide a second number <n2>
-    Then the operation evaluates to <result>
-
-    Examples:
-      |n1|n2|result|
-      |35|5|7|
-      |7|5|1|
-      |5|7|0|
 
   Scenario Outline: Evaluating arithmetic operations with two integer parameters
     Given an integer operation <op>

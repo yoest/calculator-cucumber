@@ -8,8 +8,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import real.Rounding;
+
 
 import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,9 @@ public class CalculatorSteps {
 	private Operation op;
 	private Calculator c;
 
+	private final int precision = 2;
+	private final Rounding rounding = Rounding.ROUND_HALF_UP;
+
 	@Before
     public void resetMemoryBeforeEachScenario() {
 		params = null;
@@ -31,7 +37,7 @@ public class CalculatorSteps {
 
 	@Given("I initialise a calculator")
 	public void givenIInitialiseACalculator() {
-		c = new Calculator();
+		c = new Calculator(precision, rounding);
 	}
 
 	@Given("an integer operation {string}")
@@ -114,35 +120,30 @@ public class CalculatorSteps {
 		op.addMoreParams(params);
 	}
 
-	@Then("^the (.*) is (\\d+)$")
-	public void thenTheOperationIs(String s, int val) {
-		try {
-			switch (s) {
-				case "sum"			->	op = new Plus(params);
-				case "product"		->	op = new Times(params);
-				case "quotient"		->	op = new Divides(params);
-				case "difference"	->	op = new Minus(params);
-				default -> fail();
-			}
-			assertEquals(0, BigInteger.valueOf(val).compareTo(c.eval(op)));
-		} catch (IllegalConstruction e) {
-			fail();
-		}
+@Then("^the (.*) is (\\d+)$")
+public void thenTheOperationIs(String s, int val) throws IllegalConstruction {
+	switch (s) {
+		case "sum"			->	op = new Plus(params);
+		case "product"		->	op = new Times(params);
+		case "quotient"		->	op = new Divides(params);
+		case "difference"	->	op = new Minus(params);
+		default -> fail();
 	}
+	assertEquals(0, BigInteger.valueOf(val).compareTo((BigInteger) c.eval(op)));
+}
 
-	@Then("the operation evaluates to {int}")
-	public void thenTheOperationEvaluatesTo(int val) {
-		assertEquals(0, BigInteger.valueOf(val).compareTo(c.eval(op)));
-	}
+@Then("the operation evaluates to {int}")
+public void thenTheOperationEvaluatesTo(int val) throws IllegalConstruction {
+	assertEquals(0, BigInteger.valueOf(val).compareTo((BigInteger) c.eval(op)));
+}
+@Then("the operation evaluates to {string} in radix {int}")
+public void thenTheOperationEvaluatesToInRadix(String val, int radix) throws IllegalConstruction {
+	BigInteger result = (BigInteger) c.eval(op);
+	assertEquals(0, val.compareTo(result.toString(radix)));
+}
 
-	@Then("the operation evaluates to {string} in radix {int}")
-	public void thenTheOperationEvaluatesToInRadix(String val, int radix) {
-		BigInteger result = c.eval(op);
-		assertEquals(0, val.compareTo(result.toString(radix)));
-	}
-
-	@Then ("the operation throws an arithmetic exception")
-	public void thenTheOperationThrowsAnException() {
-		assertThrows(ArithmeticException.class, () -> c.eval(op));
-	}
+@Then ("the operation throws an arithmetic exception")
+public void thenTheOperationThrowsAnException() {
+	assertThrows(ArithmeticException.class, () -> c.eval(op));
+}
 }

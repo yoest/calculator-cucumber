@@ -1,6 +1,7 @@
 package calculator;
 
 import visitor.Visitor;
+import java.math.BigDecimal;
 
 import java.math.BigInteger;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.Objects;
  */
 public class MyNumber implements Expression
 {
-  private final BigInteger value;
+  private final Number value;
 
   private int radix;
 
@@ -22,7 +23,8 @@ public class MyNumber implements Expression
      *
      * @return The integer number contained in the object
      */
-  public BigInteger getValue() {
+
+  public Number getValue() {
       return value; //Return the value in radix 10
   }
 
@@ -31,6 +33,7 @@ public class MyNumber implements Expression
      *
      * @param v The integer value to be contained in the object
      */
+
   public /*constructor*/ MyNumber(String v, Integer radix){
     this.value= new BigInteger(v, radix);
     if (radix > 36) {
@@ -38,10 +41,39 @@ public class MyNumber implements Expression
     }
     this.radix = radix;
   }
-  public /*constructor*/ MyNumber(Integer v) {
-      this.value= new BigInteger(Integer.toString(v));
-      this.radix = 10;
+
+  public  MyNumber(Integer v) {
+    this.value= new BigInteger(Integer.toString(v));
+    this.radix = 10;
   }
+
+  public MyNumber(String v) {
+    value=new BigDecimal(v);
+  }
+
+  /*
+
+  public  MyNumber(BigDecimal v) {
+  value=v;
+  }
+
+  public MyNumber(int v) {
+      value=BigDecimal.valueOf(v);
+  }
+
+  public  MyNumber(double v) {
+      value=BigDecimal.valueOf(v);
+  }
+
+  public  MyNumber(long v) {
+      value=BigDecimal.valueOf(v);
+  }
+
+  public  MyNumber(float v) {
+      value=BigDecimal.valueOf(v);
+  }
+
+  */
 
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.
@@ -84,7 +116,10 @@ public class MyNumber implements Expression
      */
   @Override
   public String toString() {
-	  return value.toString(radix); //Display the value in the specified radix
+    if (value instanceof BigDecimal) {
+        return value.toString();
+    }
+	  return ((BigInteger) value).toString(radix); //Display the value in the specified radix
   }
 
   /** Two MyNumber expressions are equal if the values they contain are equal
@@ -106,7 +141,9 @@ public class MyNumber implements Expression
       if (!(o instanceof MyNumber)) {
             return false;
       }
+
       return Objects.equals(this.value, ((MyNumber) o).value);
+
       // Used == since the contained value is a primitive value
       // If it had been a Java object, .equals() would be needed
   }
@@ -133,4 +170,23 @@ public class MyNumber implements Expression
     }
     this.radix = radix;
   }
+
+    /**
+     * this method is used to convert numbers from degrees to radians
+     *
+     * @return the value of the number in radians
+     */
+    public MyNumber toRadians() {
+        return new MyNumber(((BigDecimal) value).multiply(BigDecimal.valueOf(Math.PI / 180)).toPlainString());
+    }
+
+    /**
+     * this method is used to convert numbers from radians to degrees
+     *
+     * @return the value of the number in degrees
+     */
+    public MyNumber toDegrees() {
+        return new MyNumber(((BigDecimal) value).multiply(BigDecimal.valueOf(180 / Math.PI)).toPlainString());
+    }
+
 }

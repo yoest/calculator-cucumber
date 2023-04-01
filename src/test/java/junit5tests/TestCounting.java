@@ -3,6 +3,7 @@ package junit5tests;
 //Import Junit5 libraries for unit testing:
 
 import calculator.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +12,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestCounting {
@@ -50,10 +50,10 @@ class TestCounting {
                 case "-"	->	e = new Minus(params);
                 case "*"	->	e = new Times(params);
                 case "/"	->	e = new Divides(params);
-                default		->	fail();
+                default		->	Assertions.fail();
             }
         } catch (IllegalConstruction e) {
-            fail();
+            Assertions.fail();
         }
         //test whether a binary operation has depth 1
         assertEquals(1, e.countDepth(),"counting depth of an Operation");

@@ -1,8 +1,11 @@
 package calculator;
 
+import real.Rounding;
 import visitor.Evaluator;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
+
+
 
 /**
  * This class represents the core logic of a Calculator.
@@ -11,6 +14,18 @@ import java.math.BigInteger;
  * @author tommens
  */
 public class Calculator {
+    private int PRECISION;
+    private Rounding ROUNDING;
+
+    public Calculator() {
+        this.PRECISION = 10;
+        this.ROUNDING = Rounding.ROUND_HALF_UP;
+    }
+
+    public Calculator(int precision, Rounding rounding) {
+        this.PRECISION = precision;
+        this.ROUNDING = rounding;
+    }
 
     /*
      For the moment the calculator only contains a print method and an eval method
@@ -24,9 +39,9 @@ public class Calculator {
     /**
      * Prints an arithmetic expression provided as input parameter.
      * @param e the arithmetic Expression to be printed
-     * @see #printExpressionDetails(Expression) 
+     * @see #printExpressionDetails(Expression)
      */
-    public void print(Expression e) {
+    public void print(Expression e) throws IllegalConstruction {
         System.out.println("The result of evaluating expression " + e);
         System.out.println("is: " + eval(e) + ".");
         System.out.println();
@@ -37,7 +52,7 @@ public class Calculator {
      * @param e the arithmetic Expression to be printed
      * @see #print(Expression)
      */
-    public void printExpressionDetails(Expression e) {
+    public void printExpressionDetails(Expression e) throws IllegalConstruction {
         print(e);
         System.out.print("It contains " + e.countDepth() + " levels of nested expressions, ");
         System.out.print(e.countOps() + " operations");
@@ -50,13 +65,20 @@ public class Calculator {
      * @param e the arithmetic Expression to be evaluated
      * @return The result of the evaluation
      */
-    public BigInteger eval(Expression e) {
+
+
+    public Number eval(Expression e) throws IllegalConstruction {
         // create a new visitor to evaluate expressions
         Evaluator v = new Evaluator();
         // and ask the expression to accept this visitor to start the evaluation process
         e.accept(v);
         // and return the result of the evaluation at the end of the process
-        return v.getResult();
+        Number temp = v.getResult();
+
+        if (temp instanceof BigDecimal) {
+            return ((BigDecimal) temp).setScale(PRECISION, ROUNDING.toRoundingMode());
+        }
+        return temp;
     }
 
     /*
@@ -65,4 +87,20 @@ public class Calculator {
      or to simplify some expression
      public Expression simplify(Expression e)
     */
+
+    public int getPrecision() {
+        return PRECISION;
+    }
+
+    public void setPrecision(int precision) {
+        this.PRECISION = precision;
+    }
+
+    public Rounding getRounding() {
+        return ROUNDING;
+    }
+
+    public void setRounding(Rounding rounding) {
+        this.ROUNDING = rounding;
+    }
 }
