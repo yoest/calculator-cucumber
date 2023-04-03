@@ -80,9 +80,9 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SEKEY }}
         SONAR_HOST_URL: ${{ secrets.URL }} 
-        run: >
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.organization=yoest
-          -Dsonar.projectKey=yoest_calculator-cucumber
-          -Dsonar.branch.name=master
+      run: >
+        mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        -Dsonar.host.url=https://sonarcloud.io
+        -Dsonar.organization=yoest
+        -Dsonar.projectKey=yoest_calculator-cucumber
+        -Dsonar.branch.name=master
