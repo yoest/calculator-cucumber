@@ -75,3 +75,14 @@ jobs:
 #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #        # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
 #        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    - name: Build and analyze with Sonar Cloud
+      env:
+        SONAR_TOKEN: ${{ secrets.SEKEY }}
+        SONAR_HOST_URL: ${{ secrets.URL }} 
+        run: >
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.organization=yoest
+          -Dsonar.projectKey=yoest_calculator-cucumber
+          -Dsonar.branch.name=master
