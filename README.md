@@ -1,5 +1,5 @@
-Code quality: ![Maven Build](https://github.com/tommens/calculator-cucumber/actions/workflows/maven.yml/badge.svg)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6856a0f94d25446ca346cbc15a701d43)](https://www.codacy.com/gh/tommens/calculator-cucumber/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tommens/calculator-cucumber&amp;utm_campaign=Badge_Grade)
+Code quality: ![Maven Build](https://github.com/yoest/calculator-cucumber/actions/workflows/maven.yml/badge.svg)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=yoest_calculator-cucumber&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=yoest_calculator-cucumber)
 
 Test coverage: ![Coverage](.github/badges/jacoco.svg)
