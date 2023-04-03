@@ -39,6 +39,10 @@ public class Modulo extends Operation {
     	return op((BigInteger)l, (BigInteger)r);
   }
 
+  public long op(long l, long r){
+    throw new RuntimeException("Modulo: op(long, long) not implemented");
+  }
+
   /**
    * The actual computation of the (binary) arithmetic addition of two integers
    * @param l The first integer

@@ -39,15 +39,9 @@ public final class Divides extends Operation
    * @see Operation#Operation(List<Expression>,Notation)
    */
   public Divides(List<Expression> elist, Notation n) throws IllegalConstruction {
-	super(elist,n);
-	symbol = "/";
-	neutral = new BigInteger("1");
-  }
-
-  private void verify(BigDecimal l, BigDecimal r) throws IllegalConstruction {
-        if (r.compareTo(BigDecimal.ZERO) == 0) {
-            throw new IllegalConstruction("Division by zero");
-        }
+    super(elist,n);
+    symbol = "/";
+    neutral = new BigInteger("1");
   }
 
   /**
@@ -73,10 +67,22 @@ public final class Divides extends Operation
         else
             return (l.divide(r));
   }
-    public BigDecimal op(BigDecimal l, BigDecimal r){
-        if (r.equals(BigDecimal.ZERO))
-            throw new ArithmeticException("Division by zero");
-        else
-            return (l.divide(r, 10, RoundingMode.HALF_UP));
+    public BigDecimal op(BigDecimal l, BigDecimal r) {
+      if (r.equals(BigDecimal.ZERO))
+        throw new ArithmeticException("Division by zero");
+      else
+        return (l.divide(r, 10, RoundingMode.HALF_UP));
+    }
+
+    /**
+     * The actual computation of the (binary) arithmetic division of two times
+     * @param l The first time
+     * @param r The second time that should divide the first
+     * @return nothing because the division of two times cannot be done
+     */
+
+    public long op(long l, long r) {
+        throw new RuntimeException("Cannot use division with time");
+
     }
 }

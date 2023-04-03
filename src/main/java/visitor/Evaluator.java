@@ -3,6 +3,7 @@ package visitor;
 import calculator.Expression;
 import calculator.IllegalConstruction;
 import calculator.MyNumber;
+import calculator.MyTime;
 import calculator.Operation;
 
 import java.util.ArrayList;
@@ -32,11 +33,20 @@ public class Evaluator extends Visitor {
         computedValue = n.getValue();
     }
 
+    /** Cannot use this visitor to visit a time.
+     *
+     * @param t The time that cannot be visited
+     */
+    @Override
+    public void visit(MyTime t) {
+        throw new RuntimeException("Cannot use Evaluator with MyTime");
+    }
+
     /** Use the visitor design pattern to visit an operation
      *
      * @param o The operation being visited
      */
-    public void visit(Operation o) throws IllegalConstruction {
+    public void visit(Operation o) {
         ArrayList<Number> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
         for(Expression a:o.args) {

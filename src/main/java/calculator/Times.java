@@ -70,4 +70,18 @@ public final class Times extends Operation
    public BigDecimal op(BigDecimal l, BigDecimal r) {
               return (l.multiply(r));
    }
-}
+
+  public int op(int l, int r)
+    { return (l*r); }
+
+   /**
+    * The actual computation of the (binary) arithmetic multiplication of two times
+    * @param l The first time
+    * @param r The second time that should be multiplied with the first
+    * @return nothing because the multiplication of two times cannot be done
+    */
+     public long op(long l, long r) {
+       throw new RuntimeException("Cannot use multiplication with time");
+   }
+ }
+

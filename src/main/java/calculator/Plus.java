@@ -70,8 +70,19 @@ public final class Plus extends Operation
       * @param r second argument of the binary operation
       * @return result of computing the binary operation
       */
-     public BigDecimal op(BigDecimal l, BigDecimal r) {
-                return (l.add(r));
-     }
+   public BigDecimal op(BigDecimal l, BigDecimal r) {
+              return (l.add(r));
+   }
 
-}
+    /**
+    * The actual computation of the (binary) arithmetic addition of two time
+    * @param l The first time
+    * @param r The second time that should be added to the first
+    * @return The time that is the result of the addition
+    */
+   public long op(long l, long r) {
+       return (l + r);
+   }
+
+ }
+

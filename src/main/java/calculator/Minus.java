@@ -52,6 +52,7 @@ public final class Minus extends Operation
     	}
   }
 
+
   /**
    * The actual computation of the (binary) arithmetic subtraction of two integers
    * @param l The first integer
@@ -74,4 +75,17 @@ public final class Minus extends Operation
               return (l.subtract(r));
    }
 
-}
+
+   /**
+    * The actual computation of the (binary) arithmetic subtraction of two times
+    * @param l The first time
+    * @param r The second time that should be subtracted from the first
+    * @return The time that is the result of the subtraction
+    */
+
+   public long op(long l, long r) {
+       return (l - r);
+   }
+
+ }
+

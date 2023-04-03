@@ -16,7 +16,7 @@ public interface Expression {
     *
     * @param v The visitor object being passed as a parameter
     */
-   void accept(Visitor v) throws IllegalConstruction;
+   void accept(Visitor v);
 
    /**
     * Counts the depth of nested expressions in an arithmetic expression

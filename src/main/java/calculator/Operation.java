@@ -82,9 +82,17 @@ public abstract class Operation implements Expression
 	 * @param r	second argument of the binary operation
 	 * @return	result of computing the binary operation
 	 */
-
 	// the operation itself is specified in the subclasses
 	public abstract Number op(Number l, Number r);
+
+
+	/**
+	 * Abstract method representing the actual binary arithmetic operation to compute but for two times
+	 * @param l	 first argument of the binary operation
+	 * @param r	second argument of the binary operation
+	 * @return	result of computing the binary operation
+	 */
+	public abstract long op(long l, long r);
 
 
 	/** Add more parameters to the existing list of parameters
@@ -102,7 +110,7 @@ public abstract class Operation implements Expression
 	 *
 	 * @param v	The visitor object
 	 */
-  public void accept(Visitor v) throws IllegalConstruction {
+  public void accept(Visitor v) {
   	for(Expression a:args) { a.accept(v); }
   	v.visit(this);
   }
