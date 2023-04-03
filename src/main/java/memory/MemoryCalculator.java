@@ -38,8 +38,8 @@ public class MemoryCalculator extends Calculator {
     * @return the value of the expression
     */
    @Override
-    public int eval(Expression e) {
-        int res = super.eval(e);
+    public Number eval(Expression e) {
+        int res = (int) super.eval(e);
         Expression computed = new MyNumber(res);
         save(e, computed);
         return res;
@@ -50,7 +50,7 @@ public class MemoryCalculator extends Calculator {
      * @param e : the expression to be saved
      */
     public void save(Expression e) throws IOException {
-        Expression computed = new MyNumber(eval(e)) ;
+        Expression computed = new MyNumber((Integer) eval(e)) ;
         Snapshot snapshot = new Snapshot(e, computed);
         snapshot.store(generateName(), maxSize);
         caretaker.add(snapshot);
