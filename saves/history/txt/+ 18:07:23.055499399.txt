@@ -1,0 +1,8 @@
+For snapshot : memory.Snapshot@18769467
+The expression has a 2 and was saved under the name 118:07:22.953127944 at 18:07:23.026527231
+For snapshot : memory.Snapshot@22927a81
+The expression has a 3 and was saved under the name 218:07:23.026571711 at 18:07:23.026942749
+For snapshot : memory.Snapshot@22927a81
+The expression has a 3 and was saved under the name 218:07:23.026571711 at 18:07:23.026942749
+For snapshot : memory.Snapshot@78e03bb5
+The expression has a 12 and was saved under the name 418:07:23.028996561 at 18:07:23.037261651
