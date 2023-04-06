@@ -16,6 +16,7 @@ public class CalculatorGUI extends Application {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.setTitle("Calculator");
+        stage.setResizable(false);
         stage.show();
     }
 
