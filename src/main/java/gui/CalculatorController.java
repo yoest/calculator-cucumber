@@ -225,7 +225,7 @@ public class CalculatorController implements Initializable {
             calculatorField.positionCaret(0);
         });
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            //TODO: verify the expression (with parser)
+            //TODO: verify the expression (with calculatorParser)
             //TODO: evaluate the expression
             MyNumber res = new MyNumber("0"); //TODO: replace with the result of the expression
             resultField.setText(res.toString());
