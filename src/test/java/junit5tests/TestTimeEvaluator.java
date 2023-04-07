@@ -75,7 +75,7 @@ class TestTimeEvaluator {
 
             String expectedOutput = "The result of evaluating expression " + e + "\n" +
                     "is: \n" +
-                    "  - As date: 1970-01-01T19:00+01:00[Europe/Brussels]\n" +
+                    "  - As date: 1970-01-01T18:00Z[Etc/UTC]\n" +
                     "  - As a complete string: 0 days, 18 hours, 0 minutes and 0 seconds\n" +
                     "  - As days: 0.75 days\n" +
                     "  - As hours: 18.0 hours\n" +

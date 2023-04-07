@@ -46,7 +46,7 @@ public class TimeCalculator {
      */
     public ZonedDateTime getResultAsDate(long res) {
         Instant instant = Instant.ofEpochSecond(res);
-        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).atZone(ZoneId.systemDefault());
+        return LocalDateTime.ofInstant(instant, ZoneId.of("Etc/UTC")).atZone(ZoneId.of("Etc/UTC"));
     }
 
     /** Get the result as a complete string
