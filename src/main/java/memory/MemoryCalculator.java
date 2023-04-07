@@ -3,6 +3,7 @@ package memory;
 import calculator.*;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 
 import java.util.Stack;
@@ -39,7 +40,7 @@ public class MemoryCalculator extends Calculator {
     */
    @Override
     public Number eval(Expression e) {
-        int res = (int) super.eval(e);
+        int res = super.eval(e).intValue();
         Expression computed = new MyNumber(res);
         save(e, computed);
         return res;
