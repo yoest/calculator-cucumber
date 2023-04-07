@@ -5,6 +5,7 @@ import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -171,19 +172,29 @@ public abstract class Operation implements Expression
    */
   public final String toString(Notation n) {
 	   Stream<String> s = args.stream().map(Object::toString);
-	   return switch (n) {
-		   case INFIX -> "( " +
-				   s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2).get() +
-				   " )";
-		   case PREFIX -> symbol + " " +
-				   "(" +
-				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
-				   ")";
-		   case POSTFIX -> "(" +
-				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
-				   ")" +
-				   " " + symbol;
-	   };
+	   String content = "";
+
+	   switch (n) {
+		   case INFIX -> {
+			   Optional<String> item = s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2);
+			   if(item.isPresent())
+				   content = item.get();
+			   return "( " + content + " )";
+		   }
+		   case PREFIX -> {
+			   Optional<String> item = s.reduce((s1, s2) -> s1 + ", " + s2);
+			   if(item.isPresent())
+				   content = item.get();
+			   return symbol + " (" + content + ")";
+		   }
+		   case POSTFIX -> {
+			   Optional<String> item = s.reduce((s1, s2) -> s1 + ", " + s2);
+			   if(item.isPresent())
+				   content = item.get();
+			   return "(" + content + ") " + symbol;
+		   }
+		   default -> throw new RuntimeException("Notation " + n + " not defined.");
+	   }
   }
 
 	/**
