@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,6 +57,38 @@ class TestTimeEvaluator {
         } catch (IllegalConstruction e) {
             Assertions.fail();
         }
+    }
+
+    @Test
+    void testPrintToConsole() {
+        // Change the output of println
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream newOut = new ByteArrayOutputStream();
+
+        System.setOut(new PrintStream(newOut));
+
+        // Test the printing method
+        try {
+            List<Expression> params = Arrays.asList(MyTime.getAsHours("6:00"), MyTime.getAsHours("12:00"));
+            Expression e = new Plus(params);
+            calc.print(e);
+
+            String expectedOutput = "The result of evaluating expression " + e + "\n" +
+                    "is: \n" +
+                    "  - As date: 1970-01-01T19:00+01:00[Europe/Brussels]\n" +
+                    "  - As a complete string: 0 days, 18 hours, 0 minutes and 0 seconds\n" +
+                    "  - As days: 0.75 days\n" +
+                    "  - As hours: 18.0 hours\n" +
+                    "  - As minutes: 1080.0 minutes\n" +
+                    "  - As seconds: 64800 seconds\n";
+            assertEquals(expectedOutput, newOut.toString());
+        } catch (IllegalConstruction e) {
+            Assertions.fail();
+        }
+
+
+        // Restore the output of println
+        System.setOut(originalOut);
     }
 
 }
