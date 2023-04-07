@@ -1,0 +1,10 @@
+For snapshot : memory.Snapshot@64a294a6
+The expression is 2 has a value of 2 and was saved under the name 118:23:12.170196901 at 18:23:12.235908282
+For snapshot : memory.Snapshot@7e0b37bc
+The expression is 3 has a value of 3 and was saved under the name 218:23:12.235962892 at 18:23:12.236335271
+For snapshot : memory.Snapshot@7e0b37bc
+The expression is 3 has a value of 3 and was saved under the name 218:23:12.235962892 at 18:23:12.236335271
+For snapshot : memory.Snapshot@3b95a09c
+The expression is + (3, 4, 5) has a value of 12 and was saved under the name 418:23:12.238412910 at 18:23:12.247139693
+For snapshot : memory.Snapshot@7fbe847c
+The expression is (( 3 + 4 + 5 ), 5) / has a value of 2 and was saved under the name 518:23:12.268635785 at 18:23:12.270551909
