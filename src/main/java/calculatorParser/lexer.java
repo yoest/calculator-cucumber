@@ -5,13 +5,6 @@
 package calculatorParser;
 import java_cup.runtime.Symbol;
 
-/**
- * A simple lexer/parser for basic arithmetic expressions.
- *
- * @author Régis Décamps
- */
-
-
 @SuppressWarnings("fallthrough")
 public class lexer implements java_cup.runtime.Scanner {
 
@@ -69,7 +62,8 @@ public class lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\0\1\1\1\3\22\0\1\1"+
-    "\7\0\1\4\1\5\1\6\1\7\4\0\12\10\u01c6\0";
+    "\4\0\1\4\2\0\1\5\1\6\1\7\1\10\1\0"+
+    "\1\11\1\0\1\12\1\13\1\14\10\13\u01c6\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
@@ -96,10 +90,11 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\2\1\1\2\1\3\1\4\1\5\1\6";
+    "\1\0\2\1\1\2\1\3\1\4\1\5\1\6\1\7"+
+    "\1\10\1\11\1\0\1\12";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[8];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -124,10 +119,11 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\11\0\22\0\11\0\11\0\11\0\11\0\33";
+    "\0\0\0\15\0\32\0\47\0\15\0\15\0\15\0\15"+
+    "\0\15\0\15\0\64\0\101\0\15";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[8];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -151,10 +147,11 @@ public class lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\0\2\2\1\3\1\4\1\5\1\6\1\7\1\10"+
-    "\13\0\1\2\16\0\1\10";
+    "\1\11\1\12\2\13\17\0\1\2\23\0\1\14\16\0"+
+    "\2\13\14\0\1\15";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[36];
+    int [] result = new int[78];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -197,10 +194,10 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\4\11\1\1";
+    "\1\0\1\11\2\1\6\11\1\1\1\0\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[8];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -662,32 +659,52 @@ public class lexer implements java_cup.runtime.Scanner {
             { /* do nothing with space */
             }
           // fall through
-          case 7: break;
-          case 2:
-            { return symbol(sym.LPAR);
-            }
-          // fall through
-          case 8: break;
-          case 3:
-            { return symbol(sym.RPAR);
-            }
-          // fall through
-          case 9: break;
-          case 4:
-            { return symbol(sym.MULTIPLY);
-            }
-          // fall through
-          case 10: break;
-          case 5:
-            { return symbol(sym.PLUS);
-            }
-          // fall through
           case 11: break;
-          case 6:
-            { return symbol(sym.NUMBER, Integer.parseInt(yytext()));
+          case 2:
+            { return symbol(sym.MODULO);
             }
           // fall through
           case 12: break;
+          case 3:
+            { return symbol(sym.LPAREN);
+            }
+          // fall through
+          case 13: break;
+          case 4:
+            { return symbol(sym.RPAREN);
+            }
+          // fall through
+          case 14: break;
+          case 5:
+            { return symbol(sym.TIMES);
+            }
+          // fall through
+          case 15: break;
+          case 6:
+            { return symbol(sym.PLUS);
+            }
+          // fall through
+          case 16: break;
+          case 7:
+            { return symbol(sym.MINUS);
+            }
+          // fall through
+          case 17: break;
+          case 8:
+            { return symbol(sym.DIVIDE);
+            }
+          // fall through
+          case 18: break;
+          case 9:
+            { return symbol(sym.NUMBER, yytext());
+            }
+          // fall through
+          case 19: break;
+          case 10:
+            { return symbol(sym.INVERSEMODULO);
+            }
+          // fall through
+          case 20: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

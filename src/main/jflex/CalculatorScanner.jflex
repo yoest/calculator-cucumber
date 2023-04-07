@@ -1,12 +1,5 @@
 package calculatorParser;
 import java_cup.runtime.Symbol;
-
-/**
- * A simple lexer/parser for basic arithmetic expressions.
- *
- * @author Régis Décamps
- */
-
 %%
 
 
@@ -29,7 +22,7 @@ import java_cup.runtime.Symbol;
     }
 %}
 
-// A (integer) number is a sequence of digits.
+// A string number is a sequence of digits.
 Number         = [0-9]+
 
 // A line terminator is a \r (carriage return), \n (line feed), or \r\n. */
@@ -50,13 +43,17 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
     /* Create a new parser symbol for the lexem. */
     "+"                { return symbol(sym.PLUS); }
-    "*"                { return symbol(sym.MULTIPLY); }
-    "("                { return symbol(sym.LPAR); }
-    ")"                { return symbol(sym.RPAR); }
+    "*"                { return symbol(sym.TIMES); }
+    "-"                { return symbol(sym.MINUS); }
+    "/"                { return symbol(sym.DIVIDE); }
+    "%"                { return symbol(sym.MODULO); }
+    "%-1"              { return symbol(sym.INVERSEMODULO); }
+    "("                { return symbol(sym.LPAREN); }
+    ")"                { return symbol(sym.RPAREN); }
 
     // If an integer is found, return the token NUMBER that represents an integer and the value of
     // the integer that is held in the string yytext
-    {Number}           { return symbol(sym.NUMBER, Integer.parseInt(yytext())); }
+    {Number}           { return symbol(sym.NUMBER, yytext()); }
 
     /* Don't do anything if whitespace is found */
     {WhiteSpace}       { /* do nothing with space */ }
