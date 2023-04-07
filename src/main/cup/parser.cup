@@ -24,9 +24,7 @@ non terminal Expression multiply_expr;
 non terminal Expression term;
 non terminal Expression factor;
 
-precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE;
-precedence left MODULO, INVERSEMODULO;
 
 
 expr ::= expr:e1 PLUS term:t1 {:
