@@ -30,6 +30,7 @@ unit_converter\MassConverter$MassUnits.class
 unit_converter\TemperatureConverter$TemperatureUnits.class
 integerArithmetics\Modulo.class
 calculator\Operation$1.class
+gui\CalculatorController.class
 gui\CalculatorGUI.class
 unit_converter\TimeConverter.class
 unit_converter\CurrencyConverter.class

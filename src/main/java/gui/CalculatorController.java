@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CalculatorController implements Initializable {
@@ -142,14 +143,26 @@ public class CalculatorController implements Initializable {
 
     private String currentMode = MODES[0];
 
-    private final Button[] OPERATORS_BUTTONS = {plusButton, minusButton, multiplyButton, divButton, moduloButton, reverseModuloButton, degButton, radianButton};
+    private final ArrayList<Button> OPERATORS_BUTTONS = new ArrayList<>();
 
-    private final Button[] NUMBER_BUTTONS = {button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, lastValueButton};
-    private final Button[] MARK_BUTTONS = {openMarkButton, closeMarkButton};
+    private final ArrayList<Button> NUMBER_BUTTONS = new ArrayList<>();
+    private final ArrayList<Button> MARK_BUTTONS = new ArrayList<>();
 
-    private final Button[] ARROW_BUTTONS = {leftButton, rightButton};
+    private final ArrayList<Button> ARROW_BUTTONS = new ArrayList<>();
 
-    private final Button[] ALL_BUTTONS = {button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, plusButton, minusButton, multiplyButton, divButton, moduloButton, reverseModuloButton, degButton, radianButton, openMarkButton, closeMarkButton, quoteButton, eButton, buttonEval, resetButton, lastValueButton, leftButton, rightButton};
+    private final ArrayList<Button> ALL_BUTTONS = new ArrayList<>();
+
+    private int caretCache = 1;
+
+
+    private void disignFieldInput() {
+        calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));
+        calculatorField.setText(calculatorField.getText(0, caretCache-1) + "|" + calculatorField.getText(caretCache-1, calculatorField.getText().length()));
+    }
+
+    public String getResults() {
+        return resultField.getText().replaceAll("\\|", "");
+    }
 
     /**
      * initialize all buttons
@@ -157,104 +170,151 @@ public class CalculatorController implements Initializable {
      * add listener to calculatorField
      */
     private void initializeButton() {
+        calculatorField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));
+            }
+            else if (calculatorField.getCaretPosition() != 0) {
+                caretCache = calculatorField.getCaretPosition() +1;
+                disignFieldInput();
+            }
+            else
+            {
+                caretCache = 1;
+                disignFieldInput();
+            }
+        });
         lastValueButton.setDisable(true);
         for (Button button : NUMBER_BUTTONS) {
             button.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-                calculatorField.insertText(calculatorField.getCaretPosition(), button.getText());
+                calculatorField.insertText(caretCache, button.getText());
+                caretCache++;
+                disignFieldInput();
             });
         }
         for (Button button : ARROW_BUTTONS) {
             button.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
                 if (button.equals(leftButton))
                 {
-                    if (calculatorField.getCaretPosition() > 0)
+                    if (caretCache-1 > 0)
                     {
-                        calculatorField.positionCaret(calculatorField.getCaretPosition() - 1);
+                        calculatorField.positionCaret(caretCache - 1);
+                        caretCache--;
+                        disignFieldInput();
                     }
                 }
                 else if (button.equals(rightButton))
                 {
-                    if (calculatorField.getCaretPosition() < calculatorField.getText().length())
+                    if (caretCache < calculatorField.getText().length())
                     {
-                        calculatorField.positionCaret(calculatorField.getCaretPosition() + 1);
+                        calculatorField.positionCaret(caretCache + 1);
+                        caretCache++;
+                        disignFieldInput();
                     }
                 }
             });
         }
         for (Button button : OPERATORS_BUTTONS) {
             button.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-                if (currentMode.equals(MODES[0]))
-                {
-                    calculatorField.insertText(calculatorField.getCaretPosition(), button.getText() + "(");
-
-                }
-                else if (currentMode.equals(MODES[1]))
-                {
-                    calculatorField.insertText(calculatorField.getCaretPosition(), button.getText());
-                }
-                else if (currentMode.equals(MODES[2]))
-                {
-                    calculatorField.insertText(calculatorField.getCaretPosition(), ")" + button.getText());
-                }
+                calculatorField.insertText(caretCache, button.getText());
+                caretCache++;
+                disignFieldInput();
             });
         }
         for (Button button : MARK_BUTTONS) {
             button.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-                calculatorField.insertText(calculatorField.getCaretPosition(), button.getText());
+                calculatorField.insertText(caretCache, button.getText());
+                caretCache++;
+                disignFieldInput();
             });
         }
         eButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            if (currentMode.equals(MODES[0]))
-            {
-                calculatorField.insertText(calculatorField.getCaretPosition(), "e(");
-            }
-            else if (currentMode.equals(MODES[1]))
-            {
-                calculatorField.insertText(calculatorField.getCaretPosition(), "e");
-            }
-            else if (currentMode.equals(MODES[2]))
-            {
-                calculatorField.insertText(calculatorField.getCaretPosition(), ")e");
-            }
+            calculatorField.insertText(caretCache, "e");
+            caretCache++;
+            disignFieldInput();
         });
         quoteButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            calculatorField.insertText(calculatorField.getCaretPosition(), ".");
+            calculatorField.insertText(caretCache, ".");
+            caretCache++;
+            disignFieldInput();
         });
         resetButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            calculatorField.setText("");
-            calculatorField.positionCaret(0);
+            calculatorField.setText("|");
+            caretCache = 1;
+        });
+        lastValueButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            calculatorField.insertText(caretCache, lastValue.toString());
+            caretCache += lastValue.toString().length();
+            disignFieldInput();
         });
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            //TODO: verify the expression (with parser)
+            //TODO: verify the expression (with parser) and construct the expression
             //TODO: evaluate the expression
             MyNumber res = new MyNumber("0"); //TODO: replace with the result of the expression
             resultField.setText(res.toString());
             lastValue = res;
-            addHistory(calculatorField.getText(), res.toString());
+            addHistory(getResults(), res.toString());
             lastValueButton.setDisable(false);
         });
     }
     private void addHistory(String expression, String result) {
         historyListView.getItems().add(expression + " = " + result);
     }
+
+    private void initializeArray() {
+        OPERATORS_BUTTONS.add(plusButton);
+        OPERATORS_BUTTONS.add(minusButton);
+        OPERATORS_BUTTONS.add(multiplyButton);
+        OPERATORS_BUTTONS.add(divButton);
+        OPERATORS_BUTTONS.add(moduloButton);
+        OPERATORS_BUTTONS.add(reverseModuloButton);
+        NUMBER_BUTTONS.add(button0);
+        NUMBER_BUTTONS.add(button1);
+        NUMBER_BUTTONS.add(button2);
+        NUMBER_BUTTONS.add(button3);
+        NUMBER_BUTTONS.add(button4);
+        NUMBER_BUTTONS.add(button5);
+        NUMBER_BUTTONS.add(button6);
+        NUMBER_BUTTONS.add(button7);
+        NUMBER_BUTTONS.add(button8);
+        NUMBER_BUTTONS.add(button9);
+        NUMBER_BUTTONS.add(lastValueButton);
+        MARK_BUTTONS.add(openMarkButton);
+        MARK_BUTTONS.add(closeMarkButton);
+        ARROW_BUTTONS.add(leftButton);
+        ARROW_BUTTONS.add(rightButton);
+        ALL_BUTTONS.addAll(OPERATORS_BUTTONS);
+        ALL_BUTTONS.addAll(NUMBER_BUTTONS);
+        ALL_BUTTONS.addAll(MARK_BUTTONS);
+        ALL_BUTTONS.addAll(ARROW_BUTTONS);
+        ALL_BUTTONS.add(eButton);
+        ALL_BUTTONS.add(quoteButton);
+        ALL_BUTTONS.add(resetButton);
+        ALL_BUTTONS.add(buttonEval);
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeArray();
         quoteButton.setDisable(true);
         buttonEval.setDisable(true);
         initializeButton();
+        calculatorField.setText("|");
         //add listener to calculatorField
         calculatorField.textProperty().addListener((observableValue, s, t1) -> {
+            //if there are too many characters | in calculatorField, remove them
+            if (t1.length() - t1.replace("|", "").length() > 1) {
+                disignFieldInput();
+            }
             //if there is a character in calculatorField does not match any of the following characters, remove it
-            if (!t1.matches("[0-9+\\-*/()\\s]*")) {
-                calculatorField.setText(t1.replaceAll("[^0-9+\\-*/()\\s]", ""));
+            if (!t1.matches("[0-9\\|.eEX%$+\\-*/()\\s]*")) {
+                calculatorField.setText(t1.replaceAll("[^0-9\\|.eEX%$+\\-*/()\\s]", ""));
             }
-            //if the number of open marks is greater than the number of close marks, disable closeMarkButton
-            if (t1.length() - t1.replace("(", "").length() > t1.length() - t1.replace(")", "").length()) {
-                closeMarkButton.setDisable(true);
-            } else {
-                closeMarkButton.setDisable(false);
+            String lastChar = "";
+            if (caretCache - 2 >= 0) {
+                lastChar = t1.substring(caretCache - 2, caretCache-1);
             }
-            String lastChar = t1.substring(t1.length() - 1);
             //switch case to disable buttons when necessary to avoid errors
             switch (lastChar) {
                 case "+":
@@ -277,7 +337,6 @@ public class CalculatorController implements Initializable {
                         button.setDisable(true);
                     }
                     quoteButton.setDisable(false);
-
                 case "(":
                     quoteButton.setDisable(true);
                 case ")":

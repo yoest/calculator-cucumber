@@ -49,7 +49,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainWindow" prefHeight="699.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="mainWindow" prefHeight="699.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CalculatorController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -65,11 +65,10 @@
                     <items>
                         <Menu mnemonicParsing="false" text="Decimal">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem fx:id="decimal10Button" mnemonicParsing="false" text="Scale 10" />
+                              <MenuItem fx:id="decimalOtherButton" mnemonicParsing="false" text="Other scale" />
                           </items>
                         </Menu>
-                        <MenuItem fx:id="decimal10Button" mnemonicParsing="false" text="Scale 10" />
-                        <MenuItem fx:id="decimalOtherButton" mnemonicParsing="false" text="Other scale" />
                         <Menu mnemonicParsing="false" text="Integer">
                           <items>
                             <MenuItem fx:id="int10Button" mnemonicParsing="false" text="Radix 10" />
@@ -144,7 +143,7 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="reverseModuloButton" layoutX="102.0" layoutY="526.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="\%-1">
+                        <Button fx:id="reverseModuloButton" layoutX="102.0" layoutY="526.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="\$">
                            <font>
                               <Font size="15.0" />
                            </font>
