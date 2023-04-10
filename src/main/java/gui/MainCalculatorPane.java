@@ -1,6 +1,5 @@
 package gui;
 
-import calculator.Expression;
 import calculator.MyNumber;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,9 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class CalculatorController implements Initializable {
-
-    private MyNumber lastValue = null;
+public class MainCalculatorPane extends ContentPane implements Initializable {
 
     @FXML
     private MenuItem autoSaveButton;
@@ -139,20 +137,29 @@ public class CalculatorController implements Initializable {
     @FXML
     private VBox mainWindow;
 
+    private MyNumber lastValue = null;
     private final String[] MODES = {"PREFFIX", "INFIX", "POSTFIX"};
-
     private String currentMode = MODES[0];
 
     private final ArrayList<Button> OPERATORS_BUTTONS = new ArrayList<>();
-
     private final ArrayList<Button> NUMBER_BUTTONS = new ArrayList<>();
     private final ArrayList<Button> MARK_BUTTONS = new ArrayList<>();
-
     private final ArrayList<Button> ARROW_BUTTONS = new ArrayList<>();
-
     private final ArrayList<Button> ALL_BUTTONS = new ArrayList<>();
 
     private int caretCache = 1;
+
+    private final boolean IS_INTEGER_MODE;
+
+    public MainCalculatorPane(boolean isIntegerMode) {
+        IS_INTEGER_MODE = isIntegerMode;
+    }
+
+
+    @Override
+    public AnchorPane start() {
+        return super.initController("/main_calculator.fxml");
+    }
 
 
     private void disignFieldInput() {

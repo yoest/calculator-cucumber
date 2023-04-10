@@ -12,7 +12,7 @@ import java.io.File;
 public class CalculatorGUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader((new File("src/main/resources/calculator.fxml" ).toURI().toURL()));
+        FXMLLoader loader = new FXMLLoader((new File("src/main/resources/menu.fxml" ).toURI().toURL()));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.setTitle("Calculator");
