@@ -7,7 +7,7 @@ import calculator.Expression;
 public class ParserMain {
     public static void main(String[] argv) throws Exception{
         try {
-            parser p = new parser(new lexer(new java.io.StringReader("/ + 1 1 2 4")));
+            parser p = new parser(new lexer(new java.io.StringReader("3 3 (1 1 +) + *")));
             Object result = p.parse().value;
             Expression e = (Expression) result;
             Calculator c = new Calculator();

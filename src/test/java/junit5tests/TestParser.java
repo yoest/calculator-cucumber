@@ -160,6 +160,32 @@ public class TestParser {
   }
 
   @Test
+  void testPostFixParenthesisSimple() {
+    try {
+      String input = "( 1 1 +)";
+      parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = p.parse().value;
+      Expression e = (Expression) result;
+      assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void testPostFixParenthesisComplex() {
+    try {
+      String input = "(10 (4 3 ( 1 1 +) * +) -)";
+      parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = p.parse().value;
+      Expression e = (Expression) result;
+      assertEquals(new BigInteger(String.valueOf(0)), calc.eval(e));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
   void testMultipleNotation() {
     try {
       String input = "1 1 + 2 *";

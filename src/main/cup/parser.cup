@@ -90,7 +90,9 @@ expr_post ::= NUMBER:n factor_post:f1 PLUS {:
        | NUMBER:n factor_post:f1 DIVIDE {:
         List<Expression> params = new ArrayList<>();
         Collections.addAll(params, new MyNumber(n, 10), f1);
-        RESULT = new Divides(params, Notation.POSTFIX); :};
+        RESULT = new Divides(params, Notation.POSTFIX); :}
+       | LPAREN expr_post:e RPAREN {:
+            RESULT = e; :};
 
 
 factor_post ::= NUMBER:n  {:
