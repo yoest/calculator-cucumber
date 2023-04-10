@@ -42,6 +42,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" layoutX="120.0" prefHeight="-1.0" prefWidth="-1.0">
@@ -117,7 +119,18 @@
                         </Button>
                         <Button fx:id="rightButton" layoutX="350.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="=&gt;" />
                         <Button fx:id="leftButton" layoutX="350.0" layoutY="237.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="&lt;=" />
-                        <ChoiceBox layoutX="27.0" layoutY="542.0" prefHeight="39.0" prefWidth="373.0" />
+                        <ChoiceBox fx:id="resultChoice" layoutX="27.0" layoutY="542.0" prefHeight="39.0" prefWidth="373.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="As date" />
+                                 <String fx:value="As complete string" />
+                                 <String fx:value="As days" />
+                                 <String fx:value="As hours" />
+                                 <String fx:value="As minutes" />
+                                 <String fx:value="As seconds" />
+                              </FXCollections>
+                           </items>
+                        </ChoiceBox>
                      </children>
                   </AnchorPane>
                </content>
