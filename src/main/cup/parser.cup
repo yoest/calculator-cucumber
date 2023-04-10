@@ -20,36 +20,108 @@ terminal INVERSEMODULO;
 terminal String NUMBER;
 
 non terminal Expression expr;
-non terminal Expression multiply_expr;
-non terminal Expression term;
-non terminal Expression factor;
+non terminal Expression infix;
+non terminal Expression postfix;
+non terminal Expression prefix;
+non terminal Expression expr_in;
+non terminal Expression expr_post;
+non terminal Expression expr_pre;
+non terminal Expression term_in;
+non terminal Expression term_post;
+non terminal Expression term_pre;
+non terminal Expression factor_in;
+non terminal Expression factor_post;
+non terminal Expression factor_pre;
 
 precedence left TIMES, DIVIDE;
 
+expr ::= infix:e {:
+            RESULT = e; :}
+        |postfix:e {:
+            RESULT = e; :}
+        |prefix:e {:
+            RESULT = e; :};
 
-expr ::= expr:e1 PLUS term:t1 {:
+infix ::= expr_in:e {:
+            RESULT = e; :};
+
+expr_in ::= expr_in:e1 PLUS term_in:t1 {:
             List<Expression> params = new ArrayList<>();
             Collections.addAll(params, e1, t1);
             RESULT = new Plus(params, Notation.INFIX); :}
-       | expr:e1 MINUS term:t1 {:
+       | expr_in:e1 MINUS term_in:t1 {:
              List<Expression> params = new ArrayList<>();
              Collections.addAll(params, e1, t1);
              RESULT = new Minus(params, Notation.INFIX); :}
-       | term:t1 {:
+       | term_in:t1 {:
              RESULT = t1; :};
 
-term ::= term:t1 TIMES factor:f1 {:
+term_in ::= term_in:t1 TIMES factor_in:f1 {:
             List<Expression> params = new ArrayList<>();
             Collections.addAll(params, t1, f1);
             RESULT = new Times(params, Notation.INFIX); :}
-       | term:t1 DIVIDE factor:f1 {:
+       | term_in:t1 DIVIDE factor_in:f1 {:
             List<Expression> params = new ArrayList<>();
             Collections.addAll(params, t1, f1);
             RESULT = new Divides(params, Notation.INFIX); :}
-       | factor:f1 {:
+       | factor_in:f1 {:
             RESULT = f1; :};
 
-factor ::= NUMBER:n  {:
+factor_in ::= NUMBER:n  {:
             RESULT = new MyNumber(n, 10); :}
-          | LPAREN expr:e RPAREN {:
+          | LPAREN expr_in:e RPAREN {:
             RESULT = e; :};
+
+postfix ::= expr_post:e {:
+            RESULT = e; :};
+
+expr_post ::= NUMBER:n factor_post:f1 PLUS {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, new MyNumber(n, 10), f1);
+            RESULT = new Plus(params, Notation.POSTFIX); :}
+       |NUMBER:n factor_post:f1 MINUS {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, new MyNumber(n, 10), f1);
+            RESULT = new Minus(params, Notation.POSTFIX); :}
+       |NUMBER:n factor_post:f1 TIMES {:
+        List<Expression> params = new ArrayList<>();
+        Collections.addAll(params, new MyNumber(n, 10), f1);
+        RESULT = new Times(params, Notation.POSTFIX); :}
+       | NUMBER:n factor_post:f1 DIVIDE {:
+        List<Expression> params = new ArrayList<>();
+        Collections.addAll(params, new MyNumber(n, 10), f1);
+        RESULT = new Divides(params, Notation.POSTFIX); :};
+
+
+factor_post ::= NUMBER:n  {:
+            RESULT = new MyNumber(n, 10); :}
+          | expr_post:e {:
+            RESULT = e; :};
+
+prefix ::= expr_pre:e {:
+            RESULT = e; :};
+
+expr_pre ::= PLUS factor_pre:f1 NUMBER:n {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, f1, new MyNumber(n, 10));
+            RESULT = new Plus(params, Notation.PREFIX); :}
+       | MINUS factor_pre:f1 NUMBER:n {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, f1, new MyNumber(n, 10));
+            RESULT = new Minus(params, Notation.PREFIX); :}
+       | TIMES factor_pre:f1 NUMBER:n {:
+        List<Expression> params = new ArrayList<>();
+        Collections.addAll(params, f1, new MyNumber(n, 10));
+        RESULT = new Times(params, Notation.PREFIX); :}
+       | DIVIDE factor_pre:f1 NUMBER:n {:
+        List<Expression> params = new ArrayList<>();
+        Collections.addAll(params, f1, new MyNumber(n, 10));
+        RESULT = new Divides(params, Notation.PREFIX); :};
+
+factor_pre ::= NUMBER:n  {:
+            RESULT = new MyNumber(n, 10); :}
+          | expr_pre:e {:
+            RESULT = e; :};
+
+
+
