@@ -115,6 +115,14 @@ public class TestParser {
     assertEquals(new BigInteger(String.valueOf(11)), calc.eval(e));
   }
 
+  @Test
+  void testPreFixParenthesisComplex2() throws Exception {
+    String input = "+ 1 (* 2 5)";
+    parser p = new parser(new lexer(new java.io.StringReader(input)));
+    Object result = p.parse().value;
+    Expression e = (Expression) result;
+    assertEquals(new BigInteger(String.valueOf(11)), calc.eval(e));
+  }
 
   @Test
   void testPostFixSimple() throws Exception {
@@ -150,6 +158,15 @@ public class TestParser {
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(0)), calc.eval(e));
+  }
+
+  @Test
+  void testPostFixParenthesisComplex2() throws Exception {
+    String input = "( ( 1 1 +) 2 -)";
+    parser p = new parser(new lexer(new java.io.StringReader(input)));
+    Object result = p.parse().value;
+    Expression e = (Expression) result;
+    assertEquals(new BigInteger(String.valueOf(0)), calc.eval(e));
   }
 
   @Test

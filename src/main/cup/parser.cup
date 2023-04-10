@@ -75,25 +75,29 @@ factor_in ::= NUMBER:n  {:
 postfix ::= expr_post:e {:
             RESULT = e; :};
 
-expr_post ::= NUMBER:n factor_post:f1 PLUS {:
+expr_post ::= term_post:t1 factor_post:f1 PLUS {:
             List<Expression> params = new ArrayList<>();
-            Collections.addAll(params, new MyNumber(n, 10), f1);
+            Collections.addAll(params, t1, f1);
             RESULT = new Plus(params, Notation.POSTFIX); :}
-       |NUMBER:n factor_post:f1 MINUS {:
+       |term_post:t1 factor_post:f1 MINUS {:
             List<Expression> params = new ArrayList<>();
-            Collections.addAll(params, new MyNumber(n, 10), f1);
+            Collections.addAll(params,t1, f1);
             RESULT = new Minus(params, Notation.POSTFIX); :}
-       |NUMBER:n factor_post:f1 TIMES {:
+       |term_post:t1 factor_post:f1 TIMES {:
         List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, new MyNumber(n, 10), f1);
+        Collections.addAll(params, t1, f1);
         RESULT = new Times(params, Notation.POSTFIX); :}
-       | NUMBER:n factor_post:f1 DIVIDE {:
+       |term_post:t1 factor_post:f1 DIVIDE {:
         List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, new MyNumber(n, 10), f1);
+        Collections.addAll(params, t1, f1);
         RESULT = new Divides(params, Notation.POSTFIX); :}
        | LPAREN expr_post:e RPAREN {:
             RESULT = e; :};
 
+term_post ::= NUMBER:n {:
+            RESULT = new MyNumber(n, 10); :}
+       | LPAREN expr_post:e RPAREN {:
+            RESULT = e; :};
 
 factor_post ::= NUMBER:n  {:
             RESULT = new MyNumber(n, 10); :}
@@ -103,22 +107,27 @@ factor_post ::= NUMBER:n  {:
 prefix ::= expr_pre:e {:
             RESULT = e; :};
 
-expr_pre ::= PLUS factor_pre:f1 NUMBER:n {:
+expr_pre ::= PLUS factor_pre:f1 term_pre:t1 {:
             List<Expression> params = new ArrayList<>();
-            Collections.addAll(params, f1, new MyNumber(n, 10));
+            Collections.addAll(params, f1, t1);
             RESULT = new Plus(params, Notation.PREFIX); :}
-       | MINUS factor_pre:f1 NUMBER:n {:
+       | MINUS factor_pre:f1 term_pre:t1 {:
             List<Expression> params = new ArrayList<>();
-            Collections.addAll(params, f1, new MyNumber(n, 10));
+            Collections.addAll(params, f1, t1);
             RESULT = new Minus(params, Notation.PREFIX); :}
-       | TIMES factor_pre:f1 NUMBER:n {:
+       | TIMES factor_pre:f1 term_pre:t1 {:
         List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, f1, new MyNumber(n, 10));
+        Collections.addAll(params, f1, t1);
         RESULT = new Times(params, Notation.PREFIX); :}
-       | DIVIDE factor_pre:f1 NUMBER:n {:
+       | DIVIDE factor_pre:f1 term_pre:t1 {:
         List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, f1, new MyNumber(n, 10));
+        Collections.addAll(params, f1, t1);
         RESULT = new Divides(params, Notation.PREFIX); :}
+       | LPAREN expr_pre:e RPAREN {:
+            RESULT = e; :};
+
+term_pre ::= NUMBER:n {:
+            RESULT = new MyNumber(n, 10); :}
        | LPAREN expr_pre:e RPAREN {:
             RESULT = e; :};
 
