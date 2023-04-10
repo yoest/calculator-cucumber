@@ -94,6 +94,9 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
     private Button lastValueButton;
 
     @FXML
+    private Button spaceButton;
+
+    @FXML
     private TextField resultField;
 
     @FXML
@@ -123,6 +126,7 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
         for(Button button : CHAR_BUTTONS)
             button.setDisable(true);
         buttonEval.setDisable(true);
+        spaceButton.setDisable(true);
 
         initializeCalculatorFieldFocusedProperty();
         initializeButton();
@@ -134,8 +138,9 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
 
     /** Add a bar into the field input if the buttons are used. */
     private void designFieldInput() {
-        calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));
-        calculatorField.setText(calculatorField.getText(0, caretCache - 1) + "|" + calculatorField.getText(caretCache - 1, calculatorField.getText().length()));
+        String updatedText = calculatorField.getText().replaceAll("\\|", "");
+        updatedText = updatedText.substring(0, caretCache - 1) + "|" + updatedText.substring(caretCache - 1);
+        calculatorField.setText(updatedText);
     }
 
     /** Get the resulting expression without the added bar.
@@ -191,12 +196,14 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
                     for (Button button : CHAR_BUTTONS) {
                         button.setDisable(true);
                     }
+                    spaceButton.setDisable(false);
                 }
                 case "M", "A", "P", ":" -> {
                     for (Button button : CHAR_BUTTONS) {
                         button.setDisable(true);
                     }
                 }
+                case " " -> spaceButton.setDisable(true);
                 default -> {
                     for (Button button : ALL_BUTTONS) {
                         button.setDisable(false);
@@ -218,6 +225,7 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
         initializeButtonWithValue(doublePointButton, ":", 1);
         initializeButtonWithValue(amButton, "AM", 2);
         initializeButtonWithValue(pmButton, "PM", 2);
+        initializeButtonWithValue(spaceButton, " ", 1);
 
         resetButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
             calculatorField.setText("|");
@@ -313,6 +321,6 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
 
         for(List<Button> buttonsList : Arrays.asList(OPERATORS_BUTTONS, NUMBER_BUTTONS, MARK_BUTTONS, ARROW_BUTTONS, CHAR_BUTTONS))
             ALL_BUTTONS.addAll(buttonsList);
-        ALL_BUTTONS.addAll(Arrays.asList(doublePointButton, resetButton, buttonEval));
+        ALL_BUTTONS.addAll(Arrays.asList(doublePointButton, resetButton, buttonEval, spaceButton));
     }
 }
