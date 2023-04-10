@@ -17,183 +17,146 @@ public class TestParser {
     calc = new Calculator();
   }
   @Test
-  void testParserSimpleAddition() {
-    try {
+  void testParserSimpleAddition() throws Exception {
       String input = "1+1";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testParserSimpleMinus() {
-    try {
+  void testParserSimpleMinus() throws Exception {
       String input = "5-4";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(1)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testParserSimpleTimes() {
-    try {
+  void testParserSimpleTimes() throws Exception {
       String input = "10*10";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(100)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testParserSimpleDivide() {
-    try {
+  void testParserSimpleDivide() throws Exception {
       String input = "4/2";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testParserPriority() {
-    try {
+  void testParserPriority() throws Exception {
       String input = "1+4/2";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(3)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testParserComplex() {
-    try {
+  void testParserComplex() throws Exception {
       String input = "((1+2)*6)/(2*3)";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(3)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
-    @Test
-    void testParserParenthesis() {
-      try {
-        String input = "(2+4)/3";
-        parser p = new parser(new lexer(new java.io.StringReader(input)));
-        Object result = p.parse().value;
-        Expression e = (Expression) result;
-        assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    @Test
-    void testPreFixSimple(){
-      try{
-        String input = "/ 4 2";
-        parser p = new parser(new lexer(new java.io.StringReader(input)));
-        Object result = p.parse().value;
-        Expression e = (Expression) result;
-        assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-     @Test
-      void testPreFixComposed() {
-        try {
-          String input = "* + 1 1 2";
-          parser p = new parser(new lexer(new java.io.StringReader(input)));
-          Object result = p.parse().value;
-          Expression e = (Expression) result;
-          assertEquals(new BigInteger(String.valueOf(4)), calc.eval(e));
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
+  @Test
+  void testParserParenthesis() throws Exception {
+      String input = "(2+4)/3";
+      parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = p.parse().value;
+      Expression e = (Expression) result;
+      assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
+  }
 
   @Test
-  void testPostFixSimple() {
-    try {
+  void testPreFixSimple() throws Exception {
+      String input = "/ 4 2";
+      parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = p.parse().value;
+      Expression e = (Expression) result;
+      assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
+  }
+
+   @Test
+    void testPreFixComposed() throws Exception {
+        String input = "* + 1 1 2";
+        parser p = new parser(new lexer(new java.io.StringReader(input)));
+        Object result = p.parse().value;
+        Expression e = (Expression) result;
+        assertEquals(new BigInteger(String.valueOf(4)), calc.eval(e));
+    }
+
+  @Test
+  void testPreFixParenthesisSimple() throws Exception {
+      String input = "(* 2 5)";
+      parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = p.parse().value;
+      Expression e = (Expression) result;
+      assertEquals(new BigInteger(String.valueOf(10)), calc.eval(e));
+  }
+
+  @Test
+  void testPreFixParenthesisComplex1() throws Exception {
+    String input = "+ (* 2 5) 1 ";
+    parser p = new parser(new lexer(new java.io.StringReader(input)));
+    Object result = p.parse().value;
+    Expression e = (Expression) result;
+    assertEquals(new BigInteger(String.valueOf(11)), calc.eval(e));
+  }
+
+
+  @Test
+  void testPostFixSimple() throws Exception {
       String input = "1 1 +";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testPostFixComposed() {
-    try {
+  void testPostFixComposed() throws Exception {
       String input = "1 1 2 4 + + +";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(8)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testPostFixParenthesisSimple() {
-    try {
+  void testPostFixParenthesisSimple() throws Exception {
       String input = "( 1 1 +)";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(2)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
-  void testPostFixParenthesisComplex() {
-    try {
+  void testPostFixParenthesisComplex() throws Exception {
       String input = "(10 (4 3 ( 1 1 +) * +) -)";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
       assertEquals(new BigInteger(String.valueOf(0)), calc.eval(e));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
   void testMultipleNotation() {
-    try {
       String input = "1 1 + 2 *";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       assertThrows(Exception.class, p::parse);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
 }

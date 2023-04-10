@@ -118,7 +118,9 @@ expr_pre ::= PLUS factor_pre:f1 NUMBER:n {:
        | DIVIDE factor_pre:f1 NUMBER:n {:
         List<Expression> params = new ArrayList<>();
         Collections.addAll(params, f1, new MyNumber(n, 10));
-        RESULT = new Divides(params, Notation.PREFIX); :};
+        RESULT = new Divides(params, Notation.PREFIX); :}
+       | LPAREN expr_pre:e RPAREN {:
+            RESULT = e; :};
 
 factor_pre ::= NUMBER:n  {:
             RESULT = new MyNumber(n, 10); :}
