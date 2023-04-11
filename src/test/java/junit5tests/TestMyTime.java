@@ -4,6 +4,7 @@ import calculator.MyTime;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestMyTime {
 
@@ -58,5 +59,29 @@ public class TestMyTime {
 
         assertEquals(res.getValue(), 100 * 24 * 3600);
         assertEquals(res.toString(), "100 days");
+    }
+
+    @Test
+    void testGetAs() {
+        // Date
+        String date = "2020-02-01";
+        MyTime res1 = MyTime.getAsDate(date);
+        MyTime res2 = MyTime.getAs(date);
+        assertEquals(res1.getValue(), res2.getValue());
+
+        // Hour
+        String time = "3:34 PM";
+        res1 = MyTime.getAsHours(time);
+        res2 = MyTime.getAs(time);
+        assertEquals(res1.getValue(), res2.getValue());
+
+        // Days
+        int nDays = 100;
+        res1 = MyTime.getAsDays(nDays);
+        res2 = MyTime.getAs(String.valueOf(nDays));
+        assertEquals(res1.getValue(), res2.getValue());
+
+        // Exception
+        assertThrows(IllegalArgumentException.class, () -> MyTime.getAs(""));
     }
 }
