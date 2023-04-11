@@ -1,6 +1,10 @@
 package gui;
 
+import calculator.Calculator;
+import calculator.Expression;
 import calculator.MyNumber;
+import calculatorParser.lexer;
+import calculatorParser.parser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -138,6 +142,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private VBox mainWindow;
 
     private MyNumber lastValue = null;
+
+    private Calculator calculator = new Calculator();
     private final String[] MODES = {"PREFFIX", "INFIX", "POSTFIX"};
     private String currentMode = MODES[0];
 
@@ -255,13 +261,20 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             disignFieldInput();
         });
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            //TODO: verify the expression (with parser) and construct the expression
-            //TODO: evaluate the expression
-            MyNumber res = new MyNumber("0"); //TODO: replace with the result of the expression
-            resultField.setText(res.toString());
-            lastValue = res;
-            addHistory(getResults(), res.toString());
-            lastValueButton.setDisable(false);
+            System.out.println(calculatorField.getText().replaceAll("\\|", "") + " ");
+            parser p = new parser(new lexer(new java.io.StringReader(calculatorField.getText().replaceAll("\\|", "") + " ")));
+            Object result = null;
+            try {
+                result = p.parse().value;
+                Expression e = (Expression) result;
+                MyNumber res = new MyNumber(calculator.eval(e).toString(), 10 );
+                resultField.setText(res.toString());
+                lastValue = res;
+                addHistory(getResults(), res.toString());
+                lastValueButton.setDisable(false);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
     private void addHistory(String expression, String result) {
