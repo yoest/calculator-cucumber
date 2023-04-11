@@ -28,11 +28,11 @@ public class MyTime implements Expression {
         STR_REPRESENTATION = stringRepresentation;
     }
 
-    /** Create a MyTime object without specifying if it is a number of days, date or hour. The first one working is the selected one
+    /** Create a MyTime object without specifying if it is a number of days, hour or date. The first one working is the selected one
      *
-     * @param v a string representing either a number of days, a date or an hour
+     * @param v a string representing either a number of days, an hour or a date
      * @return the MyTime object related to the string
-     * @throws IllegalArgumentException if the string does not match a number of days, date or hours
+     * @throws IllegalArgumentException if the string does not match a number of days, hours or date
      */
     public static MyTime getAs(String v) throws IllegalArgumentException {
         try {
@@ -43,13 +43,13 @@ public class MyTime implements Expression {
         }
 
         try {
-            return MyTime.getAsDate(v);
+            return MyTime.getAsHours(v);
         } catch (Exception e) {
             // Ignore the exception and try the next conversion method
         }
 
         try {
-            return MyTime.getAsHours(v);
+            return MyTime.getAsDate(v);
         } catch (Exception e) {
             // If there was another exception, re-throw it as an IllegalArgumentException
             throw new IllegalArgumentException("Invalid input: " + e.getMessage(), e);
