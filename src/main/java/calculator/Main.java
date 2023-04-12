@@ -1,59 +1,26 @@
 package calculator;
 
-import real.Rounding;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.File;
 
-/**
- * A very simple calculator in Java
- * University of Mons - UMONS
- * Département d'Informatique
- * Faculté des Sciences
- *
- * @author tommens
- */
-public class Main {
+public class Main extends Application {
+	@Override
+	public void start(Stage stage) throws Exception {
+		FXMLLoader loader = new FXMLLoader((new File("src/main/resources/menu.fxml" ).toURI().toURL()));
+		Scene scene = new Scene(loader.load());
+		stage.setScene(scene);
+		stage.setTitle("Calculator");
+		stage.setResizable(false);
+		stage.show();
+	}
 
-	/**
-	 * This is the main method of the application.
-	 * It provides examples of how to use it to construct and evaluate arithmetic expressions.
-	 *
-	 * @param args	Command-line parameters are not used in this version
-	 */
-	public static void main(String[] args) throws IllegalConstruction {
-
-  	Expression e;
-  	Calculator c = new Calculator(15, Rounding.ROUND_HALF_UP);
-
-		e = new MyNumber(8);
-		c.print(e);
-		c.eval(e);
-
-		List<Expression> params = new ArrayList<>();
-		Collections.addAll(params, new MyNumber(3), new MyNumber(4), new MyNumber(5));
-		e = new Plus(params,Notation.PREFIX);
-		c.printExpressionDetails(e);
-		c.eval(e);
-	
-		List<Expression> params2 = new ArrayList<>();
-		Collections.addAll(params2, new MyNumber(5), new MyNumber(3));
-		e = new Minus(params2, Notation.INFIX);
-		c.print(e);
-		c.eval(e);
-
-		List<Expression> params3 = new ArrayList<>();
-		Collections.addAll(params3, new Plus(params), new Minus(params2));
-		e = new Times(params3);
-		c.printExpressionDetails(e);
-		c.eval(e);
-
-		List<Expression> params4 = new ArrayList<>();
-		Collections.addAll(params4, new Plus(params), new Minus(params2), new MyNumber(5));
-		e = new Divides(params4,Notation.POSTFIX);
-		c.print(e);
-		c.eval(e);
-
+	public static void main(String[] args) {
+		launch(args);
 	}
 }

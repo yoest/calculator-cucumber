@@ -65,6 +65,12 @@
         <dependency>
             <groupId>com.github.vbmacher</groupId>
             <artifactId>java-cup-runtime</artifactId>
+            <version>11b-20160615</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.vbmacher</groupId>
+            <artifactId>java-cup</artifactId>
             <version>11b-20160615-2</version>
         </dependency>
 
@@ -79,6 +85,15 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <mainClass>gui.CalculatorGUI</mainClass>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -129,25 +144,7 @@
                     <outputDirectory>src/main/java/</outputDirectory>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.github.vbmacher</groupId>
-                <artifactId>cup-maven-plugin</artifactId>
-                <version>11b-20160615-2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <packageName>timeCalculatorParser</packageName>
-                    <cupDefinition>src/main/cup/time_parser.cup</cupDefinition>
-                    <className>parser</className>
-                    <symbolsName>sym</symbolsName>
-                    <outputDirectory>src/main/java/</outputDirectory>
-                </configuration>
-            </plugin>
+
 
             <plugin>
                 <groupId>de.jflex</groupId>
