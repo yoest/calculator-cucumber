@@ -22,8 +22,8 @@ import java_cup.runtime.Symbol;
     }
 %}
 
-// A string time is a sequence of digit that can contain the symbol +, -, :, AM, PM
-Time         = ([0-9]|-|:|AM|PM|\+)+
+// A string time is a sequence of digit that can contain the symbol +, -, :, AM, PM or underscore
+Time         = ([0-9 ]|-|:|AM|PM|\+)+
 
 // A line terminator is a \r (carriage return), \n (line feed), or \r\n. */
 LineTerminator = \r|\n|\r\n
@@ -42,8 +42,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 <YYINITIAL> {
 
     /* Create a new parser symbol for the lexem. */
-    "+"                { return symbol(sym.PLUS); }
-    "-"                { return symbol(sym.MINUS); }
+    "_+_"                { return symbol(sym.PLUS); }
+    "_-_"                { return symbol(sym.MINUS); }
     "("                { return symbol(sym.LPAREN); }
     ")"                { return symbol(sym.RPAREN); }
 

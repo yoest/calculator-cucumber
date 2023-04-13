@@ -1,24 +1,20 @@
 package gui;
 
-import calculator.MyNumber;
-import calculator.MyTime;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import calculator.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import timeCalculatorParser.lexer;
+import timeCalculatorParser.parser;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class TimeCalculatorPane extends ContentPane implements Initializable {
 
@@ -113,6 +109,7 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
 
     private MyTime lastValue = null;
 
+    private TimeCalculator calculator = new TimeCalculator();
 
     @Override
     public AnchorPane start()  {
@@ -148,7 +145,7 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
      * @return the resulting expression without the added bar.
      */
     public String getResults() {
-        return resultField.getText().replaceAll("\\|", "");
+        return calculatorField.getText().replaceAll("\\|", "");
     }
 
     /** Initialize the top field so that it updates itself when focused. */
@@ -238,15 +235,74 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
         });
 
         // -- Evaluation button
-        buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            //TODO: verify the expression (with parser) and construct the expression
-            //TODO: evaluate the expression
-            MyTime res = MyTime.getAsDays(0); //TODO: replace with the result of the expression
-            resultField.setText(String.valueOf(res.getValue()));
-            lastValue = res;
-            addHistory(getResults(), String.valueOf(res.getValue()));
+        buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> eval());
+    }
+
+    /** Evaluate the result of the expression. */
+    private void eval() {
+        String selectedText = calculatorField.getText().replaceAll("\\|", "");
+        selectedText = selectedText.replaceAll(" \\+ ", "_+_").replaceAll(" - ", "_-_");
+
+        // Handle unary request
+        if (selectedText.length() > 3) {
+            String first = selectedText.substring(0, 3);
+            if(first.equals("_+_") || first.equals("_-_")) {
+                String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss", Locale.UK));
+                selectedText = currentDate + ' ' + selectedText;
+            }
+        }
+
+        System.out.println(selectedText);
+        parser p = new parser(new lexer(new java.io.StringReader(selectedText)));
+        Object result;
+        try {
+            result = p.parse().value;
+            Expression e = (Expression) result;
+
+            String res = getResultOfExpression(e);
+
+            resultField.setText(res);
+            addHistory(getResults(), res);
             lastValueButton.setDisable(false);
-        });
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /** Get the result of the written expression as specified by the user.
+     *
+     * @param e: expression to evaluate.
+     * @return the string result as asked by the user.
+     */
+    private String getResultOfExpression(Expression e) {
+        long timeResult = calculator.eval(e);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a z", Locale.UK);
+
+        lastValue = MyTime.getAsDate(calculator.getResultAsDate(timeResult).format(formatter));
+
+        String selectedItem = resultChoice.getSelectionModel().getSelectedItem();
+
+        switch (selectedItem) {
+            case "As complete string" -> {
+                return calculator.getResultAsCompleteString(timeResult);
+            }
+            case "As date" -> {
+                return calculator.getResultAsDate(timeResult).format(formatter);
+            }
+            case "As days" -> {
+                return calculator.getResultAsFractionalDays(timeResult);
+            }
+            case "As hours" -> {
+                return calculator.getResultAsFractionalHours(timeResult);
+            }
+            case "As minutes" -> {
+                return calculator.getResultAsFractionalMinutes(timeResult);
+            }
+            case "As seconds" -> {
+                return calculator.getResultAsFractionalSeconds(timeResult);
+            }
+            default -> throw new RuntimeException();
+        }
     }
 
     /** Initialize all the buttons in a list with the current text of the button.
