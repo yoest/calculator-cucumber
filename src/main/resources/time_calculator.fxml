@@ -44,18 +44,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" layoutX="120.0" prefHeight="-1.0" prefWidth="-1.0">
+      <SplitPane dividerPositions="0.25" focusTraversable="true" prefHeight="670.0" prefWidth="780.0">
          <items>
             <AnchorPane>
                <children>
-                  <Label layoutX="50.0" layoutY="3.0" text="History">
+                  <Label layoutX="100.0" text="History">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="historyListView" layoutY="48.0" prefHeight="621.0" prefWidth="222.0" />
+                  <ListView fx:id="historyListView" layoutY="48.0" prefHeight="620.0" prefWidth="300.0" />
                </children>
             </AnchorPane>
             <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
