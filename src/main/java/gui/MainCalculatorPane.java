@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import real.Rounding;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +27,10 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     public static int INPUT_RADIX = 10;
 
     public static int OUTPUT_RADIX = 10;
+
+    public static Rounding ROUNDING = Rounding.ROUND_HALF_UP;
+
+    public static int PRECISION = 10;
 
     @FXML
     private MenuItem autoSaveButton;
@@ -168,7 +173,17 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private int caretCache = 1;
 
     public MainCalculatorPane(boolean isIntegerMode) {
-        IS_INTEGER_MODE = isIntegerMode;
+        if (isIntegerMode)
+        {
+            IS_INTEGER_MODE = true;
+        }
+        else
+        {
+            calculator.setPrecision(PRECISION);
+            calculator.setRounding(ROUNDING);
+            IS_INTEGER_MODE = false;
+        }
+
     }
 
 
