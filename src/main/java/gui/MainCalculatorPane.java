@@ -7,10 +7,7 @@ import calculatorParser.lexer;
 import calculatorParser.parser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -25,6 +22,10 @@ import java.util.ResourceBundle;
 public class MainCalculatorPane extends ContentPane implements Initializable {
 
     public static boolean IS_INTEGER_MODE = true;
+
+    public static int INPUT_RADIX = 10;
+
+    public static int OUTPUT_RADIX = 10;
 
     @FXML
     private MenuItem autoSaveButton;
@@ -135,6 +136,15 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
 
     @FXML
     private MenuItem timeButton;
+
+    @FXML
+    private MenuItem integerButton;
+
+    @FXML
+    private Label inputRadixLabel;
+
+    @FXML
+    private Label outputRadixLabel;
 
     @FXML
     private Font x3;
@@ -261,21 +271,22 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             disignFieldInput();
         });
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            System.out.println(IS_INTEGER_MODE);
             parser p = new parser(new lexer(new java.io.StringReader(calculatorField.getText().replaceAll("\\|", "") + " ")));
             Object result = null;
             try {
                 result = p.parse().value;
                 Expression e = (Expression) result;
                 boolean isInteger = IS_INTEGER_MODE;
+                int outputRadix = OUTPUT_RADIX;
                 MyNumber n;
                 if (isInteger) {
                     n = new MyNumber(calculator.eval(e).toString(), 10);
+                    n.setRadix(outputRadix);
+                    resultField.setText(n.toString());
                 } else{
                     n = new MyNumber(calculator.eval(e).toString());
+                    resultField.setText(n.toString());
                 }
-
-                resultField.setText(n.toString());
                 lastValue = n;
                 addHistory(getResults(), n.toString());
                 lastValueButton.setDisable(false);
@@ -328,6 +339,15 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         buttonEval.setDisable(true);
         initializeButton();
         calculatorField.setText("|");
+        if (IS_INTEGER_MODE) {
+            inputRadixLabel.setText("Input radix :  " + INPUT_RADIX);
+            inputRadixLabel.setVisible(true);
+            outputRadixLabel.setText("Output radix :  " + OUTPUT_RADIX);
+            outputRadixLabel.setVisible(true);
+        } else {
+            //TODO prepare the window for floating point numbers
+        }
+
         //add listener to calculatorField
         calculatorField.textProperty().addListener((observableValue, s, t1) -> {
             //if there are too many characters | in calculatorField, remove them

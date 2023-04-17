@@ -38,7 +38,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="mainWindow" prefHeight="699.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuController">
+<VBox fx:id="mainWindow" prefHeight="699.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -58,12 +58,7 @@
                               <MenuItem fx:id="decimalOtherButton" mnemonicParsing="false" text="Other scale" />
                           </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Integer">
-                          <items>
-                            <MenuItem fx:id="int10Button" mnemonicParsing="false" text="Radix 10" />
-                            <MenuItem fx:id="intOtherButton" mnemonicParsing="false" text="Other radix" />
-                          </items>
-                        </Menu>
+                        <MenuItem fx:id="integerButton" mnemonicParsing="false" text="Integer" />
                         <MenuItem fx:id="timeButton" mnemonicParsing="false" text="Time" />
                     </items>
                   </Menu>

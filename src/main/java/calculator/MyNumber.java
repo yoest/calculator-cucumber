@@ -95,7 +95,7 @@ public class MyNumber implements Expression
     if (value instanceof BigDecimal) {
         return value.toString();
     }
-	  return ((BigInteger) value).toString(radix); //Display the value in the specified radix
+	  return ((BigInteger) value).toString(this.radix); //Display the value in the specified radix
   }
 
   /** Two MyNumber expressions are equal if the values they contain are equal
@@ -134,10 +134,6 @@ public class MyNumber implements Expression
   public int hashCode() {
 		return value.hashCode();
   }
-
-  public int getRadix() {
-      return radix;
-    }
 
   public void setRadix(int radix) {
     //If the radix is greater than 36, throw an exception

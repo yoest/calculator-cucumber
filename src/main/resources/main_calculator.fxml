@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" layoutX="120.0" prefHeight="-1.0" prefWidth="-1.0">
          <items>
@@ -108,5 +107,7 @@
             </ScrollPane>
          </items>
       </SplitPane>
+      <Label fx:id="inputRadixLabel" layoutX="787.0" layoutY="14.0" text="Input radix : " visible="false" />
+      <Label fx:id="outputRadixLabel" layoutX="787.0" layoutY="44.0" text="Output radix : " visible="false" />
    </children>
 </AnchorPane>

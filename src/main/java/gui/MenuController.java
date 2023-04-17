@@ -20,13 +20,13 @@ public class MenuController implements Initializable {
     private MenuItem decimalOtherButton;
 
     @FXML
-    private MenuItem int10Button;
-
-    @FXML
     private MenuItem intOtherButton;
 
     @FXML
     private MenuItem saveButton;
+
+    @FXML
+    private MenuItem integerButton = new MenuItem();
 
     @FXML
     private MenuItem timeButton;
@@ -39,7 +39,7 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        int10Button.setOnAction(mouseEvent -> changeMainContent(new MainCalculatorPane(true)));
+        integerButton.setOnAction(mouseEvent -> changeMainContent(new IntegerConfigPane()));
         decimal10Button.setOnAction(mouseEvent -> changeMainContent(new MainCalculatorPane(false)));
         timeButton.setOnAction(mouseEvent -> changeMainContent(new TimeCalculatorPane()));
         runConverterButton.setOnAction(mouseEvent -> changeMainContent(new ConverterPane()));

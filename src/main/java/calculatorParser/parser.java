@@ -441,7 +441,7 @@ class CUP$parser$actions {
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
             if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-                RESULT = new MyNumber(n, 10); // Big integer
+                RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
             } else {
                 RESULT = new MyNumber(n); // Big decimal
             } 
@@ -605,7 +605,7 @@ class CUP$parser$actions {
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
          if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-             RESULT = new MyNumber(n, 10); // Big integer
+             RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
          } else {
              RESULT = new MyNumber(n); // Big decimal
          } 
@@ -635,7 +635,7 @@ class CUP$parser$actions {
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
           if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-              RESULT = new MyNumber(n, 10); // Big integer
+              RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
           } else {
               RESULT = new MyNumber(n); // Big decimal
           } 
@@ -799,7 +799,7 @@ class CUP$parser$actions {
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
        if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-           RESULT = new MyNumber(n, 10); // Big integer
+           RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
        } else {
            RESULT = new MyNumber(n); // Big decimal
        } 
@@ -829,7 +829,7 @@ class CUP$parser$actions {
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
              if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-                 RESULT = new MyNumber(n, 10); // Big integer
+                 RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
              } else {
                  RESULT = new MyNumber(n); // Big decimal
              } 
