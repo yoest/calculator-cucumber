@@ -277,8 +277,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             disignFieldInput();
         });
         resetButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            calculatorField.setText("|");
             caretCache = 1;
+            calculatorField.setText("|");
         });
         lastValueButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
             calculatorField.insertText(caretCache, lastValue.toString());
