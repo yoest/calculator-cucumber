@@ -26,7 +26,7 @@ public class MenuController implements Initializable {
     private MenuItem saveButton;
 
     @FXML
-    private MenuItem integerButton = new MenuItem();
+    private MenuItem integerButton;
 
     @FXML
     private MenuItem timeButton;

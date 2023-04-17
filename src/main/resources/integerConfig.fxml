@@ -40,8 +40,8 @@
 
 <AnchorPane fx:id="mainContent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="inputTextField" layoutX="277.0" layoutY="246.0" prefHeight="40.0" prefWidth="347.0" promptText="Input radix [1, 36]" />
-      <TextField fx:id="outputTextField" layoutX="277.0" layoutY="316.0" prefHeight="40.0" prefWidth="347.0" promptText="Output radix [1, 36]" />
+      <TextField fx:id="inputTextField" layoutX="277.0" layoutY="246.0" prefHeight="40.0" prefWidth="347.0" promptText="Input radix [2, 36]" />
+      <TextField fx:id="outputTextField" layoutX="277.0" layoutY="316.0" prefHeight="40.0" prefWidth="347.0" promptText="Output radix [2, 36]" />
       <Button fx:id="runButton" layoutX="277.0" layoutY="384.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="347.0" text="Run" />
       <Text layoutX="379.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please configure radix" wrappingWidth="143.73672485351562">
          <font>
