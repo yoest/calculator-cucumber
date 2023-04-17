@@ -2,6 +2,7 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -36,6 +37,11 @@ public class DecimalConfigPane extends ContentPane implements Initializable {
         roundingChoiceBox.getItems().addAll(Rounding.values());
         roundingChoiceBox.setValue(Rounding.ROUND_HALF_UP);
         runButton.setOnAction(actionEvent -> run());
+        inputTextField.textProperty().addListener((observableValue, s, t1) -> {
+            if (!t1.matches("\\d*")) {
+                inputTextField.setText(t1.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     private void run() {
@@ -50,7 +56,14 @@ public class DecimalConfigPane extends ContentPane implements Initializable {
             MainCalculatorPane.ROUNDING = rounding;
             changeMainContent(new MainCalculatorPane(false));
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input or output"); //TODO make a popup
+            //Create a dialog to show the error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            alert.setHeaderText("Invalid Input");
+            alert.setContentText("Please enter a valid number of decimal places.");
+            alert.showAndWait();
+            //reset the text fields
+            inputTextField.setText("");
         }
     }
 

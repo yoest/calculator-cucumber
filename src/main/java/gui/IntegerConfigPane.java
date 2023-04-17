@@ -2,6 +2,7 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +34,16 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         runButton.setOnAction(actionEvent -> run());
-
+        inputTextField.textProperty().addListener((observableValue, s, t1) -> {
+            if (!t1.matches("\\d*")) {
+                inputTextField.setText(t1.replaceAll("[^\\d]", ""));
+            }
+        });
+        outputTextField.textProperty().addListener((observableValue, s, t1) -> {
+            if (!t1.matches("\\d*")) {
+                outputTextField.setText(t1.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     private void run() {
@@ -49,7 +59,15 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
             MainCalculatorPane.OUTPUT_RADIX = outputInt;
             changeMainContent(new MainCalculatorPane(true));
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input or output"); //TODO make a popup
+            //Create a dialog to show the error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            alert.setHeaderText("Invalid Input");
+            alert.setContentText("Please enter a valid input and output radix.");
+            alert.showAndWait();
+            //reset the text fields
+            inputTextField.setText("");
+            outputTextField.setText("");
         }
     }
 
