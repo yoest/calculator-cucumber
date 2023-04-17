@@ -26,6 +26,24 @@ public class TestParser {
   }
 
   @Test
+  void testParserSimpleModulo() throws Exception {
+    String input = "45 % 23";
+    parser p = new parser(new lexer(new java.io.StringReader(input)));
+    Object result = p.parse().value;
+    Expression e = (Expression) result;
+    assertEquals(new BigInteger(String.valueOf(22)), calc.eval(e));
+  }
+
+  @Test
+  void testParserSimpleModuloInv() throws Exception {
+    String input = "15 $ 4";
+    parser p = new parser(new lexer(new java.io.StringReader(input)));
+    Object result = p.parse().value;
+    Expression e = (Expression) result;
+    assertEquals(new BigInteger(String.valueOf(3)), calc.eval(e));
+  }
+
+  @Test
   void testParserSimpleMinus() throws Exception {
       String input = "5-4";
       parser p = new parser(new lexer(new java.io.StringReader(input)));

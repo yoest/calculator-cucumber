@@ -2,6 +2,7 @@ import java_cup.runtime.Symbol;
 import java.util.Vector;
 
 import calculator.*;
+import integerArithmetics.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,10 +61,18 @@ term_in ::= term_in:t1 TIMES factor_in:f1 {:
             List<Expression> params = new ArrayList<>();
             Collections.addAll(params, t1, f1);
             RESULT = new Times(params, Notation.INFIX); :}
-       | term_in:t1 DIVIDE factor_in:f1 {:
+        | term_in:t1 DIVIDE factor_in:f1 {:
             List<Expression> params = new ArrayList<>();
             Collections.addAll(params, t1, f1);
             RESULT = new Divides(params, Notation.INFIX); :}
+        | term_in:t1 MODULO factor_in:f1 {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, t1, f1);
+            RESULT = new Modulo(params, Notation.INFIX); :}
+        | term_in:t1 INVERSEMODULO factor_in:f1 {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, t1, f1);
+            RESULT = new InverseModulo(params, Notation.INFIX); :}
        | factor_in:f1 {:
             RESULT = f1; :};
 
@@ -84,13 +93,21 @@ expr_post ::= term_post:t1 factor_post:f1 PLUS {:
             Collections.addAll(params,t1, f1);
             RESULT = new Minus(params, Notation.POSTFIX); :}
        |term_post:t1 factor_post:f1 TIMES {:
-        List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, t1, f1);
-        RESULT = new Times(params, Notation.POSTFIX); :}
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, t1, f1);
+            RESULT = new Times(params, Notation.POSTFIX); :}
        |term_post:t1 factor_post:f1 DIVIDE {:
-        List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, t1, f1);
-        RESULT = new Divides(params, Notation.POSTFIX); :}
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, t1, f1);
+            RESULT = new Divides(params, Notation.POSTFIX); :}
+         |term_post:t1 factor_post:f1 MODULO {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, t1, f1);
+            RESULT = new Modulo(params, Notation.POSTFIX); :}
+         |term_post:t1 factor_post:f1 INVERSEMODULO {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, t1, f1);
+            RESULT = new InverseModulo(params, Notation.POSTFIX); :}
        | LPAREN expr_post:e RPAREN {:
             RESULT = e; :};
 
@@ -116,13 +133,21 @@ expr_pre ::= PLUS factor_pre:f1 term_pre:t1 {:
             Collections.addAll(params, f1, t1);
             RESULT = new Minus(params, Notation.PREFIX); :}
        | TIMES factor_pre:f1 term_pre:t1 {:
-        List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, f1, t1);
-        RESULT = new Times(params, Notation.PREFIX); :}
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, f1, t1);
+            RESULT = new Times(params, Notation.PREFIX); :}
        | DIVIDE factor_pre:f1 term_pre:t1 {:
-        List<Expression> params = new ArrayList<>();
-        Collections.addAll(params, f1, t1);
-        RESULT = new Divides(params, Notation.PREFIX); :}
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, f1, t1);
+            RESULT = new Divides(params, Notation.PREFIX); :}
+        | MODULO factor_pre:f1 term_pre:t1 {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, f1, t1);
+            RESULT = new Modulo(params, Notation.PREFIX); :}
+        | INVERSEMODULO factor_pre:f1 term_pre:t1 {:
+            List<Expression> params = new ArrayList<>();
+            Collections.addAll(params, f1, t1);
+            RESULT = new InverseModulo(params, Notation.PREFIX); :}
        | LPAREN expr_pre:e RPAREN {:
             RESULT = e; :};
 

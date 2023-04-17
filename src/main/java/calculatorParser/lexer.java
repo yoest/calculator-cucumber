@@ -62,8 +62,9 @@ public class lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\0\1\1\1\3\22\0\1\1"+
-    "\4\0\1\4\2\0\1\5\1\6\1\7\1\10\1\0"+
-    "\1\11\1\0\1\12\1\13\1\14\10\13\u01c6\0";
+    "\3\0\1\4\1\5\2\0\1\6\1\7\1\10\1\11"+
+    "\1\0\1\12\1\13\1\14\12\15\7\0\32\16\6\0"+
+    "\32\16\u0185\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
@@ -91,10 +92,10 @@ public class lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\2\1\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\1\10\1\11\1\0\1\12";
+    "\1\10\1\11\2\12\1\0\1\12";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[13];
+    int [] result = new int[15];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -119,11 +120,11 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\15\0\32\0\47\0\15\0\15\0\15\0\15"+
-    "\0\15\0\15\0\64\0\101\0\15";
+    "\0\0\0\17\0\36\0\17\0\17\0\17\0\17\0\17"+
+    "\0\17\0\17\0\17\0\55\0\74\0\113\0\113";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[13];
+    int [] result = new int[15];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -147,11 +148,12 @@ public class lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\0\2\2\1\3\1\4\1\5\1\6\1\7\1\10"+
-    "\1\11\1\12\2\13\17\0\1\2\23\0\1\14\16\0"+
-    "\2\13\14\0\1\15";
+    "\1\11\1\12\1\0\1\13\1\14\1\15\21\0\1\2"+
+    "\27\0\1\16\1\0\1\14\1\15\15\0\2\15\15\0"+
+    "\1\17\1\0";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[78];
+    int [] result = new int[90];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -194,10 +196,10 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\6\11\1\1\1\0\1\11";
+    "\1\0\1\11\1\1\10\11\2\1\1\0\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[13];
+    int [] result = new int[15];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -661,47 +663,47 @@ public class lexer implements java_cup.runtime.Scanner {
           // fall through
           case 11: break;
           case 2:
-            { return symbol(sym.MODULO);
+            { return symbol(sym.INVERSEMODULO);
             }
           // fall through
           case 12: break;
           case 3:
-            { return symbol(sym.LPAREN);
+            { return symbol(sym.MODULO);
             }
           // fall through
           case 13: break;
           case 4:
-            { return symbol(sym.RPAREN);
+            { return symbol(sym.LPAREN);
             }
           // fall through
           case 14: break;
           case 5:
-            { return symbol(sym.TIMES);
+            { return symbol(sym.RPAREN);
             }
           // fall through
           case 15: break;
           case 6:
-            { return symbol(sym.PLUS);
+            { return symbol(sym.TIMES);
             }
           // fall through
           case 16: break;
           case 7:
-            { return symbol(sym.MINUS);
+            { return symbol(sym.PLUS);
             }
           // fall through
           case 17: break;
           case 8:
-            { return symbol(sym.DIVIDE);
+            { return symbol(sym.MINUS);
             }
           // fall through
           case 18: break;
           case 9:
-            { return symbol(sym.NUMBER, yytext());
+            { return symbol(sym.DIVIDE);
             }
           // fall through
           case 19: break;
           case 10:
-            { return symbol(sym.INVERSEMODULO);
+            { return symbol(sym.NUMBER, yytext());
             }
           // fall through
           case 20: break;
