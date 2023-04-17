@@ -261,16 +261,23 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             disignFieldInput();
         });
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            System.out.println(calculatorField.getText().replaceAll("\\|", "") + " ");
+            System.out.println(IS_INTEGER_MODE);
             parser p = new parser(new lexer(new java.io.StringReader(calculatorField.getText().replaceAll("\\|", "") + " ")));
             Object result = null;
             try {
                 result = p.parse().value;
                 Expression e = (Expression) result;
-                MyNumber res = new MyNumber(calculator.eval(e).toString(), 10 );
-                resultField.setText(res.toString());
-                lastValue = res;
-                addHistory(getResults(), res.toString());
+                boolean isInteger = IS_INTEGER_MODE;
+                MyNumber n;
+                if (isInteger) {
+                    n = new MyNumber(calculator.eval(e).toString(), 10);
+                } else{
+                    n = new MyNumber(calculator.eval(e).toString());
+                }
+
+                resultField.setText(n.toString());
+                lastValue = n;
+                addHistory(getResults(), n.toString());
                 lastValueButton.setDisable(false);
             } catch (Exception e) {
                 throw new RuntimeException(e);
