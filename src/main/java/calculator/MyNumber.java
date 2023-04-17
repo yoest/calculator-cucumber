@@ -42,7 +42,7 @@ public class MyNumber implements Expression
     this.radix = radix;
   }
 
-  public  MyNumber(Integer v) {
+  public MyNumber(Integer v) {
     this.value= new BigInteger(Integer.toString(v));
     this.radix = 10;
   }
@@ -50,30 +50,6 @@ public class MyNumber implements Expression
   public MyNumber(String v) {
     value=new BigDecimal(v);
   }
-
-  /*
-
-  public  MyNumber(BigDecimal v) {
-  value=v;
-  }
-
-  public MyNumber(int v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  public  MyNumber(double v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  public  MyNumber(long v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  public  MyNumber(float v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  */
 
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.

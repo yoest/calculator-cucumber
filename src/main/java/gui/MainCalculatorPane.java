@@ -20,7 +20,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
+
 public class MainCalculatorPane extends ContentPane implements Initializable {
+
+    public static boolean IS_INTEGER_MODE = true;
 
     @FXML
     private MenuItem autoSaveButton;
@@ -144,8 +148,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private MyNumber lastValue = null;
 
     private Calculator calculator = new Calculator();
-    private final String[] MODES = {"PREFFIX", "INFIX", "POSTFIX"};
-    private String currentMode = MODES[0];
 
     private final ArrayList<Button> OPERATORS_BUTTONS = new ArrayList<>();
     private final ArrayList<Button> NUMBER_BUTTONS = new ArrayList<>();
@@ -154,8 +156,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private final ArrayList<Button> ALL_BUTTONS = new ArrayList<>();
 
     private int caretCache = 1;
-
-    private final boolean IS_INTEGER_MODE;
 
     public MainCalculatorPane(boolean isIntegerMode) {
         IS_INTEGER_MODE = isIntegerMode;

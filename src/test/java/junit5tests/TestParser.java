@@ -4,8 +4,11 @@ import calculator.*;
 import calculatorParser.lexer;
 import calculatorParser.parser;
 import static org.junit.jupiter.api.Assertions.*;
+
+import gui.MainCalculatorPane;
 import org.junit.jupiter.api.*;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class TestParser {
@@ -192,6 +195,39 @@ public class TestParser {
       String input = "1 1 + 2 *";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       assertThrows(Exception.class, p::parse);
+  }
+
+  @Test
+  void testIntegerMode() throws Exception {
+      String input = "1";
+      parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = null;
+      try {
+        result = p.parse().value;
+        MyNumber e = (MyNumber) result;
+        //assert that e.getvalue is an instance of biginteger
+        assertEquals(e.getValue().getClass(), BigInteger.class);
+
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+  }
+
+  @Test
+  void testDecimalMode() throws Exception {
+    String input = "1.5";
+    MainCalculatorPane.IS_INTEGER_MODE = false;
+    parser p = new parser(new lexer(new java.io.StringReader(input)));
+    Object result = null;
+    try {
+      result = p.parse().value;
+      MyNumber e = (MyNumber) result;
+      //assert that e.getvalue is an instance of biginteger
+      assertEquals(e.getValue().getClass(), BigDecimal.class);
+
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
 }
