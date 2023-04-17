@@ -39,11 +39,10 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
     private void run() {
         String input = inputTextField.getText();
         String output = outputTextField.getText();
-        //Ensure that we can map those values to integers and that we have integers > 1 and < 100
         try {
             int inputInt = Integer.parseInt(input);
             int outputInt = Integer.parseInt(output);
-            if (inputInt < 1 || inputInt > 36 || outputInt < 1 || outputInt > 36) {
+            if (inputInt <= 1 || inputInt > 36 || outputInt <= 1 || outputInt > 36) {
                 throw new NumberFormatException();
             }
             MainCalculatorPane.INPUT_RADIX = inputInt;
@@ -52,8 +51,6 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input or output"); //TODO make a popup
         }
-
-
     }
 
     /** Set the main content of the screen to a new pane.

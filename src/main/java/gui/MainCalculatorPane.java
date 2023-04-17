@@ -288,7 +288,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                     resultField.setText(n.toString());
                 }
                 lastValue = n;
-                addHistory(getResults(), n.toString());
+                addHistory(e.toString(), n.toString());
                 lastValueButton.setDisable(false);
             } catch (Exception e) {
                 throw new RuntimeException(e);
