@@ -3,15 +3,14 @@ package gui;
 import calculator.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import timeCalculatorParser.lexer;
 import timeCalculatorParser.parser;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -107,7 +106,7 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
 
     private int caretCache = 1;
 
-    private MyTime lastValue = null;
+    private String lastValue = null;
 
     private TimeCalculator calculator = new TimeCalculator();
 
@@ -179,6 +178,11 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
                 calculatorField.setText(t1.replaceAll(Regex.negateRegex(Regex.TIME), ""));
             }
 
+            // the case when the user delete characters
+            if (caretCache > t1.length() + 1) {
+                caretCache = t1.length();
+            }
+
             String lastChar = "";
             if (caretCache - 2 >= 0) {
                 lastChar = t1.substring(caretCache - 2, caretCache-1);
@@ -229,8 +233,8 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
             caretCache = 1;
         });
         lastValueButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            calculatorField.insertText(caretCache, lastValue.toString());
-            caretCache += lastValue.toString().length();
+            calculatorField.insertText(caretCache, lastValue);
+            caretCache += lastValue.length();
             designFieldInput();
         });
 
@@ -252,7 +256,6 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
             }
         }
 
-        System.out.println(selectedText);
         parser p = new parser(new lexer(new java.io.StringReader(selectedText)));
         Object result;
         try {
@@ -265,7 +268,11 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
             addHistory(getResults(), res);
             lastValueButton.setDisable(false);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Wrong expression : " + calculatorField.getText().replaceAll("\\|", "") + "\n" + e.getMessage());
+            alert.showAndWait();
         }
     }
 
@@ -276,9 +283,9 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
      */
     private String getResultOfExpression(Expression e) {
         long timeResult = calculator.eval(e);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a z", Locale.UK);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a", Locale.UK);
 
-        lastValue = MyTime.getAsDate(calculator.getResultAsDate(timeResult).format(formatter));
+        lastValue = calculator.getResultAsDate(timeResult).format(formatter).replaceAll("pm", "PM").replaceAll("am", "AM");
 
         String selectedItem = resultChoice.getSelectionModel().getSelectedItem();
 
@@ -290,9 +297,16 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
                 return calculator.getResultAsDate(timeResult).format(formatter);
             }
             case "As days" -> {
+                int numberDays = (int) Math.round(timeResult / 86400.);
+                lastValue = String.valueOf(numberDays);
                 return calculator.getResultAsFractionalDays(timeResult);
             }
             case "As hours" -> {
+                String numberHours = String.valueOf((timeResult / 3600));
+                String numberMinutes = String.valueOf((timeResult % 3600) / 60);
+                if(numberMinutes.length() == 1)
+                    numberMinutes = "0" + numberMinutes;
+                lastValue = numberHours + ":" + numberMinutes;
                 return calculator.getResultAsFractionalHours(timeResult);
             }
             case "As minutes" -> {
@@ -369,7 +383,7 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
         OPERATORS_BUTTONS.addAll(Arrays.asList(plusButton, minusButton));
         NUMBER_BUTTONS.addAll(Arrays.asList(
                 button0, button1, button2, button3, button4, button5,
-                button6, button7, button8, button9, lastValueButton
+                button6, button7, button8, button9
         ));
         MARK_BUTTONS.addAll(Arrays.asList(openMarkButton, closeMarkButton));
         ARROW_BUTTONS.addAll(Arrays.asList(leftButton, rightButton));
