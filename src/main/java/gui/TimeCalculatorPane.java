@@ -175,8 +175,8 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
             }
 
             // If there is a character in calculatorField that does not match any of the following characters, remove it
-            if (!t1.matches("[0-9\\|.eEX%$+\\-*/()\\s:AMP]*")) {
-                calculatorField.setText(t1.replaceAll("[^0-9\\|.eEX%$+\\-*/()\\s:AMP]", ""));
+            if (!t1.matches(Regex.TIME)) {
+                calculatorField.setText(t1.replaceAll(Regex.negateRegex(Regex.TIME), ""));
             }
 
             String lastChar = "";

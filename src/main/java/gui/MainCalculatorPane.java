@@ -172,15 +172,19 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
 
     private int caretCache = 1;
 
+    private String regex = null;
+
     public MainCalculatorPane(boolean isIntegerMode) {
         if (isIntegerMode)
         {
             IS_INTEGER_MODE = true;
+            regex = Regex.getRegexInt(INPUT_RADIX);
         }
         else
         {
             calculator.setPrecision(PRECISION);
             calculator.setRounding(ROUNDING);
+            regex = Regex.DECIMAL;
             IS_INTEGER_MODE = false;
         }
 
@@ -374,8 +378,9 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 disignFieldInput();
             }
             //if there is a character in calculatorField does not match any of the following characters, remove it
-            if (!t1.matches("[0-9\\|.eEX%$+\\-*/()\\s]*")) {
-                calculatorField.setText(t1.replaceAll("[^0-9\\|.eEX%$+\\-*/()\\s]", ""));
+            System.out.println(regex);
+            if (!t1.matches(regex)) {
+                calculatorField.setText(t1.replaceAll(Regex.negateRegex(regex), ""));
             }
             // the case when the user delete caracters
             if (caretCache > t1.length() + 1) {
