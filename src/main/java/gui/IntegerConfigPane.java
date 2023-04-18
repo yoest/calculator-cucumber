@@ -28,7 +28,7 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
 
     @Override
     public AnchorPane start()  {
-        return super.initController("/integerConfig.fxml");
+        return super.initController("integerConfig.fxml");
     }
 
     @Override

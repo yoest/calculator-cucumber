@@ -193,7 +193,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
 
     @Override
     public AnchorPane start() {
-        return super.initController("/main_calculator.fxml");
+        return super.initController("main_calculator.fxml");
     }
 
 
@@ -378,7 +378,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 disignFieldInput();
             }
             //if there is a character in calculatorField does not match any of the following characters, remove it
-            System.out.println(regex);
             if (!t1.matches(regex)) {
                 calculatorField.setText(t1.replaceAll(Regex.negateRegex(regex), ""));
             }

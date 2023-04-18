@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -174,6 +173,6 @@ public class ConverterPane extends ContentPane implements Initializable {
 
     @Override
     public AnchorPane start() {
-        return super.initController("/converter.fxml");
+        return super.initController("converter.fxml");
     }
 }

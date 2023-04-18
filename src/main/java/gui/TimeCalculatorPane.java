@@ -113,7 +113,7 @@ public class TimeCalculatorPane extends ContentPane implements Initializable {
 
     @Override
     public AnchorPane start()  {
-        return super.initController("/time_calculator.fxml");
+        return super.initController("time_calculator.fxml");
     }
 
     @Override

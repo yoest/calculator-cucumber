@@ -29,7 +29,7 @@ public class DecimalConfigPane extends ContentPane implements Initializable {
 
     @Override
     public AnchorPane start()  {
-        return super.initController("/decimalConfig.fxml");
+        return super.initController("decimalConfig.fxml");
     }
 
     @Override

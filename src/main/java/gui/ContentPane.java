@@ -1,5 +1,6 @@
 package gui;
 
+import calculator.GuiStarter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
@@ -13,12 +14,10 @@ public abstract class ContentPane extends AnchorPane {
      * @return an AnchorPane object to set as the main content.
      */
     protected AnchorPane initController(String filename) {
+        FXMLLoader loader = Loader.load(filename, GuiStarter.class);
+        loader.setController(this);
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    MainCalculatorPane.class.getResource(filename)
-            );
-            fxmlLoader.setController(this);
-            return fxmlLoader.load();
+            return loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
