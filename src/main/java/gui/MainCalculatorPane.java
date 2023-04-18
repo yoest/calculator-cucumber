@@ -281,8 +281,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             calculatorField.setText("|");
         });
         lastValueButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            calculatorField.insertText(caretCache, lastValue.toString());
-            caretCache += lastValue.toString().length();
+            calculatorField.insertText(caretCache+1, lastValue.toString());
+            caretCache += lastValue.toString().length() + 1;
             disignFieldInput();
         });
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
@@ -306,7 +306,11 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 addHistory(e.toString(), n.toString());
                 lastValueButton.setDisable(false);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Wrong expression : " + calculatorField.getText().replaceAll("\\|", "") + "\n" + e.getMessage());
+                alert.showAndWait();
             }
         });
     }
@@ -372,6 +376,10 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             //if there is a character in calculatorField does not match any of the following characters, remove it
             if (!t1.matches("[0-9\\|.eEX%$+\\-*/()\\s]*")) {
                 calculatorField.setText(t1.replaceAll("[^0-9\\|.eEX%$+\\-*/()\\s]", ""));
+            }
+            // the case when the user delete caracters
+            if (caretCache > t1.length() + 1) {
+                caretCache = t1.length();
             }
             String lastChar = "";
             if (caretCache - 2 >= 0) {
