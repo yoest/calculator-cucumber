@@ -18,6 +18,9 @@ public class TestParser {
   @BeforeEach
   void setUp() {
     calc = new Calculator();
+    MainCalculatorPane.IS_INTEGER_MODE = true;
+    MainCalculatorPane.INPUT_RADIX = 10;
+    MainCalculatorPane.OUTPUT_RADIX = 10;
   }
   @Test
   void testParserSimpleAddition() throws Exception {
