@@ -35,9 +35,8 @@ public class Snapshot implements Serializable {
         long fileSize = file.length(); // in bytes
 
         // If the size of the file is bigger than maxSize, delete the file and throw an exception
-        if (computed != null) {
-            objectOut.writeObject(computed);
-        }
+       // if (computed != null) objectOut.writeObject(computed);
+
 
         // Write object to file
         objectOut.writeObject(e);
@@ -49,16 +48,31 @@ public class Snapshot implements Serializable {
     }
     // Method to load the expression from a file
     public Expression load(String name) throws IOException, ClassNotFoundException {
+        // if the file doesn't exist, return null
+        if (!new File(destinationFolder + name + ".ser").exists()) return null;
         FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
         // Create object input stream to read objects from file
         ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-        // Read object from file
+        // Read object from file and get computed expression
         Expression e = (Expression) objectIn.readObject();
+
         // Close object input stream
         objectIn.close();
         return e;
     }
 
+    public Snapshot load_(String name) throws IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
+        // Create object input stream to read objects from file
+        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+        // Read object from file and get computed expression
+        Snapshot res = (Snapshot) objectIn.readObject();
+
+        // Close object input stream
+        objectIn.close();
+        //The instance of the class i equal to res
+        return res;
+    }
     // Getter
     public Expression getExpression() {
         return e;

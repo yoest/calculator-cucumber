@@ -11,13 +11,16 @@ import java.util.ResourceBundle;
 public class MenuController implements Initializable {
 
     @FXML
-    private MenuItem autoSaveButton;
+    private MenuItem exportButton;
 
     @FXML
     private MenuItem decimalButton;
 
     @FXML
     private MenuItem saveButton;
+
+    @FXML
+    private MenuItem loadButton;
 
     @FXML
     private MenuItem integerButton;

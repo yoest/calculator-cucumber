@@ -45,9 +45,10 @@ public class Caretaker implements Serializable {
     public List<Snapshot> getHistory() {
         return history;
     }
+    //update the history of the expressions stored in the memory
 
     ///Save the history
-    public void serializeHistory() { //to call when the user wants to save the history, at the end of the program
+    public String serializeHistory() { //to call when the user wants to save the history, at the end of the program
         try {
             String outputFolder = "saves/history/ser/";
             String time = LocalTime.now().toString();
@@ -55,11 +56,8 @@ public class Caretaker implements Serializable {
             time = day + "_" + time;
             String fileName = outputFolder + time + ".ser";
 
-            // If a file already exists in this folder, delete it
             File file = new File(fileName);
-            if(file.exists()){
-                file.delete();
-            }
+
                 // TODO : check if the size of the file is bigger than maxSize
                 FileOutputStream fileOut = new FileOutputStream(outputFolder + time + ".ser");
                 // Create object output stream to write objects to file
@@ -72,7 +70,7 @@ public class Caretaker implements Serializable {
                 objectOut.writeObject(history);
                 // Close object output stream
                 objectOut.close();
-
+                return fileName;
             } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -89,16 +87,14 @@ public class Caretaker implements Serializable {
             File folder = new File("saves/history/ser/");
             File[] files = folder.listFiles();
             File historyFile = null;
-            /* TODO:
+            // if file not void
+            if (files != null) {
                 for (File file : files) {
-                if (file.getName().equals(name)) {
-                    historyFile = file;
+                    if (file.getName().equals(name)) {
+                        historyFile = file;
+                        break;
+                    }
                 }
-            }*/
-
-            if (files.length > 0) {
-                historyFile = files[0];
-
             } else {
                 throw new FileNotFoundException("No history file found");
             }
@@ -112,6 +108,7 @@ public class Caretaker implements Serializable {
             e.printStackTrace();
         }
 
+        setHistory(snapshots);
         return snapshots;
     }
 
@@ -124,9 +121,7 @@ public class Caretaker implements Serializable {
             // save the snapshot
             String name = snapshot.getName();
             Expression e = snapshot.getExpression();
-            // if snapshot has a computed value
-                System.out.println("The expression has a " + snapshot.getComputed().toString());
-                // get the computed value
+
                 Expression e_ = snapshot.getComputed();
                 outputString += "The expression is " + e.toString() + " has a value of " +e_.toString()
                         + " and was saved under the name " + name + " at " + snapshot.getTime() + "\n";
@@ -186,13 +181,9 @@ public class Caretaker implements Serializable {
         return names;
     }
 
-
     //Check remaining size
     public boolean checkSize(int size) {
         computeRemainingSize();
-        if (remainingSize - size >= 0) {
-            System.out.println("The size of the file is " + size + " bytes, and the remaining size is " + (remainingSize - size) + " bytes");
-        }
         return remainingSize - size >= 0;
     }
 }

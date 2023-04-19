@@ -8,25 +8,32 @@ import calculatorParser.parser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import memory.MemoryCalculator;
 import memory.Snapshot;
 import real.Rounding;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
 
 
 public class MainCalculatorPane extends ContentPane implements Initializable {
 
     public static boolean IS_INTEGER_MODE = true;
 
+    public static int MAX_MEMORY_SIZE = 1000;
     public static int INPUT_RADIX = 10;
 
     public static int OUTPUT_RADIX = 10;
@@ -101,6 +108,15 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private Button eButton;
 
     @FXML
+    private Button undoButton;
+
+    @FXML
+    private Button redoButton;
+
+    @FXML
+    private Button loadButton;
+
+    @FXML
     private ListView<String> historyListView;
 
     @FXML
@@ -140,6 +156,14 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private Button reverseModuloButton;
 
     @FXML
+    private Button saveHistoryButton;
+
+    @FXML
+    private Button loadHistoryButton;
+
+    @FXML
+    private Button exportButton;
+    @FXML
     private MenuItem saveButton;
 
     @FXML
@@ -166,7 +190,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private MyNumber lastValue = null;
 
     //private Calculator calculator = new Calculator();
-    private MemoryCalculator calculator = new MemoryCalculator();
+    private MemoryCalculator calculator = new MemoryCalculator(MAX_MEMORY_SIZE);
 
     private final ArrayList<Button> OPERATORS_BUTTONS = new ArrayList<>();
     private final ArrayList<Button> NUMBER_BUTTONS = new ArrayList<>();
@@ -289,6 +313,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             calculatorField.setText("|");
         });
         lastValueButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+
             calculatorField.insertText(caretCache+1, lastValue.toString());
             caretCache += lastValue.toString().length() + 1;
             disignFieldInput();
@@ -314,31 +339,12 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 //Show e
                 System.out.println(e.toString());
                 //calculator.save(e);
-
-                addHistory(e.toString(), n.toString(), calculator.getLastID());
+                synchronizeHistory();
+                //addHistory(e.toString(), n.toString(), calculator.getLastID());
                 /* J'ai utilisé ça juste pour tester le tout sans devoir créer
                 les boutons
 
-                System.out.println("Enter a number: ");
-                Scanner in = new Scanner(System.in); //Unistall java util
-                int number = in.nextInt();
-                System.out.println("You entered: " + number);
 
-                if (number == 1) { //Code for undo
-                    removeLastFromHistory();
-                    Snapshot last = calculator.undo();
-                    Expression lastExpression = last.getExpression();
-                    Expression lastResult = last.getComputed();
-                    System.out.println("Okey, I removed last expression: " + lastExpression.toString());
-                    System.out.println("Last result was: " + lastResult.toString());
-                }
-                if (number == 2) { //Code for redo
-                    Snapshot last = calculator.redo();
-                    Expression lastExpression = last.getExpression();
-                    Expression lastResult = last.getComputed();
-                    System.out.println("Okey, I redo last expression: " + lastExpression.toString());
-                    System.out.println("Last result was: " + lastResult.toString());
-                    addHistory(lastExpression.toString(), lastResult.toString(), calculator.getLastID());
                 } if (number == 3) { //Save History as txt
                     String name = calculator.exportHistory();
                     //Show a message
@@ -369,9 +375,106 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 alert.showAndWait();
             }
         });
+        undoButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            //removeLastFromHistory();
+            Snapshot last = calculator.undo();
+            synchronizeHistory();
+            Expression lastExpression = last.getExpression();
+            calculatorField.setText(lastExpression.toString());
+
+        });
+        redoButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            Snapshot last = calculator.redo();
+            Expression lastExpression = last.getExpression();
+            MyNumber lastResult = (MyNumber) last.getComputed();
+            synchronizeHistory();
+            //addHistory(lastExpression.toString(), lastResult.toString(), last.getName());
+            calculatorField.setText(lastExpression.toString());
+
+        });
+        loadButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            //load an expression
+            //Opening a menu, then write the id of the expression, then load it
+            TextInputDialog dialog = new TextInputDialog("ID of the expression");
+            dialog.setTitle("Load an expression");
+            dialog.setHeaderText("Load an expression");
+            dialog.setContentText("Please enter the name of the expression:");
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()){
+                //System.out.println("Your name: " + result.get());
+                //Load the expression, not the result
+
+                Expression e = calculator.load(result.get());
+                if (e != null) {
+                    calculatorField.setText(e.toString());
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Error");
+                    alert.setContentText("The expression " + result.get() + " doesn't exist");
+                    alert.showAndWait();
+                }
+            }
+        });
+        saveHistoryButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            //Save the history
+            String name = calculator.saveHistory();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Information");
+            alert.setContentText("History saved as " + name);
+            alert.showAndWait();
+        });
+        loadHistoryButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            //Load the history
+            //Opening the folder where the saves are stored and let the user choose the file
+            //the folder is saves/history/ser, the window is opened in the saves folder
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.setInitialDirectory(new File("saves/history/ser"));
+            // the file is a ser file
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("SER Files", "*.ser")
+            );
+            File selectedFile = fileChooser.showOpenDialog(null);
+
+            if (selectedFile != null) {
+                //Load the history
+                calculator.loadHistory(selectedFile.getName());
+                calculator.adaptSizeOfHistory();
+                //get the history
+                synchronizeHistory();
+            }
+        });
+        exportButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            //Export the history
+            String name = calculator.exportHistory();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Information");
+            alert.setContentText("History in txt exported as " + name);
+            alert.showAndWait();
+            //Open the folder where the file is stored
+            try {
+                Desktop.getDesktop().open(new File("saves/history/txt"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
+
     private void addHistory(String expression, String result, String id) {
         historyListView.getItems().add(expression + " = " + result + " | The ID is " + id);
+    }
+
+    private void synchronizeHistory() {
+        historyListView.getItems().clear();
+        List<Snapshot> history = calculator.getHistory();
+        for (Snapshot s : history) {
+            Expression e1 = s.getExpression();
+            Expression e2 = s.getComputed();
+            addHistory(e1.toString(), e2.toString(), s.getName());
+        }
     }
 
     private void removeFirstFromHistory() {
