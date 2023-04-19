@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.25" focusTraversable="true" prefHeight="670.0" prefWidth="780.0">
+      <SplitPane dividerPositions="0.25" focusTraversable="true" prefHeight="670.0" prefWidth="730.0">
          <items>
             <AnchorPane>
                <children>
-                  <Label layoutX="100.0" text="History">
+                  <Label layoutX="89.0" text="History">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="historyListView" layoutY="48.0" prefHeight="620.0" prefWidth="300.0" />
+                  <ListView fx:id="historyListView" layoutY="48.0" prefHeight="620.0" prefWidth="285.0" />
                </children>
             </AnchorPane>
-            <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+            <ScrollPane prefHeight="668.0" prefWidth="422.0">
                <content>
-                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="648.0" prefWidth="430.0">
+                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="648.0" prefWidth="341.0">
                      <children>
                         <TextField fx:id="calculatorField" layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="401.0">
                            <font>
@@ -64,7 +64,7 @@
                         </Button>
                         <Button fx:id="degButton" layoutX="33.0" layoutY="460.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="DEG">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="14.0" />
                            </font>
                         </Button>
                         <Button fx:id="moduloButton" layoutX="33.0" layoutY="526.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="\%">
@@ -107,7 +107,7 @@
             </ScrollPane>
          </items>
       </SplitPane>
-      <Label fx:id="inputRadixLabel" layoutX="787.0" layoutY="14.0" prefHeight="18.0" prefWidth="77.0" text="Input radix : " visible="false" />
-      <Label fx:id="outputRadixLabel" layoutX="787.0" layoutY="44.0" text="Output radix : " visible="false" />
+      <Label fx:id="inputRadixLabel" layoutX="755.0" layoutY="14.0" prefHeight="20.0" prefWidth="110.0" text="Input radix : " visible="false" />
+      <Label fx:id="outputRadixLabel" layoutX="755.0" layoutY="44.0" prefHeight="18.0" prefWidth="110.0" text="Output radix : " visible="false" />
    </children>
 </AnchorPane>

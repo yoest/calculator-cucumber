@@ -50,6 +50,15 @@ public class TestParser {
   }
 
   @Test
+  void testParserImpModuloInv() throws Exception{
+      String input = "15 $ 3";
+      parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = p.parse().value;
+      Expression e = (Expression) result;
+      assertThrows(Exception.class, () -> calc.eval(e));
+  }
+
+  @Test
   void testParserSimpleMinus() throws Exception {
       String input = "5-4";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
@@ -177,7 +186,7 @@ public class TestParser {
 
   @Test
   void testPostFixParenthesisComplex() throws Exception {
-      String input = "(10 (4 3 ( 1 1 +) * +) -)";
+      String input = "(10 ((4 0 +) 3 ( 1 1 +) * +) -)";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = p.parse().value;
       Expression e = (Expression) result;
@@ -199,6 +208,33 @@ public class TestParser {
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       assertThrows(Exception.class, p::parse);
   }
+
+  @Test
+  void testIntegerMode2Input() {
+    MainCalculatorPane.INPUT_RADIX = 2;
+    String input = "0101101";
+    parser p = new parser(new lexer(new java.io.StringReader(input)));
+      Object result = null;
+      try {
+          result = p.parse().value;
+          MyNumber e = (MyNumber) result;
+          assertEquals(2, e.getRadix());
+          assertEquals(new BigInteger(String.valueOf(45)), calc.eval(e));
+
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+  }
+
+    @Test
+    void testIntegerMode2WrongInput() {
+        MainCalculatorPane.INPUT_RADIX = 2;
+        String input = "12a4t6";
+        parser p = new parser(new lexer(new java.io.StringReader(input)));
+        Object result = null;
+        assertThrows(Exception.class, p::parse);
+
+    }
 
   @Test
   void testIntegerMode() throws Exception {
@@ -225,7 +261,6 @@ public class TestParser {
     try {
       result = p.parse().value;
       MyNumber e = (MyNumber) result;
-      //assert that e.getvalue is an instance of biginteger
       assertEquals(e.getValue().getClass(), BigDecimal.class);
 
     } catch (Exception e) {

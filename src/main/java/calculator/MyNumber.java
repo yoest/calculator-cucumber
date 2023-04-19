@@ -143,6 +143,10 @@ public class MyNumber implements Expression
     this.radix = radix;
   }
 
+  public int getRadix() {
+    return this.radix;
+  }
+
     /**
      * this method is used to convert numbers from degrees to radians
      *
