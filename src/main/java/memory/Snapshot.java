@@ -12,6 +12,7 @@ public class Snapshot implements Serializable {
     private final String destinationFolder = "saves/expressions/";
     private String name;
     private LocalTime time;
+    private int size;
     public Snapshot(Expression e) {
         // TODO
         this.e = e;
@@ -24,7 +25,7 @@ public class Snapshot implements Serializable {
 
     }
 
-    public void store(String name, int maxSize) throws IOException {
+    public void store(String name) throws IOException {
         this.name = name;
         FileOutputStream fileOut = new FileOutputStream(destinationFolder + name + ".ser");
         // Create object output stream to write objects to file
@@ -42,11 +43,7 @@ public class Snapshot implements Serializable {
         objectOut.writeObject(e);
         // Close object output stream
         objectOut.close();
-
-        if (fileSize > maxSize) {
-            file.delete();
-            throw new IOException("The memory is too small to store the expression");
-        }
+        this.size = (int) fileSize;
         // get the time of the save
         this.time = LocalTime.now();
     }
@@ -79,5 +76,10 @@ public class Snapshot implements Serializable {
     // get the name of the file
     public String getName() {
         return name;
+    }
+
+    // get the size of the file
+    public int getSize() {
+        return size;
     }
 }

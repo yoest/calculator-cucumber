@@ -12,12 +12,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import memory.MemoryCalculator;
+import memory.Snapshot;
 import real.Rounding;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-
+import java.util.Scanner;
 
 
 public class MainCalculatorPane extends ContentPane implements Initializable {
@@ -162,7 +165,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
 
     private MyNumber lastValue = null;
 
-    private Calculator calculator = new Calculator();
+    //private Calculator calculator = new Calculator();
+    private MemoryCalculator calculator = new MemoryCalculator();
 
     private final ArrayList<Button> OPERATORS_BUTTONS = new ArrayList<>();
     private final ArrayList<Button> NUMBER_BUTTONS = new ArrayList<>();
@@ -307,7 +311,55 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                     resultField.setText(n.toString());
                 }
                 lastValue = n;
-                addHistory(e.toString(), n.toString());
+                //Show e
+                System.out.println(e.toString());
+                //calculator.save(e);
+
+                addHistory(e.toString(), n.toString(), calculator.getLastID());
+                /* J'ai utilisé ça juste pour tester le tout sans devoir créer
+                les boutons
+
+                System.out.println("Enter a number: ");
+                Scanner in = new Scanner(System.in); //Unistall java util
+                int number = in.nextInt();
+                System.out.println("You entered: " + number);
+
+                if (number == 1) { //Code for undo
+                    removeLastFromHistory();
+                    Snapshot last = calculator.undo();
+                    Expression lastExpression = last.getExpression();
+                    Expression lastResult = last.getComputed();
+                    System.out.println("Okey, I removed last expression: " + lastExpression.toString());
+                    System.out.println("Last result was: " + lastResult.toString());
+                }
+                if (number == 2) { //Code for redo
+                    Snapshot last = calculator.redo();
+                    Expression lastExpression = last.getExpression();
+                    Expression lastResult = last.getComputed();
+                    System.out.println("Okey, I redo last expression: " + lastExpression.toString());
+                    System.out.println("Last result was: " + lastResult.toString());
+                    addHistory(lastExpression.toString(), lastResult.toString(), calculator.getLastID());
+                } if (number == 3) { //Save History as txt
+                    String name = calculator.exportHistory();
+                    //Show a message
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information");
+                    alert.setHeaderText("Information");
+                    alert.setContentText("History saved as " + name + "in the saves/history/txt folder");
+                    alert.showAndWait();
+                } if (number == 4) { // Save History
+                    calculator.saveHistory();
+                    System.out.println("History saved");
+                } if (number == 5) { //load history
+                    //If opening, load last, else specify
+                    removeAllFromHistory();
+                    List<Snapshot> history = calculator.loadHistory("tmp");
+                    for (Snapshot s : history) {
+                        Expression e1 = s.getExpression();
+                        Expression e2 = s.getComputed();
+                        addHistory(e1.toString(), e2.toString(), s.getName());
+                    }
+                } */
                 lastValueButton.setDisable(false);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -318,8 +370,22 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             }
         });
     }
-    private void addHistory(String expression, String result) {
-        historyListView.getItems().add(expression + " = " + result);
+    private void addHistory(String expression, String result, String id) {
+        historyListView.getItems().add(expression + " = " + result + " | The ID is " + id);
+    }
+
+    private void removeFirstFromHistory() {
+        //Remove first
+        historyListView.getItems().remove(0);
+    }
+
+    private void removeLastFromHistory() {
+     //Remove last
+        historyListView.getItems().remove(historyListView.getItems().size()-1);
+    }
+
+    private void removeAllFromHistory() {
+        historyListView.getItems().clear();
     }
 
     private void initializeArray() {

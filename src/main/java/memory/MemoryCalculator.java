@@ -15,6 +15,7 @@ public class MemoryCalculator extends Calculator {
     private final Stack erased = new Stack();
     private int counter; // the number of snapshots saved in the memory, used to generate the name of the file
     private int maxSize = 1000; //bytes, the maximum size of the file that is saved in the memory
+    private int maxMemorySize = 30; //bytes, the maximum size of the memory
     /** Simple constructor
      *
      */
@@ -39,42 +40,41 @@ public class MemoryCalculator extends Calculator {
     */
    @Override
     public Number eval(Expression e) {
-        int res = (int) super.eval(e);
-        Expression computed = new MyNumber(res);
-        save(e, computed);
-        return res;
+       Number res = super.eval(e);
+       Expression computed = new MyNumber(res.toString());
+       try {
+           save(e, computed);
+       } catch (IOException ex) {
+           throw new RuntimeException(ex);
+       }
+       return res;
     }
 
-    /** Public version of the save method
+    /** Method used to save an expression in the memory
      *
      * @param e : the expression to be saved
      */
     public void save(Expression e) throws IOException {
-        Expression computed = new MyNumber((Integer) eval(e)) ;
+        Expression computed = new MyNumber(eval(e).toString());
         Snapshot snapshot = new Snapshot(e, computed);
-        snapshot.store(generateName(), maxSize);
+        snapshot.store(generateName());
         caretaker.add(snapshot);
         lastSnapshot = snapshot; //useful for the undo method
     }
 
-    /** Private version the save method, used by the eval method
-     *
-     * @param e : the expression to be saved
-     * @param computed : the value of the expression
-     */
-    private void save(Expression e,
-                      Expression computed) {
+    public void save(Expression e, Expression computed) throws IOException {
         Snapshot snapshot = new Snapshot(e, computed);
-        try {
-            snapshot.store(generateName(), maxSize);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex); //Can happen if the file is too big
-        }
+        snapshot.store(generateName());
+        lastSnapshot = snapshot; //useful for the undo method
+       while (!caretaker.checkSize(snapshot.getSize())) {caretaker.remove(caretaker.getHistory().get(0));}
+        System.out.println(caretaker.checkSize(snapshot.getSize()) + "res");
         caretaker.add(snapshot);
-        lastSnapshot = snapshot;
     }
 
+
     /** Load a snapshot using its name
+     *
+     * @param name : the name of the snapshot to be loaded
      */
     public Expression load(String name) {
         Snapshot snapshot = new Snapshot(null);
@@ -95,6 +95,11 @@ public class MemoryCalculator extends Calculator {
         return caretaker.getHistory();
     }
 
+    // Save the history of the expressions stored in the memory
+    public void saveHistory() {
+        caretaker.serializeHistory();
+    }
+
     // Print the history of the expressions stored in the memory
     public void printHistory() {
         List<Snapshot> history = getHistory();
@@ -104,34 +109,47 @@ public class MemoryCalculator extends Calculator {
             System.out.println(snapshot.getExpression());
         }
     }
+
+    public String exportHistory() {
+        return caretaker.saveHistoryTxt();
+    }
+
     // generate the name of the file that will store the snapshot
     private String generateName() {
         String time = java.time.LocalTime.now().toString(); //TIME OF THE CREATION != TIME OF THE SAVE NEED TO BE CHANGED
-        counter += 1;
-        return counter + time;
+        //counter += 1;
+        // Crop the last 4 digits of the time
+        time = time.substring(0, time.length() - 4);
+        return  time;
         }
 
     // undo the last snapshot
-    public void undo() {
+    public Snapshot undo() {
         if (lastSnapshot != null) {
             lastErased = caretaker.remove(lastSnapshot);
             erased.push(lastErased);
             updateLastSnapshot();
+            return lastErased;
+        } else {
+            System.out.println("No snapshot to undo");
+            return null;
         }
     }
 
     // redo the last snapshot
-    public void redo() {
+    public Snapshot redo() {
         try {
             if (lastErased != null) {
                 caretaker.add(lastErased);
                 erased.pop();
                 updateLastSnapshot();
+                return lastErased;
             }
         } catch (Exception e) {
             System.out.println("No snapshot to redo");
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     // update the last snapshot by getting it and the end of the list
@@ -153,4 +171,17 @@ public class MemoryCalculator extends Calculator {
         caretaker.clearHistory();
     }
 
+    public List<Snapshot> loadHistory(String name) {
+       return  caretaker.deserializeHistory(name);
+    }
+
+    //check how many space is left in the memory
+    public int spaceLeft() {
+        return caretaker.computeRemainingSize();
+    }
+
+// get last expression saved
+    public String getLastID() {
+        return lastSnapshot.getName();
+    }
 }
