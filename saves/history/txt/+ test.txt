@@ -1,0 +1,14 @@
+For snapshot : memory.Snapshot@7a71c2a5
+The expression is ( 12 - ( 3 / 5 ) ) has a value of 12 and was saved under the name 17_56_41.45956 at 17:56:41.465551200
+For snapshot : memory.Snapshot@164555e8
+The expression is ( 125 - 3 ) has a value of 122 and was saved under the name 17_57_22.48487 at 17:57:22.488405800
+For snapshot : memory.Snapshot@3c608eb4
+The expression is ( 123 - 3 ) has a value of 120 and was saved under the name 17_57_28.28134 at 17:57:28.283340700
+For snapshot : memory.Snapshot@6196db41
+The expression is ( 123 - 3 ) has a value of 120 and was saved under the name 17_57_48.92642 at 17:57:48.928433200
+For snapshot : memory.Snapshot@3823c313
+The expression is ( 123 - 3 ) has a value of 120 and was saved under the name 17_57_49.08143 at 17:57:49.083431300
+For snapshot : memory.Snapshot@4f53bea
+The expression is ( 123 - 3 ) has a value of 120 and was saved under the name 17_57_49.29989 at 17:57:49.301892200
+For snapshot : memory.Snapshot@3c5800ee
+The expression is ( 123 - ( 3 mod 1 ) ) has a value of 123 and was saved under the name 17_57_55.74678 at 17:57:55.748804900
