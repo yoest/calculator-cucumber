@@ -98,6 +98,7 @@ public class MemoryCalculator extends Calculator {
     // generate the name of the file that will store the snapshot
     private String generateName() {
         String time = java.time.LocalTime.now().toString();
+        time = time.replace(":", "_");
         return time.substring(0, time.length() - 4); // remove the milliseconds to make the name more readable
         }
 

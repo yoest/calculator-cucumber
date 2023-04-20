@@ -59,11 +59,12 @@ public class Caretaker implements Serializable {
             File file = new File(fileName);
 
                 // TODO : check if the size of the file is bigger than maxSize
-                FileOutputStream fileOut = new FileOutputStream(outputFolder + time + ".ser");
+    // Create fi//TODO : change : by _
+                FileOutputStream fileOut = new FileOutputStream(outputFolder + "test" + ".ser");
                 // Create object output stream to write objects to file
                 ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
                 // Get the size of the file
-                File file_ = new File(outputFolder + time + ".ser");
+                File file_ = new File(outputFolder + "test" + ".ser");
                 long fileSize = file.length(); // in bytes
 
                 // Write object to file
@@ -129,10 +130,10 @@ public class Caretaker implements Serializable {
 
         try {
             String time = LocalTime.now().toString();
-            FileWriter writer = new FileWriter("saves/history/txt/+ " + time + ".txt");
+            FileWriter writer = new FileWriter("saves/history/txt/+ " + "test" + ".txt");
             writer.write(outputString);
             writer.close();
-            return time + ".txt";
+            return "test" + ".txt";
 
         } catch (IOException e) {
             System.out.println("An error occurred while saving to file.");

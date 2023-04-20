@@ -31,7 +31,7 @@ public class InverseModulo extends Operation {
    */
   public InverseModulo(List<Expression> elist, Notation n) throws IllegalConstruction {
     super(elist,n);
-    symbol = "mod-1";
+    symbol = "$";
     neutral = new BigInteger("0");
   }
 
