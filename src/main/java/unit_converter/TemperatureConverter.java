@@ -39,6 +39,7 @@ public class TemperatureConverter extends MeasureConverter {
      */
     public TemperatureConverter(double value, Unit unit) {
         super(value, unit, "Temperature");
+        this.value = (value - ((TemperatureUnits) unit).ADDONS) / unit.getRatio();
     }
 
     @Override

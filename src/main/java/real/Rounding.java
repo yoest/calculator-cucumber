@@ -1,6 +1,7 @@
 package real;
 
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 public enum Rounding {
     ROUND_HALF_UP,
@@ -11,6 +12,7 @@ public enum Rounding {
     ROUND_UP,
     ROUND_DOWN,
     ROUND_UNNECESSARY;
+
 
     public static Rounding fromString(String s) {
         return switch (s) {
@@ -38,5 +40,22 @@ public enum Rounding {
             case ROUND_UNNECESSARY -> RoundingMode.UNNECESSARY;
             default -> null;
         };
+    }
+
+    /**
+     * Returns a list of all the rounding modes.
+     * @return a list of all the rounding modes
+     */
+    public static ArrayList<String> getRoundingModes() {
+        ArrayList<String> roundingModes = new ArrayList<>();
+        roundingModes.add(ROUND_HALF_UP.toString());
+        roundingModes.add(ROUND_HALF_DOWN.toString());
+        roundingModes.add(ROUND_HALF_EVEN.toString());
+        roundingModes.add(ROUND_CEILING.toString());
+        roundingModes.add(ROUND_FLOOR.toString());
+        roundingModes.add(ROUND_UP.toString());
+        roundingModes.add(ROUND_DOWN.toString());
+        roundingModes.add(ROUND_UNNECESSARY.toString());
+        return roundingModes;
     }
 }

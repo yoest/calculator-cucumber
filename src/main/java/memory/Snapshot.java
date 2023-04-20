@@ -12,6 +12,7 @@ public class Snapshot implements Serializable {
     private final String destinationFolder = "saves/expressions/";
     private String name;
     private LocalTime time;
+    private int size;
     public Snapshot(Expression e) {
         // TODO
         this.e = e;
@@ -24,7 +25,7 @@ public class Snapshot implements Serializable {
 
     }
 
-    public void store(String name, int maxSize) throws IOException {
+    public void store(String name) throws IOException {
         this.name = name;
         FileOutputStream fileOut = new FileOutputStream(destinationFolder + name + ".ser");
         // Create object output stream to write objects to file
@@ -34,34 +35,44 @@ public class Snapshot implements Serializable {
         long fileSize = file.length(); // in bytes
 
         // If the size of the file is bigger than maxSize, delete the file and throw an exception
-        if (computed != null) {
-            objectOut.writeObject(computed);
-        }
+       // if (computed != null) objectOut.writeObject(computed);
+
 
         // Write object to file
         objectOut.writeObject(e);
         // Close object output stream
         objectOut.close();
-
-        if (fileSize > maxSize) {
-            file.delete();
-            throw new IOException("The memory is too small to store the expression");
-        }
+        this.size = (int) fileSize;
         // get the time of the save
         this.time = LocalTime.now();
     }
     // Method to load the expression from a file
     public Expression load(String name) throws IOException, ClassNotFoundException {
+        // if the file doesn't exist, return null
+        if (!new File(destinationFolder + name + ".ser").exists()) return null;
         FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
         // Create object input stream to read objects from file
         ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-        // Read object from file
+        // Read object from file and get computed expression
         Expression e = (Expression) objectIn.readObject();
+
         // Close object input stream
         objectIn.close();
         return e;
     }
 
+    public Snapshot load_(String name) throws IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
+        // Create object input stream to read objects from file
+        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+        // Read object from file and get computed expression
+        Snapshot res = (Snapshot) objectIn.readObject();
+
+        // Close object input stream
+        objectIn.close();
+        //The instance of the class i equal to res
+        return res;
+    }
     // Getter
     public Expression getExpression() {
         return e;
@@ -79,5 +90,10 @@ public class Snapshot implements Serializable {
     // get the name of the file
     public String getName() {
         return name;
+    }
+
+    // get the size of the file
+    public int getSize() {
+        return size;
     }
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.25" focusTraversable="true" prefHeight="670.0" prefWidth="730.0">
+         <items>
+            <AnchorPane>
+               <children>
+                  <Label layoutX="89.0" text="History">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="historyListView" layoutY="48.0" prefHeight="620.0" prefWidth="285.0" />
+               </children>
+            </AnchorPane>
+            <ScrollPane prefHeight="668.0" prefWidth="422.0">
+               <content>
+                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="648.0" prefWidth="341.0">
+                     <children>
+                        <TextField fx:id="calculatorField" layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="401.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="resetButton" layoutX="14.0" layoutY="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="79.0" text="RESET" />
+                        <Button fx:id="plusButton" layoutX="111.0" layoutY="101.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="+" />
+                        <Button fx:id="minusButton" layoutX="187.0" layoutY="101.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="-" />
+                        <Button fx:id="divButton" layoutX="263.0" layoutY="101.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="/" />
+                        <Button fx:id="multiplyButton" layoutX="338.0" layoutY="101.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="*" />
+                        <Button fx:id="button1" layoutX="34.0" layoutY="168.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="1" />
+                        <Button fx:id="button2" layoutX="139.0" layoutY="168.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="2" />
+                        <Button fx:id="button3" layoutX="242.0" layoutY="168.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="3" />
+                        <Button fx:id="button4" layoutX="34.0" layoutY="262.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="4" />
+                        <Button fx:id="button5" layoutX="139.0" layoutY="262.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="5" />
+                        <Button fx:id="button6" layoutX="242.0" layoutY="262.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="6" />
+                        <Button fx:id="button7" layoutX="34.0" layoutY="359.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="7" />
+                        <Button fx:id="button8" layoutX="139.0" layoutY="359.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="8" />
+                        <Button fx:id="button9" layoutX="242.0" layoutY="359.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="9" />
+                        <Button fx:id="button0" layoutX="175.0" layoutY="455.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="0" />
+                        <Button fx:id="quoteButton" layoutX="274.0" layoutY="459.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text=".">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="buttonEval" layoutX="350.0" layoutY="459.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="=">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="radianButton" layoutX="102.0" layoutY="460.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="RAD">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="degButton" layoutX="33.0" layoutY="460.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="DEG">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="moduloButton" layoutX="33.0" layoutY="526.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="\%">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="reverseModuloButton" layoutX="102.0" layoutY="526.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="\$">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="12.0" layoutY="600.0" text="RESULT :">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="resultField" editable="false" layoutX="109.0" layoutY="591.0" prefHeight="52.0" prefWidth="317.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="eButton" layoutX="276.0" layoutY="526.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="E">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="openMarkButton" layoutX="350.0" layoutY="185.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="(" />
+                        <Button fx:id="closeMarkButton" layoutX="351.0" layoutY="247.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text=")" />
+                        <Button fx:id="lastValueButton" layoutX="353.0" layoutY="525.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="ANS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="rightButton" layoutX="352.0" layoutY="321.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="=&gt;" />
+                        <Button fx:id="leftButton" layoutX="352.0" layoutY="385.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="&lt;=" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+         </items>
+      </SplitPane>
+      <Label fx:id="inputRadixLabel" layoutX="755.0" layoutY="14.0" prefHeight="20.0" prefWidth="110.0" text="Input radix : " visible="false" />
+      <Label fx:id="outputRadixLabel" layoutX="755.0" layoutY="44.0" prefHeight="18.0" prefWidth="110.0" text="Output radix : " visible="false" />
+      <Button fx:id="undoButton" layoutX="744.0" layoutY="163.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="69.0" text="Undo" />
+      <Button fx:id="redoButton" layoutX="816.0" layoutY="162.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="69.0" text="Redo" />
+      <Button fx:id="loadButton" layoutX="744.0" layoutY="233.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="141.0" text="Load " />
+      <Button fx:id="saveHistoryButton" layoutX="748.0" layoutY="346.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="135.0" text="Save History" />
+      <Button fx:id="loadHistoryButton" layoutX="746.0" layoutY="453.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="135.0" text="Load History" />
+      <Button fx:id="exportButton" layoutX="746.0" layoutY="560.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" text="Export" />
+   </children>
+</AnchorPane>

@@ -8,6 +8,7 @@ import calculator.Operation;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TimeEvaluator extends Visitor {
 
@@ -46,7 +47,7 @@ public class TimeEvaluator extends Visitor {
 
         // If the request is unary, add the current date as a first param
         if(o.args.size() == 1) {
-            String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+            String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss", Locale.UK));
             o.args.add(0, MyTime.getAsDate(currentDate));
         }
 

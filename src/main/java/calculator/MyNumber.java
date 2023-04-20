@@ -42,7 +42,7 @@ public class MyNumber implements Expression
     this.radix = radix;
   }
 
-  public  MyNumber(Integer v) {
+  public MyNumber(Integer v) {
     this.value= new BigInteger(Integer.toString(v));
     this.radix = 10;
   }
@@ -50,30 +50,6 @@ public class MyNumber implements Expression
   public MyNumber(String v) {
     value=new BigDecimal(v);
   }
-
-  /*
-
-  public  MyNumber(BigDecimal v) {
-  value=v;
-  }
-
-  public MyNumber(int v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  public  MyNumber(double v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  public  MyNumber(long v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  public  MyNumber(float v) {
-      value=BigDecimal.valueOf(v);
-  }
-
-  */
 
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.
@@ -119,7 +95,7 @@ public class MyNumber implements Expression
     if (value instanceof BigDecimal) {
         return value.toString();
     }
-	  return ((BigInteger) value).toString(radix); //Display the value in the specified radix
+	  return ((BigInteger) value).toString(this.radix); //Display the value in the specified radix
   }
 
   /** Two MyNumber expressions are equal if the values they contain are equal
@@ -159,16 +135,16 @@ public class MyNumber implements Expression
 		return value.hashCode();
   }
 
-  public int getRadix() {
-      return radix;
-    }
-
   public void setRadix(int radix) {
     //If the radix is greater than 36, throw an exception
     if (radix > 36) {
       throw new IllegalArgumentException("The radix must be less than 36");
     }
     this.radix = radix;
+  }
+
+  public int getRadix() {
+    return this.radix;
   }
 
     /**

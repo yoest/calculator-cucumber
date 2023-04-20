@@ -31,7 +31,7 @@ public class Modulo extends Operation {
    */
   public Modulo(List<Expression> elist, Notation n) throws IllegalConstruction {
     super(elist,n);
-    symbol = "mod";
+    symbol = "%";
     neutral = new BigInteger("0");
   }
 

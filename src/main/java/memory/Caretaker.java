@@ -3,15 +3,22 @@ package memory;
 import calculator.Expression;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Caretaker implements Serializable {
     private List<Snapshot> history = new ArrayList<>(); // List of the expressions stored in the memory
+    private int maxSize = 1000; //bytes, the maximum size of the file that is saved in the memory
+    private int remainingSize;
 
     // Simple constructor
     public Caretaker() {}
+
+    public Caretaker(int maxSize) {
+        this.maxSize = maxSize;
+    }
 
     // add a snapshot to the history
     public void add(Snapshot snapshot) {
@@ -24,45 +31,54 @@ public class Caretaker implements Serializable {
         else return null;
     }
 
+    // Compute remaining size
+    public int computeRemainingSize() {
+        int size = 0;
+        for (Snapshot snapshot : history) {
+            size += snapshot.getSize();
+        }
+        this.remainingSize = maxSize - size;
+        return remainingSize;
+    }
+
     // get the history of the expressions stored in the memory
     public List<Snapshot> getHistory() {
         return history;
     }
+    //update the history of the expressions stored in the memory
 
     ///Save the history
-    public void serializeHistory() { //to call when the user wants to save the history, at the end of the program
+    public String serializeHistory() { //to call when the user wants to save the history, at the end of the program
         try {
             String outputFolder = "saves/history/ser/";
             String time = LocalTime.now().toString();
+            String day = LocalDate.now().toString();
+            time = day + "_" + time;
             String fileName = outputFolder + time + ".ser";
 
-            // If a file already exists in this folder, delete it
             File file = new File(fileName);
-            if(file.exists()){
-                file.delete();
-            }
+
                 // TODO : check if the size of the file is bigger than maxSize
-                FileOutputStream fileOut = new FileOutputStream(outputFolder + time + ".ser");
+    // Create fi//TODO : change : by _
+                FileOutputStream fileOut = new FileOutputStream(outputFolder + "test" + ".ser");
                 // Create object output stream to write objects to file
                 ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
                 // Get the size of the file
-                File file_ = new File(outputFolder + time + ".ser");
+                File file_ = new File(outputFolder + "test" + ".ser");
                 long fileSize = file.length(); // in bytes
 
                 // Write object to file
                 objectOut.writeObject(history);
                 // Close object output stream
                 objectOut.close();
-
-            } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
+                return fileName;
+            } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
 
     }
 
-    public List<Snapshot> deserializeHistory() { // TO call when the user wants to load the history, at the beginning of the program
+    public List<Snapshot> deserializeHistory(String name) { // TO call when the user wants to load the history, at the beginning of the program
         List<Snapshot> snapshots = new ArrayList<>();
 
         try {
@@ -72,8 +88,14 @@ public class Caretaker implements Serializable {
             File folder = new File("saves/history/ser/");
             File[] files = folder.listFiles();
             File historyFile = null;
-            if (files.length > 0) {
-                historyFile = files[0];
+            // if file not void
+            if (files != null) {
+                for (File file : files) {
+                    if (file.getName().equals(name)) {
+                        historyFile = file;
+                        break;
+                    }
+                }
             } else {
                 throw new FileNotFoundException("No history file found");
             }
@@ -87,11 +109,12 @@ public class Caretaker implements Serializable {
             e.printStackTrace();
         }
 
+        setHistory(snapshots);
         return snapshots;
     }
 
     // Save the history in a text file
-    public void saveHistoryTxt() {
+    public String saveHistoryTxt() {
         // for snapshot in history
         String outputString = "";
         for (Snapshot snapshot : history) {
@@ -99,9 +122,7 @@ public class Caretaker implements Serializable {
             // save the snapshot
             String name = snapshot.getName();
             Expression e = snapshot.getExpression();
-            // if snapshot has a computed value
-                System.out.println("The expression has a " + snapshot.getComputed().toString());
-                // get the computed value
+
                 Expression e_ = snapshot.getComputed();
                 outputString += "The expression is " + e.toString() + " has a value of " +e_.toString()
                         + " and was saved under the name " + name + " at " + snapshot.getTime() + "\n";
@@ -109,13 +130,16 @@ public class Caretaker implements Serializable {
 
         try {
             String time = LocalTime.now().toString();
-            FileWriter writer = new FileWriter("saves/history/txt/+ " + time + ".txt");
+            FileWriter writer = new FileWriter("saves/history/txt/+ " + "test" + ".txt");
             writer.write(outputString);
             writer.close();
+            return "test" + ".txt";
+
         } catch (IOException e) {
             System.out.println("An error occurred while saving to file.");
             e.printStackTrace();
         }
+        return outputString;
     }
 
     //Set history
@@ -156,5 +180,11 @@ public class Caretaker implements Serializable {
             names.add(snapshot.getName());
         }
         return names;
+    }
+
+    //Check remaining size
+    public boolean checkSize(int size) {
+        computeRemainingSize();
+        return remainingSize - size >= 0;
     }
 }
