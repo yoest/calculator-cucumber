@@ -55,39 +55,20 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
         });
     }
 
-    private void runSize() {
-        String size = sizeTextField.getText();
-        try {
-            int sizeInt = Integer.parseInt(size);
-            if (sizeInt < 10 || sizeInt > 1000) {
-                throw new NumberFormatException();
-            }
-            MainCalculatorPane.MAX_MEMORY_SIZE = sizeInt;
-            changeMainContent(new MainCalculatorPane(true));
-        } catch (NumberFormatException e) {
-            //Create a dialog to show the error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Input");
-            alert.setHeaderText("Invalid Input");
-            alert.setContentText("Please enter a valid input size.");
-            alert.showAndWait();
-            //reset the text fields
-            sizeTextField.setText("");
-        }
-    }
-
     private void run() {
-        runSize();
         String input = inputTextField.getText();
         String output = outputTextField.getText();
+        String size = sizeTextField.getText();
         try {
             int inputInt = Integer.parseInt(input);
             int outputInt = Integer.parseInt(output);
-            if (inputInt <= 1 || inputInt > 36 || outputInt <= 1 || outputInt > 36) {
+            int sizeInt = Integer.parseInt(size);
+            if (inputInt <= 1 || inputInt > 36 || outputInt <= 1 || outputInt > 36 || sizeInt < 10 || sizeInt > 1000) {
                 throw new NumberFormatException();
             }
             MainCalculatorPane.INPUT_RADIX = inputInt;
             MainCalculatorPane.OUTPUT_RADIX = outputInt;
+            MainCalculatorPane.MAX_MEMORY_SIZE = sizeInt;
             changeMainContent(new MainCalculatorPane(true));
         } catch (NumberFormatException e) {
             //Create a dialog to show the error
