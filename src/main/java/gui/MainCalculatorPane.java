@@ -472,7 +472,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         List<Snapshot> history = calculator.getHistory();
         for (Snapshot s : history) {
             Expression e1 = s.getExpression();
-            Expression e2 = s.getComputed();
+            MyNumber e2 = s.getComputed();
             addHistory(e1.toString(), e2.toString(), s.getName());
         }
     }

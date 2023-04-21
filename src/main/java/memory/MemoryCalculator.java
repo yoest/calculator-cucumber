@@ -1,8 +1,10 @@
 package memory;
 
 import calculator.*;
+import gui.MainCalculatorPane;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 
 import java.util.Stack;
@@ -49,14 +51,25 @@ public class MemoryCalculator extends Calculator {
      */
     public void save(Expression e) throws IOException {
         Expression computed = new MyNumber(eval(e).toString());
-        Snapshot snapshot = new Snapshot(e, computed);
+        //cast the result of the evaluation to a MyNumber
+        MyNumber n = (MyNumber) computed;
+        if (MainCalculatorPane.IS_INTEGER_MODE){
+            n = new MyNumber(n.getValue().toString(), 10);
+            n.setRadix(MainCalculatorPane.OUTPUT_RADIX);
+        }
+        Snapshot snapshot = new Snapshot(e, n);
         snapshot.store(generateName());
         caretaker.add(snapshot);
         lastSnapshot = snapshot; //useful for the undo method
     }
 
     public void save(Expression e, Expression computed) throws IOException {
-        Snapshot snapshot = new Snapshot(e, computed);
+        MyNumber n = (MyNumber) computed;
+        if (MainCalculatorPane.IS_INTEGER_MODE){
+            n = new MyNumber(n.getValue().toString(), 10);
+            n.setRadix(MainCalculatorPane.OUTPUT_RADIX);
+        }
+        Snapshot snapshot = new Snapshot(e, n);
         snapshot.store(generateName());
         lastSnapshot = snapshot; //useful for the undo method
        while (!caretaker.checkSize(snapshot.getSize())) {caretaker.remove(caretaker.getHistory().get(0));}

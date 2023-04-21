@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 public class Snapshot implements Serializable {
       private final Expression e;
-    private final Expression computed;
+    private final MyNumber computed;
     private final String destinationFolder = "saves/expressions/";
     private String name;
     private LocalTime time;
@@ -18,7 +18,7 @@ public class Snapshot implements Serializable {
         this.e = e;
         this.computed = null;
     }
-    public Snapshot(Expression e, Expression computed) {
+    public Snapshot(Expression e, MyNumber computed) {
         // TODO
         this.e = e;
         this.computed = computed;
@@ -78,7 +78,7 @@ public class Snapshot implements Serializable {
         return e;
     }
 
-    public Expression getComputed() {
+    public MyNumber getComputed() {
         return computed;
     }
 
