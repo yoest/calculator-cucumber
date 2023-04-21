@@ -536,8 +536,10 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             inputRadixLabel.setVisible(true);
             outputRadixLabel.setText("Output radix :  " + OUTPUT_RADIX);
             outputRadixLabel.setVisible(true);
-        } else {
-            //TODO prepare the window for floating point numbers
+            radianButton.setVisible(false);
+            degButton.setVisible(false);
+            eButton.setVisible(false);
+            quoteButton.setVisible(false);
         }
 
         //add listener to calculatorField
