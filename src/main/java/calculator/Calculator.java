@@ -1,6 +1,7 @@
 package calculator;
 
 import real.Rounding;
+import visitor.CountingEvaluator;
 import visitor.Evaluator;
 
 import java.math.BigDecimal;
@@ -53,10 +54,13 @@ public class Calculator {
      * @see #print(Expression)
      */
     public void printExpressionDetails(Expression e){
+        CountingEvaluator countingEvaluator = new CountingEvaluator();
+        countingEvaluator.count(e);
+
         print(e);
-        System.out.print("It contains " + e.countDepth() + " levels of nested expressions, ");
-        System.out.print(e.countOps() + " operations");
-        System.out.println(" and " + e.countNbs() + " numbers.");
+        System.out.print("It contains " + countingEvaluator.getCountDepth() + " levels of nested expressions, ");
+        System.out.print(countingEvaluator.getCountOps() + " operations");
+        System.out.println(" and " + countingEvaluator.getCountNumber() + " numbers.");
         System.out.println();
     }
 

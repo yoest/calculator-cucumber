@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import visitor.CountingEvaluator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,12 +30,16 @@ class TestCounting {
     @Test
     void testNumberCounting() {
         e = new MyNumber(value1);
+
+        CountingEvaluator countingEvaluator = new CountingEvaluator();
+        countingEvaluator.count(e);
+
         //test whether a number has zero depth (i.e. no nested expressions)
-        assertEquals( 0, e.countDepth());
+        assertEquals(0, countingEvaluator.getCountDepth());
         //test whether a number contains zero operations
-        assertEquals(0, e.countOps());
+        assertEquals(0, countingEvaluator.getCountOps());
         //test whether a number contains 1 number
-        assertEquals(1, e.countNbs());
+        assertEquals(1, countingEvaluator.getCountNumber());
     }
 
     @ParameterizedTest
@@ -55,12 +60,16 @@ class TestCounting {
         } catch (IllegalConstruction e) {
             Assertions.fail();
         }
+
+        CountingEvaluator countingEvaluator = new CountingEvaluator();
+        countingEvaluator.count(e);
+
         //test whether a binary operation has depth 1
-        assertEquals(1, e.countDepth(),"counting depth of an Operation");
+        assertEquals(1, countingEvaluator.getCountDepth(), "counting depth of an Operation");
         //test whether a binary operation contains 1 operation
-        assertEquals(1, e.countOps());
+        assertEquals(1, countingEvaluator.getCountOps());
         //test whether a binary operation contains 2 numbers
-        assertEquals(2, e.countNbs());
+        assertEquals(2, countingEvaluator.getCountNumber());
     }
 
 }
