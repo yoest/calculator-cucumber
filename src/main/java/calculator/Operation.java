@@ -1,11 +1,11 @@
 package calculator;
 
+import visitor.PrintingEvaluator;
 import visitor.Visitor;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -116,42 +116,6 @@ public abstract class Operation implements Expression
   	v.visit(this);
   }
 
-	/**
-	 * Count the depth of an arithmetic expression recursively,
-	 * using Java 8 functional programming capabilities (streams, maps, etc...)
-	 *
- 	 * @return	The depth of the arithmetic expression being traversed
-	 */
-	public final int countDepth() {
-	    // use of Java 8 functional programming capabilities
-	return 1 + args.stream()
-			   .mapToInt(Expression::countDepth)
-			   .max()
-			   .getAsInt();  
-  }
-
-	/**
-	 * Count the number of operations contained in an arithmetic expression recursively,
-	 * using Java 8 functional programming capabilities (streams, maps, etc...)
-	 *
-	 * @return	The number of operations contained in an arithmetic expression being traversed
-	 */
-	public final int countOps() {
-	    // use of Java 8 functional programming capabilities
-	return 1 + args.stream()
-			   .mapToInt(Expression::countOps)
-			   .reduce(Integer::sum)
-			   .getAsInt();
-  }
-
-  public final int countNbs() {
-	    // use of Java 8 functional programming capabilities
-	return args.stream()
-			   .mapToInt(Expression::countNbs)
-			   .reduce(Integer::sum)
-			   .getAsInt();  
-  }
-
   /**
    * Convert the arithmetic operation into a String to allow it to be printed,
    * using the default notation (prefix, infix or postfix) that is specified in some variable.
@@ -172,29 +136,19 @@ public abstract class Operation implements Expression
    */
   public final String toString(Notation n) {
 	   Stream<String> s = args.stream().map(Object::toString);
-	   String content = "";
-
-	   switch (n) {
-		   case INFIX -> {
-			   Optional<String> item = s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2);
-			   if(item.isPresent())
-				   content = item.get();
-			   return "( " + content + " )";
-		   }
-		   case PREFIX -> {
-			   Optional<String> item = s.reduce((s1, s2) -> s1 + ", " + s2);
-			   if(item.isPresent())
-				   content = item.get();
-			   return symbol + " (" + content + ")";
-		   }
-		   case POSTFIX -> {
-			   Optional<String> item = s.reduce((s1, s2) -> s1 + ", " + s2);
-			   if(item.isPresent())
-				   content = item.get();
-			   return "(" + content + ") " + symbol;
-		   }
-		   default -> throw new RuntimeException("Notation " + n + " not defined.");
-	   }
+	   return switch (n) {
+		   case INFIX -> "( " +
+				   s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2).get() +
+				   " )";
+		   case PREFIX -> symbol + " " +
+				   "(" +
+				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+				   ")";
+		   case POSTFIX -> "(" +
+				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+				   ")" +
+				   " " + symbol;
+	   };
   }
 
 	/**
@@ -231,4 +185,8 @@ public abstract class Operation implements Expression
 		return result;
 	}
 
+	/** Getter for the Symbol value. */
+	public String getSymbol() {
+		return symbol;
+	}
 }

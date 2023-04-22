@@ -10,7 +10,7 @@ import java.util.Locale;
 public class MyTime implements Expression {
 
     private final long value;
-    private final String STR_REPRESENTATION;
+    public final String STR_REPRESENTATION;
 
     /** getter method to obtain the value contained in the object
      *
@@ -152,33 +152,6 @@ public class MyTime implements Expression {
     @Override
     public void accept(Visitor v) {
         v.visit(this);
-    }
-
-    /** The depth of a number expression is always 0
-     *
-     * @return The depth of a number expression
-     */
-    @Override
-    public int countDepth() {
-        return 0;
-    }
-
-    /** The number of operations contained in a number expression is always 0
-     *
-     * @return The number of operations contained in a number expression
-     */
-    @Override
-    public int countOps() {
-        return 0;
-    }
-
-    /** The number of numbers contained in a number expression is always 1
-     *
-     * @return The number of numbers contained in  a number expression
-     */
-    @Override
-    public int countNbs() {
-        return 1;
     }
 
     /**
