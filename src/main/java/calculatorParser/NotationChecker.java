@@ -46,7 +46,7 @@ public class NotationChecker {
                 return false;
             }
         }
-        if (e instanceof calculator.MyNumber) {
+        if (e instanceof calculator.MyNumber || e instanceof MyTime) {
             return true;
         }
         return false;
@@ -67,7 +67,7 @@ public class NotationChecker {
                 return false;
             }
         }
-        if (e instanceof calculator.MyNumber) {
+        if (e instanceof calculator.MyNumber || e instanceof MyTime) {
             return true;
         }
         return false;
@@ -88,7 +88,7 @@ public class NotationChecker {
                 return false;
             }
         }
-        if (e instanceof calculator.MyNumber) {
+        if (e instanceof calculator.MyNumber || e instanceof MyTime) {
             return true;
         }
         return false;

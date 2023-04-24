@@ -61,10 +61,10 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\11\0\1\1\1\2\1\0\1\1\1\3\22\0\1\4"+
-    "\7\0\1\5\1\6\1\0\1\7\1\0\1\10\2\0"+
-    "\13\4\6\0\1\11\13\0\1\12\2\0\1\11\16\0"+
-    "\1\13\u01a0\0";
+    "\11\0\1\1\1\2\1\0\1\1\1\3\22\0\1\1"+
+    "\7\0\1\4\1\5\1\0\1\6\1\0\1\7\2\0"+
+    "\13\10\2\0\1\10\3\0\1\11\13\0\1\12\2\0"+
+    "\1\11\16\0\1\13\u01a0\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
@@ -119,7 +119,7 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\14\0\30\0\44\0\14\0\14\0\60\0\74"+
+    "\0\0\0\14\0\30\0\14\0\14\0\44\0\60\0\74"+
     "\0\110\0\124\0\14\0\14";
 
   private static int [] zzUnpackRowMap() {
@@ -146,10 +146,9 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\0\2\2\1\3\1\4\1\5\1\6\2\4\1\7"+
-    "\1\0\1\10\16\0\1\2\15\0\1\4\2\0\2\4"+
-    "\1\7\14\0\1\4\10\0\1\11\1\12\16\0\1\13"+
-    "\13\0\1\14";
+    "\1\0\2\2\1\3\1\4\1\5\3\6\1\7\1\0"+
+    "\1\10\16\0\1\2\17\0\3\6\1\7\14\0\1\6"+
+    "\7\0\1\11\1\12\17\0\1\13\13\0\1\14";
 
   private static int [] zzUnpacktrans() {
     int [] result = new int[96];
@@ -195,7 +194,7 @@ public class lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\2\11\4\0\2\11";
+    "\1\0\1\11\1\1\2\11\1\1\4\0\2\11";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[12];
@@ -662,17 +661,17 @@ public class lexer implements java_cup.runtime.Scanner {
           // fall through
           case 7: break;
           case 2:
-            { return symbol(sym.TIME, yytext());
+            { return symbol(sym.LPAREN);
             }
           // fall through
           case 8: break;
           case 3:
-            { return symbol(sym.LPAREN);
+            { return symbol(sym.RPAREN);
             }
           // fall through
           case 9: break;
           case 4:
-            { return symbol(sym.RPAREN);
+            { return symbol(sym.TIME, yytext());
             }
           // fall through
           case 10: break;

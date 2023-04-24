@@ -35,6 +35,9 @@ public class MyTime implements Expression {
      * @throws IllegalArgumentException if the string does not match a number of days, hours or date
      */
     public static MyTime getAs(String v) throws IllegalArgumentException {
+        // Replace characters used for spacing
+        v = v.replace("=", " ");
+
         try {
             int days = Integer.parseInt(v);
             return MyTime.getAsDays(days);

@@ -23,7 +23,7 @@ import java_cup.runtime.Symbol;
 %}
 
 // A string time is a sequence of digit that can contain the symbol +, -, :, AM, PM or underscore
-Time         = ([0-9 ]|-|:|AM|PM|\+)+
+Time         = ([0-9=]|-|:|AM|PM|\+)+
 
 // A line terminator is a \r (carriage return), \n (line feed), or \r\n. */
 LineTerminator = \r|\n|\r\n
