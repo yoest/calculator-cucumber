@@ -61,11 +61,11 @@ public abstract class Operation implements Expression
 	protected /*constructor*/ Operation(List<Expression> elist,Notation n)
 			throws IllegalConstruction
 	{
-		if (NotationChecker.verifyNotations(elist, n) == false) {
-			throw new IllegalConstruction("Notations are not the same");
-		}
 		if (elist == null) {
 			throw new IllegalConstruction(""); }
+		else if (NotationChecker.verifyNotations(elist, n) == false) {
+			throw new IllegalConstruction("Notations are not the same");
+		}
 		else {
 			args = new ArrayList<>(elist);
 		}
