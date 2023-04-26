@@ -51,6 +51,14 @@ public class MyNumber implements Expression
     value=new BigDecimal(v);
   }
 
+    public MyNumber(BigDecimal v) {
+    value=v;
+    }
+
+    public MyNumber(double v) {
+    value=new BigDecimal(v);
+    }
+
     /**
      * accept method to implement the visitor design pattern to traverse arithmetic expressions.
      * Each number will pass itself to the visitor object to get processed by the visitor.
