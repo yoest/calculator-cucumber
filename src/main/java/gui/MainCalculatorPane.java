@@ -540,6 +540,20 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             degButton.setVisible(false);
             eButton.setVisible(false);
             quoteButton.setVisible(false);
+            moduloButton.setVisible(true);
+            reverseModuloButton.setVisible(true);
+        }
+        else {
+            inputRadixLabel.setText("Precision :  " + PRECISION);
+            inputRadixLabel.setVisible(true);
+            outputRadixLabel.setText("ROUNDING :  " + ROUNDING);
+            outputRadixLabel.setVisible(true);
+            radianButton.setVisible(true);
+            degButton.setVisible(true);
+            eButton.setVisible(true);
+            quoteButton.setVisible(true);
+            moduloButton.setVisible(false);
+            reverseModuloButton.setVisible(false);
         }
 
         //add listener to calculatorField
