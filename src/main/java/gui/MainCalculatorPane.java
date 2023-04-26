@@ -3,6 +3,7 @@ package gui;
 import calculator.Calculator;
 import calculator.Expression;
 import calculator.MyNumber;
+import calculator.Operation;
 import calculatorParser.lexer;
 import calculatorParser.parser;
 import javafx.fxml.FXML;
@@ -240,6 +241,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
      * add listener to calculatorField
      */
     private void initializeButton() {
+        redoButton.setDisable(!calculator.redoable());
         calculatorField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));
@@ -321,6 +323,10 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
             parser p = new parser(new lexer(new java.io.StringReader(calculatorField.getText().replaceAll("\\|", "") + " ")));
             Object result = null;
+            System.out.println("history" + historyListView.getItems());
+
+            undoButton.setDisable(historyListView.getItems().isEmpty());
+
             try {
                 result = p.parse().value;
                 Expression e = (Expression) result;
@@ -336,36 +342,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                     resultField.setText(n.toString());
                 }
                 lastValue = n;
-                //Show e
                 System.out.println(e.toString());
-                //calculator.save(e);
                 synchronizeHistory();
-                //addHistory(e.toString(), n.toString(), calculator.getLastID());
-                /* J'ai utilisé ça juste pour tester le tout sans devoir créer
-                les boutons
-
-
-                } if (number == 3) { //Save History as txt
-                    String name = calculator.exportHistory();
-                    //Show a message
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information");
-                    alert.setHeaderText("Information");
-                    alert.setContentText("History saved as " + name + "in the saves/history/txt folder");
-                    alert.showAndWait();
-                } if (number == 4) { // Save History
-                    calculator.saveHistory();
-                    System.out.println("History saved");
-                } if (number == 5) { //load history
-                    //If opening, load last, else specify
-                    removeAllFromHistory();
-                    List<Snapshot> history = calculator.loadHistory("tmp");
-                    for (Snapshot s : history) {
-                        Expression e1 = s.getExpression();
-                        Expression e2 = s.getComputed();
-                        addHistory(e1.toString(), e2.toString(), s.getName());
-                    }
-                } */
                 lastValueButton.setDisable(false);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -376,20 +354,36 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             }
         });
         undoButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            //removeLastFromHistory();
-            Snapshot last = calculator.undo();
+            redoButton.setDisable(!calculator.redoable());
+            undoButton.setDisable(historyListView.getItems().isEmpty());
+            Snapshot last;
+            try {
+                last = calculator.undo();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             synchronizeHistory();
             Expression lastExpression = last.getExpression();
             calculatorField.setText(lastExpression.toString());
+            undoButton.setDisable(historyListView.getItems().isEmpty());
+            redoButton.setDisable(!calculator.redoable());
+
 
         });
         redoButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
-            Snapshot last = calculator.redo();
+            Snapshot last = null;
+            redoButton.setDisable(!calculator.redoable());
+            try {
+                last = calculator.redo();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             Expression lastExpression = last.getExpression();
             MyNumber lastResult = (MyNumber) last.getComputed();
             synchronizeHistory();
-            //addHistory(lastExpression.toString(), lastResult.toString(), last.getName());
             calculatorField.setText(lastExpression.toString());
+            undoButton.setDisable(historyListView.getItems().isEmpty());
+            redoButton.setDisable(!calculator.redoable());
 
         });
         loadButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
@@ -442,8 +436,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 //Load the history
                 calculator.loadHistory(selectedFile.getName());
                 calculator.adaptSizeOfHistory();
-                //get the history
                 synchronizeHistory();
+
             }
         });
         exportButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
@@ -516,23 +510,23 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         List<Snapshot> history = calculator.getHistory();
         for (Snapshot s : history) {
             Expression e1 = s.getExpression();
+            adaptRadix(e1);
             MyNumber e2 = s.getComputed();
+            //e1.setRadix(INPUT_RADIX);
+            e2.setRadix(OUTPUT_RADIX);
             addHistory(e1.toString(), e2.toString(), s.getName());
         }
     }
 
-    private void removeFirstFromHistory() {
-        //Remove first
-        historyListView.getItems().remove(0);
-    }
-
-    private void removeLastFromHistory() {
-     //Remove last
-        historyListView.getItems().remove(historyListView.getItems().size()-1);
-    }
-
-    private void removeAllFromHistory() {
-        historyListView.getItems().clear();
+    private void adaptRadix(Expression e) {
+        if (e instanceof MyNumber) ((MyNumber) e).setRadix(INPUT_RADIX);
+            else {
+            List<Expression> list = ((Operation) e).getElist();
+            //convert each number to the input radix
+            for (Expression n : list) {
+                adaptRadix(n);
+            }
+        }
     }
 
     private void initializeArray() {

@@ -3,8 +3,6 @@ package memory;
 import calculator.Expression;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,177 +10,138 @@ public class Caretaker implements Serializable {
     private List<Snapshot> history = new ArrayList<>(); // List of the expressions stored in the memory
     private int maxSize = 1000; //bytes, the maximum size of the file that is saved in the memory
     private int remainingSize;
+    private final String OUTPUTFOLDER = "saves/history/ser/";
 
-    // Simple constructor
+    /**
+     * Simple constructor
+     */
     public Caretaker() {}
 
     public Caretaker(int maxSize) {
         this.maxSize = maxSize;
     }
 
-    // add a snapshot to the history
+    /**
+     *  Add a snapshot to the history
+     */
     public void add(Snapshot snapshot) {
         history.add(snapshot);
     }
 
-    //remove a snapshot from the history
+    /**
+     * Remove a snapshot from the history
+     * @param snapshot : the snapshot to be removed
+     * @return the snapshot removed
+     */
     public Snapshot remove(Snapshot snapshot) {
         if(history.remove(snapshot)) return snapshot;
         else return null;
     }
 
-    // Compute remaining size
-    public int computeRemainingSize() {
+    /**
+     * Compute the size remaining in the memory
+     */
+    public void computeRemainingSize() {
         int size = 0;
-        for (Snapshot snapshot : history) {
-            size += snapshot.getSize();
-        }
+        for (Snapshot snapshot : history) size += snapshot.getSize();
         this.remainingSize = maxSize - size;
-        return remainingSize;
     }
 
-    // get the history of the expressions stored in the memory
+    /**
+     * Get the history of the expressions stored in the memory
+     * @return the history
+     */
     public List<Snapshot> getHistory() {
         return history;
     }
-    //update the history of the expressions stored in the memory
 
-    ///Save the history
-    public String serializeHistory() { //to call when the user wants to save the history, at the end of the program
+    /**
+     * Save the history in a file
+     *
+     * @return the name of the file
+     */
+    public String serializeHistory() {
         try {
-            String outputFolder = "saves/history/ser/";
-            String time = LocalTime.now().toString();
-            String day = LocalDate.now().toString();
-            time = day + "_" + time;
-            String fileName = outputFolder + time + ".ser";
-
-            File file = new File(fileName);
-
-                // TODO : check if the size of the file is bigger than maxSize
-    // Create fi//TODO : change : by _
-                FileOutputStream fileOut = new FileOutputStream(outputFolder + "test" + ".ser");
-                // Create object output stream to write objects to file
-                ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-                // Get the size of the file
-                File file_ = new File(outputFolder + "test" + ".ser");
-                long fileSize = file.length(); // in bytes
-
-                // Write object to file
-                objectOut.writeObject(history);
-                // Close object output stream
-                objectOut.close();
-                return fileName;
-            } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            String time = java.time.LocalTime.now().toString();
+            time = time.replace(":", "_");
+            String fileName = OUTPUTFOLDER + time.substring(0, time.length() - 4) + ".ser";
+            FileOutputStream fileOut = new FileOutputStream(fileName);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(history);
+            objectOut.close();
+            return fileName;
+        } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-    }
-
-    public List<Snapshot> deserializeHistory(String name) { // TO call when the user wants to load the history, at the beginning of the program
+    /**
+     * Load the history from a file
+     *
+     * @param name : the name of the file
+     */
+    public void deserializeHistory(String name) {
         List<Snapshot> snapshots = new ArrayList<>();
-
         try {
-            String outputFolder = "saves/history/ser/";
-
-            // Find the history file in the folder
-            File folder = new File("saves/history/ser/");
-            File[] files = folder.listFiles();
-            File historyFile = null;
-            // if file not void
-            if (files != null) {
-                for (File file : files) {
-                    if (file.getName().equals(name)) {
-                        historyFile = file;
-                        break;
-                    }
-                }
-            } else {
-                throw new FileNotFoundException("No history file found");
-            }
-
-            // Read the contents of the file and deserialize the snapshots
+            File historyFile = new File(OUTPUTFOLDER + name);
             FileInputStream fileInputStream = new FileInputStream(historyFile);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             snapshots = (List<Snapshot>) objectInputStream.readObject();
             objectInputStream.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
         setHistory(snapshots);
-        return snapshots;
     }
 
-    // Save the history in a text file
-    public String saveHistoryTxt() {
+    /**
+     * Save the history in a txt file
+     * @return the name of the file
+     */
+    public String saveHistoryTxt() throws IOException {
         // for snapshot in history
-        String outputString = "";
+        StringBuilder outputString = new StringBuilder();
         for (Snapshot snapshot : history) {
-            outputString += "For snapshot : " + snapshot + "\n";
+            outputString.append("For snapshot : ").append(snapshot).append("\n");
             // save the snapshot
             String name = snapshot.getName();
             Expression e = snapshot.getExpression();
-
                 Expression e_ = snapshot.getComputed();
-                outputString += "The expression is " + e.toString() + " has a value of " +e_.toString()
-                        + " and was saved under the name " + name + " at " + snapshot.getTime() + "\n";
+                outputString.append("The expression is ").append(e.toString()).append(" has a value of ").append(e_.toString()).append(" and was saved under the name ").append(name).append(" at ").append(snapshot.getTime()).append("\n");
             }
 
-        try {
-            String time = LocalTime.now().toString();
-            FileWriter writer = new FileWriter("saves/history/txt/+ " + "test" + ".txt");
-            writer.write(outputString);
+            String time = java.time.LocalTime.now().toString();
+            time = time.replace(":", "_");
+            String fileName = time.substring(0, time.length() - 4);
+            FileWriter writer = new FileWriter("saves/history/txt/+ " + fileName + ".txt");
+            writer.write(outputString.toString());
             writer.close();
-            return "test" + ".txt";
+            return fileName + ".txt";
 
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving to file.");
-            e.printStackTrace();
-        }
-        return outputString;
     }
 
-    //Set history
+    /**
+     * Set the history
+     * @param history : the new history
+     */
     public void setHistory(List<Snapshot> history) {
         this.history = history;
     }
 
-    //Clear the history
-    public void clearHistory() {
-        // for all files in folder "saves/history/ser/"
-        File folder = new File("saves/history/ser/");
-        File[] files = folder.listFiles();
-        for (File file : files) {
-            file.delete();
-        }
-        // for all files in folder "saves/history/txt/"
-        File folder_ = new File("saves/history/txt/");
-        File[] files_ = folder_.listFiles();
-        for (File file : files_) {
-            file.delete();
-        }
-    }
 
-    //Clear expressions
+    /**
+     * Clear the history
+     */
     public void clearExpressions() {
-        // for all files in folder "saves/expressions/ser/"
         File folder = new File("saves/expressions/");
         File[] files = folder.listFiles();
+        assert files != null;
         for (File file : files) {
             file.delete();
         }
     }
 
-    //Get names of all the snapshots
-    public List<String> getNames() {
-        List<String> names = new ArrayList<>();
-        for (Snapshot snapshot : history) {
-            names.add(snapshot.getName());
-        }
-        return names;
-    }
-
-    //Check remaining size
+    /**
+     *  Check remaining size
+     */
     public boolean checkSize(int size) {
         computeRemainingSize();
         return remainingSize - size >= 0;

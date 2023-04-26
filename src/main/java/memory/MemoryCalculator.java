@@ -4,18 +4,16 @@ import calculator.*;
 import gui.MainCalculatorPane;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.List;
 
 import java.util.Stack;
 
 public class MemoryCalculator extends Calculator {
-    // Constructor
     private final Caretaker caretaker; // the class that stores the history of the expressions
     private Snapshot lastSnapshot = null; // the last snapshot saved in the memory
     private Snapshot lastErased = null; // the last snapshot erased from the memory
-    private final Stack erased = new Stack();
-    private int maxMemorySize; //bytes, the maximum size of the memory
+    private final Stack<Object> erased = new Stack<>();
+    private final int maxMemorySize; //bytes, the maximum size of the memory
 
     /** Simple constructor
      *
@@ -50,9 +48,8 @@ public class MemoryCalculator extends Calculator {
      * @param e : the expression to be saved
      */
     public void save(Expression e) throws IOException {
-        Expression computed = new MyNumber(eval(e).toString());
         //cast the result of the evaluation to a MyNumber
-        MyNumber n = (MyNumber) computed;
+        MyNumber n = new MyNumber(eval(e).toString());
         if (MainCalculatorPane.IS_INTEGER_MODE){
             n = new MyNumber(n.getValue().toString(), 10);
             n.setRadix(MainCalculatorPane.OUTPUT_RADIX);
@@ -89,34 +86,57 @@ public class MemoryCalculator extends Calculator {
         }
     }
 
-    // load the last snapshot
+    /** Load the last snapshot saved in the memory
+     *
+     * @return the expression stored in the last snapshot
+     */
     public Expression load() {
-        return load(lastSnapshot.getName());
+        return (lastSnapshot.getExpression());
     }
 
-    // get the history of the expressions stored in the memory
+    /** Get the history of the expressions stored in the memory
+     *
+     * @return the history of the expressions stored in the memory
+     */
     public List<Snapshot> getHistory() {
         return caretaker.getHistory();
     }
 
-    // Save the history of the expressions stored in the memory
+    /** Save the history of the expressions stored in the memory
+     *
+     * @return the history of the expressions stored in the memory
+     */
     public String saveHistory() {
         return caretaker.serializeHistory();
     }
 
+    /**
+     * Export the history of the expressions stored in the memory
+     * @return the history of the expressions stored in the memory
+     */
     public String exportHistory() {
-        return caretaker.saveHistoryTxt();
+        try {
+            return caretaker.saveHistoryTxt();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    // generate the name of the file that will store the snapshot
+    /**
+     * Generate a name for the snapshot
+     * @return the name of the snapshot
+     */
     private String generateName() {
         String time = java.time.LocalTime.now().toString();
         time = time.replace(":", "_");
         return time.substring(0, time.length() - 4); // remove the milliseconds to make the name more readable
         }
 
-    // undo the last snapshot
-    public Snapshot undo() {
+    /**
+     * Undo the last snapshot
+     * @return the last snapshot
+     */
+    public Snapshot undo() throws IOException {
         updateLastSnapshot();
         if (lastSnapshot != null) {
             lastErased = caretaker.remove(lastSnapshot);
@@ -124,29 +144,36 @@ public class MemoryCalculator extends Calculator {
             updateLastSnapshot();
             return lastErased;
         } else {
-            System.out.println("No snapshot to undo");
-            return null;
+            throw new IOException("No snapshot to undo");
         }
     }
 
-    // redo the last snapshot
-    public Snapshot redo() {
+    /**
+     * Redo the last snapshot
+     * @return the last snapshot
+     */
+    public Snapshot redo() throws IOException {
         try {
             if (lastErased != null) {
                 Snapshot elem = (Snapshot) erased.pop();
                 caretaker.add(elem);
-
                 updateLastSnapshot();
                 return elem;
             }
         } catch (Exception e) {
             System.out.println("No snapshot to redo");
-            throw new RuntimeException(e);
+            throw new IOException(e);
         }
         return null;
     }
 
-    // update the last snapshot by getting it and the end of the list
+    public Boolean redoable() {
+        return !erased.empty();
+    }
+
+    /**
+     * Update the last snapshot
+     */
     public void updateLastSnapshot() {
         List<Snapshot> history = getHistory();
         //Get history
@@ -155,35 +182,31 @@ public class MemoryCalculator extends Calculator {
         }
     }
 
-    /** Clear the history of the memory
-     * This method is here only for testing purposes, for now, it may cause problems if used
-     */
-    public void clearHistory() {
-        caretaker.clearHistory();
-    }
 
+    /**
+     * Load a history
+     * @param name : the name of the history to be loaded
+     */
     public void loadHistory(String name) {
         caretaker.deserializeHistory(name);
     }
 
+    /**
+     * Adapt the size of the history to the maximum size of the memory
+     */
     public void adaptSizeOfHistory() {
         List<Snapshot> history = getHistory();
-        // If > maxHistorySize, remove the first element until the size is ok
         int size = 0;
         for (Snapshot snapshot : history) {
             size += snapshot.getSize();
         }
         if (size > maxMemorySize) {
             int i = 0;
-            while (size > maxMemorySize) {
+            while (size >= maxMemorySize) {
                 size -= history.get(i).getSize();
                 history.remove(0);
                 i++;
             }
         }
     }
-    public Snapshot getLastErased() {
-        return lastErased;
-    }
-
 }

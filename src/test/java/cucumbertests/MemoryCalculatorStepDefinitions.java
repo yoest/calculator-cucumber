@@ -1,13 +1,11 @@
 package cucumbertests;
 
-import io.cucumber.java.en.And;
 import memory.*;
 import calculator.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,14 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MemoryCalculatorStepDefinitions {
 
     private MemoryCalculator calc;
-    private Caretaker caretaker;
     private Expression expression;
-    private List<Snapshot> history;
 
     @BeforeEach
     public void setUp() {
         calc = new MemoryCalculator(100);
-        caretaker = new Caretaker();
+        Caretaker caretaker = new Caretaker();
     }
 
     @Given("I initialise a MemoryCalculator")
@@ -48,28 +44,35 @@ public class MemoryCalculatorStepDefinitions {
 
     @When("I undo the last expression")
     public void undoLastExpression() {
-        // print history
-        calc.undo();
+        try {
+            calc.undo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     @When("I redo the last expression")
     public void redoLastExpression() {
-        calc.redo();
+        try {
+            calc.redo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Then("the loaded expression should be (\\d+)$")
-    public void checkLoadedExpression(int expected) throws IOException {
+    public void checkLoadedExpression(int expected) {
         Expression loaded = calc.load();
         Expression expectedExpr = new MyNumber(expected);
         assertEquals(expectedExpr, loaded);
     }
 
     @Given("I save the history of expressions in a file")
-    public void saveHistory() throws IOException {
+    public void saveHistory() {
         calc.getHistory();
     }
 
     @Then("the file should contain the following expressions:")
-    public void checkHistory(List<String> expected) throws IOException {
+    public void checkHistory(List<String> expected) {
         List<String> actual = new ArrayList<>();
         for (Snapshot s : calc.getHistory()) {
             actual.add(s.getExpression().toString());

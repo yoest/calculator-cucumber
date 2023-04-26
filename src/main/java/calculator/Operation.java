@@ -7,7 +7,6 @@ import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Operation is an abstract class that represents arithmetic operations,
@@ -180,5 +179,10 @@ public abstract class Operation implements Expression
 	/** Getter for the Symbol value. */
 	public String getSymbol() {
 		return symbol;
+	}
+
+	/** Getter for the elist value. */
+	public List<Expression> getElist() {
+		return args;
 	}
 }

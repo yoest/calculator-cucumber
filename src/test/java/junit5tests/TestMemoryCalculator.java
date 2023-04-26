@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemoryCalculatorTest {
+class TestMemoryCalculator {
     private MemoryCalculator calc;
     private Caretaker caretaker;
 
@@ -69,7 +69,9 @@ class MemoryCalculatorTest {
         calc.eval(e1);
         calc.eval(e2);
         calc.undo();
+
         Expression loaded = calc.load();
+        System.out.println(loaded);
         assertEquals(e1, loaded);
     }
 

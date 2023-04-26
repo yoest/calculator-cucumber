@@ -7,92 +7,97 @@ import java.time.LocalTime;
 
 
 public class Snapshot implements Serializable {
-      private final Expression e;
+    private final Expression e;
     private final MyNumber computed;
     private final String destinationFolder = "saves/expressions/";
     private String name;
     private LocalTime time;
     private int size;
+
+    /**
+     * Simple constructor
+     * @param e : the expression to be saved
+     */
     public Snapshot(Expression e) {
-        // TODO
         this.e = e;
         this.computed = null;
     }
+
+    /**
+     * More complex constructor
+     * @param e : the expression to be saved
+     * @param computed : the result of the evaluation of the expression
+     */
     public Snapshot(Expression e, MyNumber computed) {
-        // TODO
         this.e = e;
         this.computed = computed;
-
     }
 
+    /**
+     * Store the expression in a file
+     * @param name : the name of the file
+     */
     public void store(String name) throws IOException {
         this.name = name;
         FileOutputStream fileOut = new FileOutputStream(destinationFolder + name + ".ser");
-        // Create object output stream to write objects to file
         ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-        // Get the size of the file
         File file = new File(destinationFolder + name + ".ser");
         long fileSize = file.length(); // in bytes
-
-        // If the size of the file is bigger than maxSize, delete the file and throw an exception
-       // if (computed != null) objectOut.writeObject(computed);
-
-
-        // Write object to file
         objectOut.writeObject(e);
-        // Close object output stream
         objectOut.close();
         this.size = (int) fileSize;
-        // get the time of the save
         this.time = LocalTime.now();
     }
-    // Method to load the expression from a file
+
+    /**
+     * Load the expression from a file
+     * @param name : the name of the file
+     * @return the expression
+     */
     public Expression load(String name) throws IOException, ClassNotFoundException {
-        // if the file doesn't exist, return null
         if (!new File(destinationFolder + name + ".ser").exists()) return null;
         FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
-        // Create object input stream to read objects from file
         ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-        // Read object from file and get computed expression
         Expression e = (Expression) objectIn.readObject();
-
-        // Close object input stream
         objectIn.close();
         return e;
     }
 
-    public Snapshot load_(String name) throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
-        // Create object input stream to read objects from file
-        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-        // Read object from file and get computed expression
-        Snapshot res = (Snapshot) objectIn.readObject();
-
-        // Close object input stream
-        objectIn.close();
-        //The instance of the class i equal to res
-        return res;
-    }
-    // Getter
+    /**
+     * Get the expression
+     * @return the expression
+     */
     public Expression getExpression() {
         return e;
     }
 
+    /**
+     * Get the computed result
+     * @return the computed result
+     */
     public MyNumber getComputed() {
         return computed;
     }
 
-    // get the time of the save
+    /**
+     * Get the time of the save
+      */
     public LocalTime getTime() {
         return time;
     }
 
-    // get the name of the file
+    /**
+     * Get the time of the save
+     * @return the time of the save
+     */
     public String getName() {
         return name;
     }
 
-    // get the size of the file
+    /**
+     * Get the size of the file
+     * @return the size of the file
+     */
     public int getSize() {
         return size;
     }
