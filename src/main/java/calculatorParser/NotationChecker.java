@@ -4,6 +4,10 @@ import calculator.*;
 import java.util.List;
 
 public class NotationChecker {
+
+    private NotationChecker() {
+    }
+
     public static boolean verifyNotation(Expression e) {
         if (isInfix(e) || isPrefix(e) || isPostfix(e)) {
             return true;
@@ -13,20 +17,14 @@ public class NotationChecker {
 
     public static boolean verifyNotations(List<Expression> expressions, Notation notation) {
         for (Expression e : expressions) {
-            if (notation == Notation.INFIX) {
-                if (isInfix(e) == false) {
+            if (notation == Notation.INFIX && !isInfix(e)) {
                     return false;
-                }
             }
-            if (notation == Notation.PREFIX) {
-                if (isPrefix(e) == false) {
+            if (notation == Notation.PREFIX && !isPrefix(e)) {
                     return false;
-                }
             }
-            if (notation == Notation.POSTFIX) {
-                if (isPostfix(e) == false) {
+            if (notation == Notation.POSTFIX && !isPostfix(e)) {
                     return false;
-                }
             }
         }
         return true;
@@ -37,7 +35,7 @@ public class NotationChecker {
             Notation notation = op.notation;
             if (notation == Notation.INFIX) {
                 for (Expression exp : op.args) {
-                    if (isInfix(exp) == false) {
+                    if (!isInfix(exp)) {
                         return false;
                     }
                 }
@@ -58,7 +56,7 @@ public class NotationChecker {
             Notation notation = op.notation;
             if (notation == Notation.PREFIX) {
                 for (Expression exp : op.args) {
-                    if (isPrefix(exp) == false) {
+                    if (!isPrefix(exp)) {
                         return false;
                     }
                 }
@@ -79,7 +77,7 @@ public class NotationChecker {
             Notation notation = op.notation;
             if (notation == Notation.POSTFIX) {
                 for (Expression exp : op.args) {
-                    if (isPostfix(exp) == false) {
+                    if (!isPostfix(exp)) {
                         return false;
                     }
                 }
