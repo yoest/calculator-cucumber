@@ -19,21 +19,19 @@ public class MyNumber implements Expression
 
   private int radix;
 
-    /** getter method to obtain the value contained in the object
-     *
-     * @return The integer number contained in the object
-     */
-
+  /** getter method to obtain the value contained in the object
+   *
+   * @return The integer number contained in the object
+   */
   public Number getValue() {
       return value; //Return the value in radix 10
   }
 
-    /**
-     * Constructor method
-     *
-     * @param v The integer value to be contained in the object
-     */
-
+  /**
+   * Constructor method for a number in a specified radix (BigInteger)
+   * @param v The integer value in String format
+   * @param radix The radix of the number
+   */
   public /*constructor*/ MyNumber(String v, Integer radix){
     this.value= new BigInteger(v, radix);
     if (radix > 36) {
@@ -42,11 +40,19 @@ public class MyNumber implements Expression
     this.radix = radix;
   }
 
+  /**
+   * Constructor method for a number in radix 10 (BigInteger)
+   * @param v Integer
+   */
   public MyNumber(Integer v) {
     this.value= new BigInteger(Integer.toString(v));
     this.radix = 10;
   }
 
+  /**
+   * Constructor method for a number (BigDecimal)
+   * @param v Decimal value in String format
+   */
   public MyNumber(String v) {
     value=new BigDecimal(v);
   }
@@ -62,11 +68,11 @@ public class MyNumber implements Expression
       v.visit(this);
   }
 
-    /**
-     * Convert a number into a String to allow it to be printed.
-     *
-     * @return	The String that is the result of the conversion.
-     */
+  /**
+   * Convert a number into a String to allow it to be printed.
+   *
+   * @return	The String that is the result of the conversion.
+   */
   @Override
   public String toString() {
     if (value instanceof BigDecimal) {
@@ -101,17 +107,21 @@ public class MyNumber implements Expression
       // If it had been a Java object, .equals() would be needed
   }
 
-    /** The method hashCode needs to be overridden it the equals method is overridden;
-     * 	otherwise there may be problems when you use your object in hashed collections
-     * 	such as HashMap, HashSet, LinkedHashSet.
-     *
-     * @return	The result of computing the hash.
-     */
+  /** The method hashCode needs to be overridden it the equals method is overridden;
+   * 	otherwise there may be problems when you use your object in hashed collections
+   * 	such as HashMap, HashSet, LinkedHashSet.
+   *
+   * @return	The result of computing the hash.
+   */
   @Override
   public int hashCode() {
 		return value.hashCode();
   }
 
+  /**
+   * This method is used to set the radix of the number
+   * @param radix The radix of the number
+   */
   public void setRadix(int radix) {
     //If the radix is greater than 36, throw an exception
     if (radix > 36) {
@@ -120,6 +130,10 @@ public class MyNumber implements Expression
     this.radix = radix;
   }
 
+  /**
+   * This method is used to get the radix of the number
+   * @return The radix of the number
+   */
   public int getRadix() {
     return this.radix;
   }

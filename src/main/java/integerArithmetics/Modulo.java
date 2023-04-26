@@ -35,10 +35,22 @@ public class Modulo extends Operation {
     neutral = new BigInteger("0");
   }
 
+  /**
+   * Returns the result of the (binary) operation on integers
+   * @param l	 first argument of the binary operation
+   * @param r	second argument of the binary operation
+   * @return the result of the operation
+   */
   public Number op(Number l, Number r) {
     	return op((BigInteger)l, (BigInteger)r);
   }
 
+  /**
+   * Returns the result of the (binary) operation on integers
+   * @param l	 first argument of the binary operation
+   * @param r	second argument of the binary operation
+   * @return the result of the operation
+   */
   public long op(long l, long r){
     throw new RuntimeException("Modulo: op(long, long) not implemented");
   }
