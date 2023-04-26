@@ -458,7 +458,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             try {
                 Desktop.getDesktop().open(new File("saves/history/txt"));
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error while opening the folder");
             }
         });
         radianButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
