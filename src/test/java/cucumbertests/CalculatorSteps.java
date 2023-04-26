@@ -104,15 +104,15 @@ public class CalculatorSteps {
 		op.addMoreParams(params);
 	}
 
-	@When("I provide a first number {double} as decimal")
-	public void iProvideAFirstNumberNAsDecimal(double value) {
+	@When("I provide a first number {string} as decimal")
+	public void iProvideAFirstNumberNAsDecimal(String value) {
 		params = new ArrayList<>();
 		params.add(new MyNumber(value));
 		op.addMoreParams(params);
 	}
 
-	@When("I provide a second number {double} as decimal")
-	public void iProvideASecondNumberNAsDecimal(double value) {
+	@When("I provide a second number {string} as decimal")
+	public void iProvideASecondNumberNAsDecimal(String value) {
 		params = new ArrayList<>();
 		params.add(new MyNumber(value));
 		op.addMoreParams(params);
@@ -150,10 +150,10 @@ public void thenTheOperationIs(String s, int val) throws IllegalConstruction {
 public void thenTheOperationEvaluatesTo(int val) throws IllegalConstruction {
 	assertEquals(0, BigInteger.valueOf(val).compareTo((BigInteger) c.eval(op)));
 }
-@Then("the operation evaluates to {double} in decimal")
-public void theOperationEvaluatesToResultInDecimal(double decimal) {
+@Then("the operation evaluates to {string} in decimal")
+public void theOperationEvaluatesToResultInDecimal(String decimal) {
 	BigDecimal result = (BigDecimal) c.eval(op);
-	assertEquals(0, BigDecimal.valueOf(decimal).compareTo(result));
+	assertEquals(0, decimal.compareTo(result.toPlainString()));
 }
 @Then("the operation evaluates to {string} in radix {int}")
 public void thenTheOperationEvaluatesToInRadix(String val, int radix) throws IllegalConstruction {
