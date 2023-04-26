@@ -61,8 +61,8 @@ public class Caretaker implements Serializable {
      * @return the name of the file
      */
     public String serializeHistory() {
-        String fileName;
-        try (FileOutputStream fileOut = new FileOutputStream(OUTPUTFOLDER + java.time.LocalTime.now().toString().replace(":", "_").substring(0, 12) + ".ser");
+        String fileName = OUTPUTFOLDER + java.time.LocalTime.now().toString().replace(":", "_").substring(0, 12) + ".ser";
+        try (FileOutputStream fileOut = new FileOutputStream(fileName);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
             objectOut.writeObject(history);
             fileName = fileOut.getFD().toString();
