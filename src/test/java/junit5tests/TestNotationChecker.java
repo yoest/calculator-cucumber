@@ -19,13 +19,14 @@ public class TestNotationChecker {
      */
     void testInfix() throws IllegalConstruction {
         //create the expression (4+5)*6
+        Plus plus = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5)))
+        );
         exp = new Times(
                 new ArrayList<>(
                         Arrays.asList(
-                                new Plus(
-                                        new ArrayList<>(Arrays.asList(
-                                                new MyNumber(4), new MyNumber(5)))
-                                ),
+                                plus,
                                 new MyNumber(6)
                         )
                 )
@@ -46,14 +47,15 @@ public class TestNotationChecker {
      */
     void testPrefix() throws IllegalConstruction {
         //create the expression (4+5)*6
+        Plus plus = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.PREFIX
+        );
         exp = new Times(
                 new ArrayList<>(
                         Arrays.asList(
-                                new Plus(
-                                        new ArrayList<>(Arrays.asList(
-                                                new MyNumber(4), new MyNumber(5))),
-                                        Notation.PREFIX
-                                ),
+                                plus,
                                 new MyNumber(6)
                         )
                 ),
@@ -75,14 +77,15 @@ public class TestNotationChecker {
      */
     void testPostfix() throws IllegalConstruction {
         //create the expression (4+5)*6
+        Plus plus = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.POSTFIX
+        );
         exp = new Times(
                 new ArrayList<>(
                         Arrays.asList(
-                                new Plus(
-                                        new ArrayList<>(Arrays.asList(
-                                                new MyNumber(4), new MyNumber(5))),
-                                        Notation.POSTFIX
-                                ),
+                                plus,
                                 new MyNumber(6)
                         )
                 ),
@@ -104,16 +107,17 @@ public class TestNotationChecker {
      */
     void testMultiNotations() throws IllegalConstruction {
         //create the expression (4+5)*6
+        Plus plus1 = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.POSTFIX
+        );
         //verify there is an exception
         assertThrows(IllegalConstruction.class, () -> {
             exp = new Times(
                     new ArrayList<>(
                             Arrays.asList(
-                                    new Plus(
-                                            new ArrayList<>(Arrays.asList(
-                                                    new MyNumber(4), new MyNumber(5))),
-                                            Notation.POSTFIX
-                                    ),
+                                    plus1,
                                     new MyNumber(6)
                             )
                     ),
@@ -121,15 +125,16 @@ public class TestNotationChecker {
             );
         });
 
+        Plus plus2 = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.PREFIX
+        );
         assertThrows(IllegalConstruction.class, () -> {
             exp = new Times(
                     new ArrayList<>(
                             Arrays.asList(
-                                    new Plus(
-                                            new ArrayList<>(Arrays.asList(
-                                                    new MyNumber(4), new MyNumber(5))),
-                                            Notation.PREFIX
-                                    ),
+                                    plus2,
                                     new MyNumber(6)
                             )
                     ),
@@ -137,15 +142,16 @@ public class TestNotationChecker {
             );
         });
 
+        Plus plus3 = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.INFIX
+        );
         assertThrows(IllegalConstruction.class, () -> {
             exp = new Times(
                     new ArrayList<>(
                             Arrays.asList(
-                                    new Plus(
-                                            new ArrayList<>(Arrays.asList(
-                                                    new MyNumber(4), new MyNumber(5))),
-                                            Notation.INFIX
-                                    ),
+                                    plus3,
                                     new MyNumber(6)
                             )
                     ),
@@ -153,15 +159,16 @@ public class TestNotationChecker {
             );
         });
 
+        Plus plus4 = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.INFIX
+        );
         assertThrows(IllegalConstruction.class, () -> {
             exp = new Times(
                     new ArrayList<>(
                             Arrays.asList(
-                                    new Plus(
-                                            new ArrayList<>(Arrays.asList(
-                                                    new MyNumber(4), new MyNumber(5))),
-                                            Notation.INFIX
-                                    ),
+                                    plus4,
                                     new MyNumber(6)
                             )
                     ),
@@ -169,15 +176,16 @@ public class TestNotationChecker {
             );
         });
 
+        Plus plus5 = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.POSTFIX
+        );
         assertThrows(IllegalConstruction.class, () -> {
             exp = new Times(
                     new ArrayList<>(
                             Arrays.asList(
-                                    new Plus(
-                                            new ArrayList<>(Arrays.asList(
-                                                    new MyNumber(4), new MyNumber(5))),
-                                            Notation.POSTFIX
-                                    ),
+                                    plus5,
                                     new MyNumber(6)
                             )
                     ),
@@ -185,15 +193,16 @@ public class TestNotationChecker {
             );
         });
 
+        Plus plus6 = new Plus(
+                new ArrayList<>(Arrays.asList(
+                        new MyNumber(4), new MyNumber(5))),
+                Notation.PREFIX
+        );
         assertThrows(IllegalConstruction.class, () -> {
             exp = new Times(
                     new ArrayList<>(
                             Arrays.asList(
-                                    new Plus(
-                                            new ArrayList<>(Arrays.asList(
-                                                    new MyNumber(4), new MyNumber(5))),
-                                            Notation.PREFIX
-                                    ),
+                                    plus6,
                                     new MyNumber(6)
                             )
                     ),

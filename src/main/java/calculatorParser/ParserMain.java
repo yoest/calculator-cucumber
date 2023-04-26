@@ -13,7 +13,7 @@ public class ParserMain {
             Calculator c = new Calculator();
             System.out.println(c.eval(e));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 }
