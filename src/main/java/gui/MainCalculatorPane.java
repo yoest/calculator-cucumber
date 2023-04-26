@@ -461,6 +461,50 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 e.printStackTrace();
             }
         });
+        radianButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            //create dialog box to ask the user to enter a value in degree
+            TextInputDialog dialog = new TextInputDialog("Value in degree");
+            dialog.setTitle("Value in degree");
+            dialog.setHeaderText("Value in degree");
+            dialog.setContentText("Please enter the value in degree:");
+            //add a filter to the text field to only accept numbers and the dot
+            TextField textField = dialog.getEditor();
+            textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                    textField.setText(oldValue);
+                }
+            });
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()){
+                MyNumber n = new MyNumber(result.get());
+                n = n.toRadian();
+                calculatorField.insertText(caretCache+1, n.toString());
+                caretCache += n.toString().length() + 1;
+                disignFieldInput();
+            }
+        });
+        degButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            //create dialog box to ask the user to enter a value in radian
+            TextInputDialog dialog = new TextInputDialog("Value in radian");
+            dialog.setTitle("Value in radian");
+            dialog.setHeaderText("Value in radian");
+            dialog.setContentText("Please enter the value in radian:");
+            //add a filter to the text field to only accept numbers and the dot
+            TextField textField = dialog.getEditor();
+            textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                    textField.setText(oldValue);
+                }
+            });
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()){
+                MyNumber n = new MyNumber(result.get());
+                n = n.toDegree();
+                calculatorField.insertText(caretCache+1, n.toString());
+                caretCache += n.toString().length() + 1;
+                disignFieldInput();
+            }
+        });
     }
 
     private void addHistory(String expression, String result, String id) {
