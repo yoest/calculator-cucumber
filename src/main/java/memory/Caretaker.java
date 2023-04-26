@@ -65,7 +65,6 @@ public class Caretaker implements Serializable {
         try (FileOutputStream fileOut = new FileOutputStream(fileName);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
             objectOut.writeObject(history);
-            fileName = fileOut.getFD().toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -78,7 +77,7 @@ public class Caretaker implements Serializable {
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             snapshots = (List<Snapshot>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("Error while loading the history");
         }
         setHistory(snapshots);
     }

@@ -242,6 +242,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
      */
     private void initializeButton() {
         redoButton.setDisable(!calculator.redoable());
+        undoButton.setDisable(historyListView.getItems().isEmpty());
         calculatorField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));
@@ -323,9 +324,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         buttonEval.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
             parser p = new parser(new lexer(new java.io.StringReader(calculatorField.getText().replaceAll("\\|", "") + " ")));
             Object result = null;
-            System.out.println("history" + historyListView.getItems());
 
-            undoButton.setDisable(historyListView.getItems().isEmpty());
 
             try {
                 result = p.parse().value;
@@ -342,9 +341,10 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                     resultField.setText(n.toString());
                 }
                 lastValue = n;
-                System.out.println(e.toString());
                 synchronizeHistory();
                 lastValueButton.setDisable(false);
+                undoButton.setDisable(historyListView.getItems().isEmpty());
+
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -367,8 +367,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             calculatorField.setText(lastExpression.toString());
             undoButton.setDisable(historyListView.getItems().isEmpty());
             redoButton.setDisable(!calculator.redoable());
-
-
         });
         redoButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
             Snapshot last = null;
@@ -395,8 +393,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             dialog.setContentText("Please enter the name of the expression:");
             Optional<String> result = dialog.showAndWait();
             if (result.isPresent()){
-                //System.out.println("Your name: " + result.get());
-                //Load the expression, not the result
+
 
                 Expression e = calculator.load(result.get());
                 if (e != null) {
@@ -452,7 +449,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             try {
                 Desktop.getDesktop().open(new File("saves/history/txt"));
             } catch (IOException e) {
-                System.out.println("Error while opening the folder");
+                System.err.println("Error while opening the folder");
             }
         });
         radianButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
@@ -512,7 +509,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             Expression e1 = s.getExpression();
             adaptRadix(e1);
             MyNumber e2 = s.getComputed();
-            //e1.setRadix(INPUT_RADIX);
             e2.setRadix(OUTPUT_RADIX);
             addHistory(e1.toString(), e2.toString(), s.getName());
         }
@@ -522,7 +518,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         if (e instanceof MyNumber) ((MyNumber) e).setRadix(INPUT_RADIX);
             else {
             List<Expression> list = ((Operation) e).getElist();
-            //convert each number to the input radix
             for (Expression n : list) {
                 adaptRadix(n);
             }
