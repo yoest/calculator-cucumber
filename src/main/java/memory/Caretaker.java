@@ -61,41 +61,29 @@ public class Caretaker implements Serializable {
      * @return the name of the file
      */
     public String serializeHistory() {
-        try {
-            String time = java.time.LocalTime.now().toString();
-            time = time.replace(":", "_");
-            String fileName = OUTPUTFOLDER + time.substring(0, time.length() - 4) + ".ser";
-            FileOutputStream fileOut = new FileOutputStream(fileName);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        String fileName;
+        try (FileOutputStream fileOut = new FileOutputStream(OUTPUTFOLDER + java.time.LocalTime.now().toString().replace(":", "_").substring(0, 12) + ".ser");
+             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
             objectOut.writeObject(history);
-            objectOut.close();
-            return fileName;
+            fileName = fileOut.getFD().toString();
         } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            throw new RuntimeException(e);
         }
+        return fileName;
+    }
 
-    /**
-     * Load the history from a file
-     *
-     * @param name : the name of the file
-     */
     public void deserializeHistory(String name) {
         List<Snapshot> snapshots = new ArrayList<>();
-        try {
-            File historyFile = new File(OUTPUTFOLDER + name);
-            FileInputStream fileInputStream = new FileInputStream(historyFile);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        try (FileInputStream fileInputStream = new FileInputStream(OUTPUTFOLDER + name);
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             snapshots = (List<Snapshot>) objectInputStream.readObject();
-            objectInputStream.close();
-        } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         setHistory(snapshots);
     }
 
-    /**
-     * Save the history in a txt file
-     * @return the name of the file
-     */
+
     public String saveHistoryTxt() throws IOException {
         // for snapshot in history
         StringBuilder outputString = new StringBuilder();
@@ -104,19 +92,19 @@ public class Caretaker implements Serializable {
             // save the snapshot
             String name = snapshot.getName();
             Expression e = snapshot.getExpression();
-                Expression e_ = snapshot.getComputed();
-                outputString.append("The expression is ").append(e.toString()).append(" has a value of ").append(e_.toString()).append(" and was saved under the name ").append(name).append(" at ").append(snapshot.getTime()).append("\n");
-            }
+            Expression e_ = snapshot.getComputed();
+            outputString.append("The expression is ").append(e.toString()).append(" has a value of ").append(e_.toString()).append(" and was saved under the name ").append(name).append(" at ").append(snapshot.getTime()).append("\n");
+        }
 
-            String time = java.time.LocalTime.now().toString();
-            time = time.replace(":", "_");
-            String fileName = time.substring(0, time.length() - 4);
-            FileWriter writer = new FileWriter("saves/history/txt/+ " + fileName + ".txt");
+        String fileName = java.time.LocalTime.now().toString().replace(":", "_").substring(0, 12) + ".txt";
+        try (FileWriter writer = new FileWriter("saves/history/txt/" + fileName)) {
             writer.write(outputString.toString());
-            writer.close();
-            return fileName + ".txt";
-
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileName;
     }
+
 
     /**
      * Set the history
