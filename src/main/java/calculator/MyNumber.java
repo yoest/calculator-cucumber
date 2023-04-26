@@ -136,7 +136,7 @@ public class MyNumber implements Expression
      *
      * @return the value of the number in radians
      */
-    public MyNumber toRadians() {
+    public MyNumber toRadian() {
         return new MyNumber(((BigDecimal) value).multiply(BigDecimal.valueOf(Math.PI / 180)).toPlainString());
     }
 
@@ -145,7 +145,7 @@ public class MyNumber implements Expression
      *
      * @return the value of the number in degrees
      */
-    public MyNumber toDegrees() {
+    public MyNumber toDegree() {
         return new MyNumber(((BigDecimal) value).multiply(BigDecimal.valueOf(180 / Math.PI)).toPlainString());
     }
 
