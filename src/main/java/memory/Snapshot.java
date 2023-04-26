@@ -39,14 +39,15 @@ public class Snapshot implements Serializable {
      */
     public void store(String name) throws IOException {
         this.name = name;
-        FileOutputStream fileOut = new FileOutputStream(destinationFolder + name + ".ser");
-        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-        File file = new File(destinationFolder + name + ".ser");
-        long fileSize = file.length(); // in bytes
-        objectOut.writeObject(e);
-        objectOut.close();
-        this.size = (int) fileSize;
-        this.time = LocalTime.now();
+        try (FileOutputStream fileOut = new FileOutputStream(destinationFolder + name + ".ser");
+             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+            File file = new File(destinationFolder + name + ".ser");
+            long fileSize = file.length(); // in bytes
+            objectOut.writeObject(e);
+            objectOut.close();
+            this.size = (int) fileSize;
+            this.time = LocalTime.now();
+        }
     }
 
     /**
@@ -56,11 +57,12 @@ public class Snapshot implements Serializable {
      */
     public Expression load(String name) throws IOException, ClassNotFoundException {
         if (!new File(destinationFolder + name + ".ser").exists()) return null;
-        FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
-        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-        Expression e = (Expression) objectIn.readObject();
-        objectIn.close();
-        return e;
+        try (FileInputStream fileIn = new FileInputStream(destinationFolder + name + ".ser");
+             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+            Expression e = (Expression) objectIn.readObject();
+            objectIn.close();
+            return e;
+        }
     }
 
     /**
