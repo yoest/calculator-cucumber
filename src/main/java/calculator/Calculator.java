@@ -94,16 +94,8 @@ public class Calculator {
      public Expression simplify(Expression e)
     */
 
-    public int getPrecision() {
-        return PRECISION;
-    }
-
     public void setPrecision(int precision) {
         this.PRECISION = precision;
-    }
-
-    public Rounding getRounding() {
-        return ROUNDING;
     }
 
     public void setRounding(Rounding rounding) {
