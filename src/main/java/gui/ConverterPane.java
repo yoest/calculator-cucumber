@@ -35,7 +35,6 @@ public class ConverterPane extends ContentPane implements Initializable {
     @FXML
     private Button convertButton;
 
-    private MeasureConverter selectedConverter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
