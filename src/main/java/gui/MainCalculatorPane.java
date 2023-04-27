@@ -628,10 +628,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         IS_INTEGER_MODE = isIntegerMode;
     }
 
-    public static int getMaxMemorySize() {
-        return MAX_MEMORY_SIZE;
-    }
-
     public static void setMaxMemorySize(int maxMemorySize) {
         MAX_MEMORY_SIZE = maxMemorySize;
     }
@@ -652,16 +648,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         OUTPUT_RADIX = outputRadix;
     }
 
-    public static Rounding getROUNDING() {
-        return ROUNDING;
-    }
-
     public static void setROUNDING(Rounding ROUNDING) {
         MainCalculatorPane.ROUNDING = ROUNDING;
-    }
-
-    public static int getPRECISION() {
-        return PRECISION;
     }
 
     public static void setPRECISION(int PRECISION) {
