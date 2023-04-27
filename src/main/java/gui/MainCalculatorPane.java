@@ -464,7 +464,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             if (result.isPresent()){
                 MyNumber n = new MyNumber(result.get());
                 n = n.toRadian();
-                calculatorField.insertText(caretCache+1, n.toString());
+                calculatorField.insertText(caretCache, n.toString());
                 caretCache += n.toString().length() + 1;
                 disignFieldInput();
             }
@@ -486,8 +486,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             if (result.isPresent()){
                 MyNumber n = new MyNumber(result.get());
                 n = n.toDegree();
-                calculatorField.insertText(caretCache+1, n.toString());
-                caretCache += n.toString().length() + 1;
+                calculatorField.insertText(caretCache, n.toString());
+                caretCache += n.toString().length();
                 disignFieldInput();
             }
         });
