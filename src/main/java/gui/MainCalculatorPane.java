@@ -604,35 +604,18 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             }
             //switch case to disable buttons when necessary to avoid errors
             switch (lastChar) {
-                case "+":
+                case "+", "-", "*", "/" -> {
                     for (Button button : OPERATORS_BUTTONS) {
                         button.setDisable(true);
                     }
                     quoteButton.setDisable(false);
-                case "-":
-                    for (Button button : OPERATORS_BUTTONS) {
-                        button.setDisable(true);
-                    }
-                    quoteButton.setDisable(false);
-                case "*":
-                    for (Button button : OPERATORS_BUTTONS) {
-                        button.setDisable(true);
-                    }
-                    quoteButton.setDisable(false);
-                case "/":
-                    for (Button button : OPERATORS_BUTTONS) {
-                        button.setDisable(true);
-                    }
-                    quoteButton.setDisable(false);
-                case "(":
-                    quoteButton.setDisable(true);
-                case ")":
-                    quoteButton.setDisable(true);
-                    break;
-                default:
+                }
+                case "(", ")" -> quoteButton.setDisable(true);
+                default -> {
                     for (Button button : ALL_BUTTONS) {
                         button.setDisable(false);
                     }
+                }
             }
         });
     }
