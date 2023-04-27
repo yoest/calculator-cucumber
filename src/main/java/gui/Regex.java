@@ -1,5 +1,9 @@
 package gui;
 
+/**
+ * Regex class contains all the regex used in the program.
+ * There are regex for decimal, time, and integer of different bases.
+ */
 public class Regex {
 
     public static final String DECIMAL = "[0-9\\|%$+\\-*/()\\s\\.]*";
@@ -74,6 +78,11 @@ public class Regex {
 
     public static final String INTEGER_BASE_36 = "[0-9A-Za-z\\|%$+\\-/()\\s\\*]*";
 
+    /**
+     * Get the regex for integer of different bases
+     * @param base the base of the integer
+     * @return the regex for integer of the base
+     */
     public static String getRegexInt(int base){
         switch(base){
             case 2:
@@ -151,6 +160,11 @@ public class Regex {
         }
     }
 
+    /**
+     * If a string does not match a regex, you can apply the method replaceAll() to it with the regex returned by this method
+     * @param regex the regex that the string does not match
+     * @return the regex that the string matches
+     */
     public static String negateRegex(String regex) {
         return "[^" + regex.substring(1, regex.length() - 2) + "]";
     }

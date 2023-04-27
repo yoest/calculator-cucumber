@@ -6,6 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
+/**
+ * This class is used to start the GUI. (it's the main class extending Application)
+ * It doesn't work if you run it from the jar
+ */
 public class GuiStarter extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {

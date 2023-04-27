@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class MyNumber implements Expression
 {
-  private final Number value;
+  private final Number value; //The value of the number (BigInteger or BigDecimal)
 
   private int radix;
 

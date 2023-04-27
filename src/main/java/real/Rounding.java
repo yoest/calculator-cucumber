@@ -2,6 +2,9 @@ package real;
 
 import java.math.RoundingMode;
 
+/**
+ * All the rounding modes supported by the calculator.
+ */
 public enum Rounding {
     ROUND_HALF_UP,
     ROUND_HALF_DOWN,
@@ -13,6 +16,10 @@ public enum Rounding {
     ROUND_UNNECESSARY;
 
 
+    /**
+     * Converts the Rounding enum to the RoundingMode enum (java.math.RoundingMode).
+     * @return the RoundingMode enum.
+     */
     public RoundingMode toRoundingMode() {
         return switch (this) {
             case ROUND_HALF_UP -> RoundingMode.HALF_UP;

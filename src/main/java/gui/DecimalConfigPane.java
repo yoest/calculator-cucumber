@@ -27,6 +27,10 @@ public class DecimalConfigPane extends ContentPane implements Initializable {
     private AnchorPane mainContent;
 
 
+    /**
+     * Init the controller and return the pane.
+     * @return AnchorPane object of the pane.
+     */
     @Override
     public AnchorPane start()  {
         return super.initController("decimalConfig.fxml");
@@ -34,26 +38,33 @@ public class DecimalConfigPane extends ContentPane implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        roundingChoiceBox.getItems().addAll(Rounding.values());
-        roundingChoiceBox.setValue(Rounding.ROUND_HALF_UP);
-        runButton.setOnAction(actionEvent -> run());
+        roundingChoiceBox.getItems().addAll(Rounding.values()); //Add all the rounding options to the choice box
+        roundingChoiceBox.setValue(Rounding.ROUND_HALF_UP); //Set the default rounding option
+        runButton.setOnAction(actionEvent -> run()); //Set the run button to run the program
         inputTextField.textProperty().addListener((observableValue, s, t1) -> {
+            //Make sure the input is a number
             if (!t1.matches("\\d*")) {
                 inputTextField.setText(t1.replaceAll("[^\\d]", ""));
             }
         });
     }
 
+    /**
+     * Run the program with the given precision and rounding option.
+     */
     private void run() {
-        String input = inputTextField.getText();
-        Rounding rounding = roundingChoiceBox.getValue();
+        String input = inputTextField.getText(); //Get the input from the text field
+        Rounding rounding = roundingChoiceBox.getValue(); //Get the rounding option from the choice box
         try {
             int inputInt = Integer.parseInt(input);
+            //Make sure the input is between 1 and 20
             if (inputInt <= 0 || inputInt > 20) {
                 throw new NumberFormatException();
             }
+            //Set the precision and rounding options
             MainCalculatorPane.setPRECISION(inputInt);
             MainCalculatorPane.setROUNDING(rounding);
+            //Change the main content to the main calculator pane
             changeMainContent(new MainCalculatorPane(false));
         } catch (NumberFormatException e) {
             //Create a dialog to show the error

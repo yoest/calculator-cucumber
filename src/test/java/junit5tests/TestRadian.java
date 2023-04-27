@@ -25,11 +25,17 @@ public class TestRadian {
         calc = new Calculator(precision, rounding);
     }
 
+    /**
+     * Test the conversion from radian to degree
+     */
     @Test
     void testRadianToDegree() {
         assertEquals(calc.eval(valueInDeg), calc.eval(valueInRad.toDegree()));
     }
 
+    /**
+     * Test the conversion from degree to radian
+     */
     @Test
     void testDegreeToRadian() {
         assertEquals(calc.eval(valueInRad), calc.eval(valueInDeg.toRadian()));

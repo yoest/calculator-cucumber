@@ -32,15 +32,15 @@ import java.util.List;
 
 public class MainCalculatorPane extends ContentPane implements Initializable {
 
-    public static boolean IS_INTEGER_MODE = true;
+    public static boolean IS_INTEGER_MODE = true; // true if integer mode, false if decimal mode
 
-    public static int MAX_MEMORY_SIZE = 1000;
-    public static int INPUT_RADIX = 10;
-    public static int OUTPUT_RADIX = 10;
+    public static int MAX_MEMORY_SIZE = 1000; // max size of memory
+    public static int INPUT_RADIX = 10; // input radix for integer mode
+    public static int OUTPUT_RADIX = 10; // output radix for integer mode
 
-    public static Rounding ROUNDING = Rounding.ROUND_HALF_UP;
+    public static Rounding ROUNDING = Rounding.ROUND_HALF_UP; // rounding mode for decimal mode
 
-    public static int PRECISION = 10;
+    public static int PRECISION = 10; // precision for decimal mode
 
     @FXML
     private MenuItem autoSaveButton;
@@ -187,28 +187,26 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     @FXML
     private VBox mainWindow;
 
-    private MyNumber lastValue = null;
-
-    //private Calculator calculator = new Calculator();
+    private MyNumber lastValue = null; // last value of calculator
     private MemoryCalculator calculator = new MemoryCalculator(MAX_MEMORY_SIZE);
 
-    private final ArrayList<Button> OPERATORS_BUTTONS = new ArrayList<>();
-    private final ArrayList<Button> NUMBER_BUTTONS = new ArrayList<>();
-    private final ArrayList<Button> MARK_BUTTONS = new ArrayList<>();
-    private final ArrayList<Button> ARROW_BUTTONS = new ArrayList<>();
-    private final ArrayList<Button> ALL_BUTTONS = new ArrayList<>();
+    private final ArrayList<Button> OPERATORS_BUTTONS = new ArrayList<>(); // list of all operators buttons
+    private final ArrayList<Button> NUMBER_BUTTONS = new ArrayList<>(); // list of all number buttons
+    private final ArrayList<Button> MARK_BUTTONS = new ArrayList<>(); // list of all mark buttons
+    private final ArrayList<Button> ARROW_BUTTONS = new ArrayList<>(); // list of all arrow buttons
+    private final ArrayList<Button> ALL_BUTTONS = new ArrayList<>(); // list of all buttons
 
-    private int caretCache = 1;
+    private int caretCache = 1; // cache of caret position in calculatorField (used for design to show a '|' where is caret like a real calculator)
 
-    private String regex = null;
+    private String regex ; // regex for the calculatorField
 
     public MainCalculatorPane(boolean isIntegerMode) {
-        if (isIntegerMode)
+        if (isIntegerMode) // if integer mode set the regex (for the radix input)
         {
             IS_INTEGER_MODE = true;
             regex = Regex.getRegexInt(INPUT_RADIX);
         }
-        else
+        else // if decimal mode set the regex, the precision and the rounding mode
         {
             calculator.setPrecision(PRECISION);
             calculator.setRounding(ROUNDING);
@@ -217,12 +215,20 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         }
     }
 
+    /**
+     * initialize the controller
+     * @return the AnchorPane of the controller
+     */
     @Override
     public AnchorPane start() {
         return super.initController("main_calculator.fxml");
     }
 
 
+    /**
+     * used to insert a '|' (bar) in the calculatorField to show where is the caret like a real calculator
+     * if the bar is already present, update the position of the bar
+     */
     private void disignFieldInput() {
         calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));
         calculatorField.setText(calculatorField.getText(0, caretCache-1) + "|" + calculatorField.getText(caretCache-1, calculatorField.getText().length()));
@@ -238,10 +244,10 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         undoButton.setDisable(historyListView.getItems().isEmpty());
         calculator.createSavesFolder();
         calculatorField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+            if (newValue) { // if calculatorField is focused then remove the '|' (bar)
                 calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));
             }
-            else if (calculatorField.getCaretPosition() != 0) {
+            else if (calculatorField.getCaretPosition() != 0) { // if calculatorField lost focus (if caret position is 0) then add the '|' (bar) at the caret position (where the user left the calculatorField)
                 caretCache = calculatorField.getCaretPosition() +1;
                 disignFieldInput();
             }
@@ -255,17 +261,18 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         for (Button button : NUMBER_BUTTONS) {
             button.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
                 calculatorField.insertText(caretCache, button.getText());
-                caretCache++;
-                if (!button.getText().matches(regex))
-                    caretCache--;
-                disignFieldInput();
+                if (button.getText().matches(regex)) // if the user click on a button and the regex match (so the text insert) then update the bar position
+                {
+                    caretCache++;
+                    disignFieldInput();
+                }
             });
         }
         for (Button button : ARROW_BUTTONS) {
             button.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
                 if (button.equals(leftButton))
                 {
-                    if (caretCache-1 > 0)
+                    if (caretCache-1 > 0) // if the caret position is not 0 then move the caret position to the left and update the bar position
                     {
                         calculatorField.positionCaret(caretCache - 1);
                         caretCache--;
@@ -274,7 +281,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 }
                 else if (button.equals(rightButton))
                 {
-                    if (caretCache < calculatorField.getText().length())
+                    if (caretCache < calculatorField.getText().length()) // if the caret position is not the last position of the calculatorField then move the caret position to the right and update the bar position
                     {
                         calculatorField.positionCaret(caretCache + 1);
                         caretCache++;
@@ -519,6 +526,9 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         }
     }
 
+    /**
+     * Initialize the array of buttons
+     */
     private void initializeArray() {
         OPERATORS_BUTTONS.add(plusButton);
         OPERATORS_BUTTONS.add(minusButton);
@@ -552,14 +562,19 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     }
 
 
+    /**
+     * this method initialize the calculator (it's called when the calculator pane is loaded)
+     * @param url url
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeArray();
+        initializeArray(); //initialize the array of buttons
         quoteButton.setDisable(true);
         buttonEval.setDisable(true);
-        initializeButton();
+        initializeButton(); //initialize the buttons
         calculatorField.setText("|");
-        if (IS_INTEGER_MODE) {
+        if (IS_INTEGER_MODE) { //if we are in integer mode
             inputRadixLabel.setText("Input radix :  " + INPUT_RADIX);
             inputRadixLabel.setVisible(true);
             outputRadixLabel.setText("Output radix :  " + OUTPUT_RADIX);
@@ -571,7 +586,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             moduloButton.setVisible(true);
             reverseModuloButton.setVisible(true);
         }
-        else {
+        else { //if we are in decimal mode
             inputRadixLabel.setText("Precision :  " + PRECISION);
             inputRadixLabel.setVisible(true);
             outputRadixLabel.setText("ROUNDING :  " + ROUNDING);
@@ -587,6 +602,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         //add listener to calculatorField
         calculatorField.textProperty().addListener((observableValue, s, t1) -> {
             //if there are too many characters | in calculatorField, remove them
+            // we can't add '|' in the regex because we need it to show the cursor in the calculatorField (so we verify that there is only one '|')
             if (t1.length() - t1.replace("|", "").length() > 1) {
                 disignFieldInput();
             }
@@ -599,12 +615,12 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 alert.setContentText("Wrong character(s) in the expression");
                 alert.showAndWait();
             }
-            // the case when the user delete caracters
+            // the case when the user delete characters (if the caret is at the end of the expression, we set the caret at the end of the expression)
             if (caretCache > t1.length() + 1) {
                 caretCache = t1.length();
             }
             String lastChar = "";
-            if (caretCache - 2 >= 0) {
+            if (caretCache - 2 >= 0) { //if the caret is not at the beginning of the expression
                 lastChar = t1.substring(caretCache - 2, caretCache-1);
             }
             //switch case to disable buttons when necessary to avoid errors
