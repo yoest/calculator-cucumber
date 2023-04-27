@@ -74,7 +74,8 @@ public class ConverterPane extends ContentPane implements Initializable {
                 case "Time" -> {
                     unitValues = Stream.of(TimeConverter.TimeUnits.values()).map(TimeConverter.TimeUnits::name).toList();
                     assignValuesToChoiceBox(unitValues);
-                }
+                }default -> System.out.println("You need to define a converter for: " + unitChoice.getValue());
+
             }
         });
         unitChoice.setValue("Length");
