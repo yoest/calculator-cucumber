@@ -19,6 +19,7 @@ class TestMemoryCalculator {
     void setUp() {
         calc = new MemoryCalculator(500);
         caretaker = new Caretaker();
+        calc.createSavesFolder();
     }
 
     @Test

@@ -20,6 +20,7 @@ public class MemoryCalculatorStepDefinitions {
     public void setUp() {
         calc = new MemoryCalculator(100);
         Caretaker caretaker = new Caretaker();
+        calc.createSavesFolder();
     }
 
     @Given("I initialise a MemoryCalculator")
