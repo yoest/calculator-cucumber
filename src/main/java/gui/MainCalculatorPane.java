@@ -238,6 +238,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
     private void initializeButton() {
         redoButton.setDisable(!calculator.redoable());
         undoButton.setDisable(historyListView.getItems().isEmpty());
+        calculator.createSavesFolder();
         calculatorField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 calculatorField.setText(calculatorField.getText().replaceAll("\\|", ""));

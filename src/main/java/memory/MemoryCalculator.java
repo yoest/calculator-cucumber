@@ -3,7 +3,9 @@ package memory;
 import calculator.*;
 import gui.MainCalculatorPane;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import java.util.Stack;
@@ -15,10 +17,10 @@ public class MemoryCalculator extends Calculator {
     private final Stack<Object> erased = new Stack<>();
     private final int maxMemorySize; //bytes, the maximum size of the memory
 
-    /** Simple constructor
+    /**
+     * Simple constructor
      *
      * @param maxMemorySize : the maximum size of the memory
-     *
      */
     public MemoryCalculator(int maxMemorySize) {
         super();
@@ -26,31 +28,33 @@ public class MemoryCalculator extends Calculator {
         this.caretaker = new Caretaker(maxMemorySize);
     }
 
-   /** Evaluate an expression and save it in the memory
-    *
-    * @param e : the expression to be evaluated, saved in the memory and in the history
-    * @return the value of the expression
-    */
-   @Override
+    /**
+     * Evaluate an expression and save it in the memory
+     *
+     * @param e : the expression to be evaluated, saved in the memory and in the history
+     * @return the value of the expression
+     */
+    @Override
     public Number eval(Expression e) {
-       Number res = super.eval(e);
-       Expression computed = new MyNumber(res.toString());
-       try {
-           save(e, computed);
-       } catch (IOException ex) {
-           throw new RuntimeException(ex);
-       }
-       return res;
+        Number res = super.eval(e);
+        Expression computed = new MyNumber(res.toString());
+        try {
+            save(e, computed);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        return res;
     }
 
-    /** Method used to save an expression in the memory
+    /**
+     * Method used to save an expression in the memory
      *
      * @param e : the expression to be saved
      */
     public void save(Expression e) throws IOException {
         //cast the result of the evaluation to a MyNumber
         MyNumber n = new MyNumber(eval(e).toString());
-        if (MainCalculatorPane.IS_INTEGER_MODE){
+        if (MainCalculatorPane.IS_INTEGER_MODE) {
             n = new MyNumber(n.getValue().toString(), 10);
             n.setRadix(MainCalculatorPane.OUTPUT_RADIX);
         }
@@ -62,18 +66,21 @@ public class MemoryCalculator extends Calculator {
 
     public void save(Expression e, Expression computed) throws IOException {
         MyNumber n = (MyNumber) computed;
-        if (MainCalculatorPane.IS_INTEGER_MODE){
+        if (MainCalculatorPane.IS_INTEGER_MODE) {
             n = new MyNumber(n.getValue().toString(), 10);
             n.setRadix(MainCalculatorPane.OUTPUT_RADIX);
         }
         Snapshot snapshot = new Snapshot(e, n);
         snapshot.store(generateName());
         lastSnapshot = snapshot; //useful for the undo method
-       while (!caretaker.checkSize(snapshot.getSize())) {caretaker.remove(caretaker.getHistory().get(0));}
+        while (!caretaker.checkSize(snapshot.getSize())) {
+            caretaker.remove(caretaker.getHistory().get(0));
+        }
         caretaker.add(snapshot);
     }
 
-    /** Load a snapshot using its name
+    /**
+     * Load a snapshot using its name
      *
      * @param name : the name of the snapshot to be loaded
      */
@@ -86,7 +93,8 @@ public class MemoryCalculator extends Calculator {
         }
     }
 
-    /** Load the last snapshot saved in the memory
+    /**
+     * Load the last snapshot saved in the memory
      *
      * @return the expression stored in the last snapshot
      */
@@ -94,7 +102,8 @@ public class MemoryCalculator extends Calculator {
         return (lastSnapshot.getExpression());
     }
 
-    /** Get the history of the expressions stored in the memory
+    /**
+     * Get the history of the expressions stored in the memory
      *
      * @return the history of the expressions stored in the memory
      */
@@ -102,7 +111,8 @@ public class MemoryCalculator extends Calculator {
         return caretaker.getHistory();
     }
 
-    /** Save the history of the expressions stored in the memory
+    /**
+     * Save the history of the expressions stored in the memory
      *
      * @return the history of the expressions stored in the memory
      */
@@ -112,6 +122,7 @@ public class MemoryCalculator extends Calculator {
 
     /**
      * Export the history of the expressions stored in the memory
+     *
      * @return the history of the expressions stored in the memory
      */
     public String exportHistory() {
@@ -124,16 +135,18 @@ public class MemoryCalculator extends Calculator {
 
     /**
      * Generate a name for the snapshot
+     *
      * @return the name of the snapshot
      */
     private String generateName() {
         String time = java.time.LocalTime.now().toString();
         time = time.replace(":", "_");
         return time.substring(0, time.length() - 4); // remove the milliseconds to make the name more readable
-        }
+    }
 
     /**
      * Undo the last snapshot
+     *
      * @return the last snapshot
      */
     public Snapshot undo() throws IOException {
@@ -150,6 +163,7 @@ public class MemoryCalculator extends Calculator {
 
     /**
      * Redo the last snapshot
+     *
      * @return the last snapshot
      */
     public Snapshot redo() throws IOException {
@@ -185,6 +199,7 @@ public class MemoryCalculator extends Calculator {
 
     /**
      * Load a history
+     *
      * @param name : the name of the history to be loaded
      */
     public void loadHistory(String name) {
@@ -206,6 +221,23 @@ public class MemoryCalculator extends Calculator {
                 size -= history.get(i).getSize();
                 history.remove(0);
                 i++;
+            }
+        }
+    }
+
+    public void createSavesFolder() {
+        List<String> folderPaths = Arrays.asList(
+                "saves",
+                "saves/history",
+                "saves/history/ser",
+                "saves/history/txt",
+                "saves/expressions"
+        );
+
+        for (String path : folderPaths) {
+            File folder = new File(path);
+            if (!folder.exists()) {
+                folder.mkdir();
             }
         }
     }
