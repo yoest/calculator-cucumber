@@ -92,8 +92,8 @@ public class ConverterPane extends ContentPane implements Initializable {
     private void handleChangeInTextField() {
         // Input field cannot be another thing than digit and cannot be empty (so we replace by 0 when it is the case)
         inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("(\\d|\\.)*")) {
-                inputTextField.setText(newValue.replaceAll("[^(\\d|.)]", ""));
+            if (!newValue.matches("[+-]?([0-9]*[.])?[0-9]+")) {
+                inputTextField.setText(newValue.replaceAll("[^([+-]?([0-9]*[.])?[0-9]+)]", ""));
             }
 
             // Cannot contain more than one points
@@ -157,7 +157,7 @@ public class ConverterPane extends ContentPane implements Initializable {
                 TimeConverter.TimeUnits from = TimeConverter.TimeUnits.valueOf(fromChoice.getValue());
                 TimeConverter.TimeUnits to = TimeConverter.TimeUnits.valueOf(toChoice.getValue());
                 convertWithConverter(new TimeConverter(value, from), to);
-            }
+            } default -> System.out.println("You need to define a converter for: " + unitChoice.getValue());
         }
     }
 
