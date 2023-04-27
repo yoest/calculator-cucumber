@@ -19,7 +19,6 @@ public abstract class ContentPane extends AnchorPane {
         try {
             return loader.load();
         } catch (IOException e) {
-            System.err.println("Error while loading " + filename + " : " + e.getMessage());
             return null;
         }
     }

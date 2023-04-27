@@ -18,11 +18,19 @@ public class Calculator {
     private int PRECISION;
     private Rounding ROUNDING;
 
+    /**
+     * Default constructor for the Calculator class.
+     */
     public Calculator() {
         this.PRECISION = 10;
         this.ROUNDING = Rounding.ROUND_HALF_UP;
     }
 
+    /**
+     * Constructor for the Calculator class.
+     * @param precision the precision of the calculator
+     * @param rounding the rounding mode of the calculator
+     */
     public Calculator(int precision, Rounding rounding) {
         this.PRECISION = precision;
         this.ROUNDING = rounding;
