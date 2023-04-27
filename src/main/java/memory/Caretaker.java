@@ -10,7 +10,7 @@ public class Caretaker implements Serializable {
     private List<Snapshot> history = new ArrayList<>(); // List of the expressions stored in the memory
     private int maxSize = 1000; //bytes, the maximum size of the file that is saved in the memory
     private int remainingSize;
-    private final String OUTPUTFOLDER = "saves/history/ser/";
+    private final static String outputFolder = "saves/history/ser/";
 
     /**
      * Simple constructor
@@ -61,7 +61,7 @@ public class Caretaker implements Serializable {
      * @return the name of the file
      */
     public String serializeHistory() {
-        String fileName = OUTPUTFOLDER + java.time.LocalTime.now().toString().replace(":", "_").substring(0, 12) + ".ser";
+        String fileName = outputFolder + java.time.LocalTime.now().toString().replace(":", "_").substring(0, 12) + ".ser";
         try (FileOutputStream fileOut = new FileOutputStream(fileName);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
             objectOut.writeObject(history);
@@ -73,7 +73,7 @@ public class Caretaker implements Serializable {
 
     public void deserializeHistory(String name) {
         List<Snapshot> snapshots = new ArrayList<>();
-        try (FileInputStream fileInputStream = new FileInputStream(OUTPUTFOLDER + name);
+        try (FileInputStream fileInputStream = new FileInputStream(outputFolder + name);
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             snapshots = (List<Snapshot>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
