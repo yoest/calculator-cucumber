@@ -15,15 +15,15 @@ import java.math.BigDecimal;
  * @author tommens
  */
 public class Calculator {
-    private int PRECISION;
-    private Rounding ROUNDING;
+    private int precision;
+    private Rounding rounding;
 
     /**
      * Default constructor for the Calculator class.
      */
     public Calculator() {
-        this.PRECISION = 10;
-        this.ROUNDING = Rounding.ROUND_HALF_UP;
+        this.precision = 10;
+        this.rounding = Rounding.ROUND_HALF_UP;
     }
 
     /**
@@ -32,8 +32,8 @@ public class Calculator {
      * @param rounding the rounding mode of the calculator
      */
     public Calculator(int precision, Rounding rounding) {
-        this.PRECISION = precision;
-        this.ROUNDING = rounding;
+        this.precision = precision;
+        this.rounding = rounding;
     }
 
     /*
@@ -90,7 +90,7 @@ public class Calculator {
         Number temp = v.getResult();
 
         if (temp instanceof BigDecimal) {
-            return ((BigDecimal) temp).setScale(PRECISION, ROUNDING.toRoundingMode());
+            return ((BigDecimal) temp).setScale(precision, rounding.toRoundingMode());
         }
         return temp;
     }
@@ -103,10 +103,10 @@ public class Calculator {
     */
 
     public void setPrecision(int precision) {
-        this.PRECISION = precision;
+        this.precision = precision;
     }
 
     public void setRounding(Rounding rounding) {
-        this.ROUNDING = rounding;
+        this.rounding = rounding;
     }
 }
