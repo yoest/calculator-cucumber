@@ -215,9 +215,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             regex = Regex.DECIMAL;
             IS_INTEGER_MODE = false;
         }
-
     }
-
 
     @Override
     public AnchorPane start() {
@@ -258,6 +256,8 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             button.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
                 calculatorField.insertText(caretCache, button.getText());
                 caretCache++;
+                if (!button.getText().matches(regex))
+                    caretCache--;
                 disignFieldInput();
             });
         }
@@ -593,6 +593,11 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
             //if there is a character in calculatorField does not match any of the following characters, remove it
             if (!t1.matches(regex)) {
                 calculatorField.setText(t1.replaceAll(Regex.negateRegex(regex), ""));
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid Input");
+                alert.setHeaderText("Invalid Input");
+                alert.setContentText("Wrong character(s) in the expression");
+                alert.showAndWait();
             }
             // the case when the user delete caracters
             if (caretCache > t1.length() + 1) {
