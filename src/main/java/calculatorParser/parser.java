@@ -5,11 +5,14 @@
 
 package calculatorParser;
 
+import java_cup.runtime.Symbol;
+import java.util.Vector;
 import calculator.*;
 import integerArithmetics.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -437,8 +440,8 @@ class CUP$parser$actions {
 		int nright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-            if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-                RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
+            if (gui.MainCalculatorPane.isIsIntegerMode()) {
+                RESULT = new MyNumber(n, gui.MainCalculatorPane.getInputRadix()); // Big integer
             } else {
                 RESULT = new MyNumber(n); // Big decimal
             } 
@@ -601,8 +604,8 @@ class CUP$parser$actions {
 		int nright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-         if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-             RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
+         if (gui.MainCalculatorPane.isIsIntegerMode()) {
+             RESULT = new MyNumber(n, gui.MainCalculatorPane.getInputRadix()); // Big integer
          } else {
              RESULT = new MyNumber(n); // Big decimal
          } 
@@ -631,8 +634,8 @@ class CUP$parser$actions {
 		int nright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-          if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-              RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
+          if (gui.MainCalculatorPane.isIsIntegerMode()) {
+              RESULT = new MyNumber(n, gui.MainCalculatorPane.getInputRadix()); // Big integer
           } else {
               RESULT = new MyNumber(n); // Big decimal
           } 
@@ -795,8 +798,8 @@ class CUP$parser$actions {
 		int nright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-       if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-           RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
+       if (gui.MainCalculatorPane.isIsIntegerMode()) {
+           RESULT = new MyNumber(n, gui.MainCalculatorPane.getInputRadix()); // Big integer
        } else {
            RESULT = new MyNumber(n); // Big decimal
        } 
@@ -825,8 +828,8 @@ class CUP$parser$actions {
 		int nright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String n = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-             if (gui.MainCalculatorPane.IS_INTEGER_MODE) {
-                 RESULT = new MyNumber(n, gui.MainCalculatorPane.INPUT_RADIX); // Big integer
+             if (gui.MainCalculatorPane.isIsIntegerMode()) {
+                 RESULT = new MyNumber(n, gui.MainCalculatorPane.getInputRadix()); // Big integer
              } else {
                  RESULT = new MyNumber(n); // Big decimal
              } 

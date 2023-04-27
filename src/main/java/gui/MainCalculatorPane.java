@@ -29,13 +29,13 @@ import java.util.*;
 import java.util.List;
 
 
+
 public class MainCalculatorPane extends ContentPane implements Initializable {
 
     public static boolean IS_INTEGER_MODE = true;
 
     public static int MAX_MEMORY_SIZE = 1000;
     public static int INPUT_RADIX = 10;
-
     public static int OUTPUT_RADIX = 10;
 
     public static Rounding ROUNDING = Rounding.ROUND_HALF_UP;
@@ -618,5 +618,53 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 }
             }
         });
+    }
+
+    public static boolean isIsIntegerMode() {
+        return IS_INTEGER_MODE;
+    }
+
+    public static void setIsIntegerMode(boolean isIntegerMode) {
+        IS_INTEGER_MODE = isIntegerMode;
+    }
+
+    public static int getMaxMemorySize() {
+        return MAX_MEMORY_SIZE;
+    }
+
+    public static void setMaxMemorySize(int maxMemorySize) {
+        MAX_MEMORY_SIZE = maxMemorySize;
+    }
+
+    public static int getInputRadix() {
+        return INPUT_RADIX;
+    }
+
+    public static void setInputRadix(int inputRadix) {
+        INPUT_RADIX = inputRadix;
+    }
+
+    public static int getOutputRadix() {
+        return OUTPUT_RADIX;
+    }
+
+    public static void setOutputRadix(int outputRadix) {
+        OUTPUT_RADIX = outputRadix;
+    }
+
+    public static Rounding getROUNDING() {
+        return ROUNDING;
+    }
+
+    public static void setROUNDING(Rounding ROUNDING) {
+        MainCalculatorPane.ROUNDING = ROUNDING;
+    }
+
+    public static int getPRECISION() {
+        return PRECISION;
+    }
+
+    public static void setPRECISION(int PRECISION) {
+        MainCalculatorPane.PRECISION = PRECISION;
     }
 }

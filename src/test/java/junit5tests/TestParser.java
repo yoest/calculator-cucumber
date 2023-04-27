@@ -18,9 +18,9 @@ public class TestParser {
   @BeforeEach
   void setUp() {
     calc = new Calculator();
-    MainCalculatorPane.IS_INTEGER_MODE = true;
-    MainCalculatorPane.INPUT_RADIX = 10;
-    MainCalculatorPane.OUTPUT_RADIX = 10;
+    MainCalculatorPane.setIsIntegerMode(true);
+    MainCalculatorPane.setInputRadix(10);
+    MainCalculatorPane.setOutputRadix(10);
   }
   @Test
   void testParserSimpleAddition() throws Exception {
@@ -211,7 +211,7 @@ public class TestParser {
 
   @Test
   void testIntegerMode2Input() {
-    MainCalculatorPane.INPUT_RADIX = 2;
+    MainCalculatorPane.setInputRadix(2);
     String input = "0101101";
     parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = null;
@@ -228,7 +228,7 @@ public class TestParser {
 
     @Test
     void testIntegerMode2WrongInput() {
-        MainCalculatorPane.INPUT_RADIX = 2;
+        MainCalculatorPane.setInputRadix(2);
         String input = "12a4t6";
         parser p = new parser(new lexer(new java.io.StringReader(input)));
         assertThrows(Exception.class, p::parse);
@@ -254,7 +254,7 @@ public class TestParser {
   @Test
   void testDecimalMode() {
     String input = "1.5";
-    MainCalculatorPane.IS_INTEGER_MODE = false;
+    MainCalculatorPane.setIsIntegerMode(false);
     parser p = new parser(new lexer(new java.io.StringReader(input)));
     Object result = null;
     try {

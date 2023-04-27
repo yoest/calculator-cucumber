@@ -37,20 +37,20 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         runButton.setOnAction(actionEvent ->  run());
-
+        String regex = "[^\\d]";
         inputTextField.textProperty().addListener((observableValue, s, t1) -> {
             if (!t1.matches("\\d*")) {
-                inputTextField.setText(t1.replaceAll("[^\\d]", ""));
+                inputTextField.setText(t1.replaceAll(regex, ""));
             }
         });
         outputTextField.textProperty().addListener((observableValue, s, t1) -> {
             if (!t1.matches("\\d*")) {
-                outputTextField.setText(t1.replaceAll("[^\\d]", ""));
+                outputTextField.setText(t1.replaceAll(regex, ""));
             }
         });
         sizeTextField.textProperty().addListener((observableValue, s, t1) -> {
             if (!t1.matches("\\d*")) {
-                sizeTextField.setText(t1.replaceAll("[^\\d]", ""));
+                sizeTextField.setText(t1.replaceAll(regex, ""));
             }
         });
     }
@@ -66,9 +66,9 @@ public class IntegerConfigPane extends ContentPane implements Initializable {
             if (inputInt <= 1 || inputInt > 36 || outputInt <= 1 || outputInt > 36 || sizeInt < 10 || sizeInt > 1000) {
                 throw new NumberFormatException();
             }
-            MainCalculatorPane.INPUT_RADIX = inputInt;
-            MainCalculatorPane.OUTPUT_RADIX = outputInt;
-            MainCalculatorPane.MAX_MEMORY_SIZE = sizeInt;
+            MainCalculatorPane.setInputRadix(inputInt);
+            MainCalculatorPane.setOutputRadix(outputInt);
+            MainCalculatorPane.setMaxMemorySize(sizeInt);
             changeMainContent(new MainCalculatorPane(true));
         } catch (NumberFormatException e) {
             //Create a dialog to show the error

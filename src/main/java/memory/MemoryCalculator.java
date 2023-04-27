@@ -54,9 +54,9 @@ public class MemoryCalculator extends Calculator {
     public void save(Expression e) throws IOException {
         //cast the result of the evaluation to a MyNumber
         MyNumber n = new MyNumber(eval(e).toString());
-        if (MainCalculatorPane.IS_INTEGER_MODE) {
+        if (MainCalculatorPane.isIsIntegerMode()) {
             n = new MyNumber(n.getValue().toString(), 10);
-            n.setRadix(MainCalculatorPane.OUTPUT_RADIX);
+            n.setRadix(MainCalculatorPane.getOutputRadix());
         }
         Snapshot snapshot = new Snapshot(e, n);
         snapshot.store(generateName());
@@ -66,9 +66,9 @@ public class MemoryCalculator extends Calculator {
 
     public void save(Expression e, Expression computed) throws IOException {
         MyNumber n = (MyNumber) computed;
-        if (MainCalculatorPane.IS_INTEGER_MODE) {
+        if (MainCalculatorPane.isIsIntegerMode()) {
             n = new MyNumber(n.getValue().toString(), 10);
-            n.setRadix(MainCalculatorPane.OUTPUT_RADIX);
+            n.setRadix(MainCalculatorPane.getOutputRadix());
         }
         Snapshot snapshot = new Snapshot(e, n);
         snapshot.store(generateName());

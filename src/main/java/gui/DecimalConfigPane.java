@@ -52,8 +52,8 @@ public class DecimalConfigPane extends ContentPane implements Initializable {
             if (inputInt <= 0 || inputInt > 20) {
                 throw new NumberFormatException();
             }
-            MainCalculatorPane.PRECISION = inputInt;
-            MainCalculatorPane.ROUNDING = rounding;
+            MainCalculatorPane.setPRECISION(inputInt);
+            MainCalculatorPane.setROUNDING(rounding);
             changeMainContent(new MainCalculatorPane(false));
         } catch (NumberFormatException e) {
             //Create a dialog to show the error
