@@ -231,7 +231,6 @@ public class TestParser {
         MainCalculatorPane.INPUT_RADIX = 2;
         String input = "12a4t6";
         parser p = new parser(new lexer(new java.io.StringReader(input)));
-        Object result = null;
         assertThrows(Exception.class, p::parse);
 
     }

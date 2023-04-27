@@ -23,7 +23,6 @@ class TestEvaluator {
 
     private Calculator calc;
     private int value1, value2;
-    private Expression op;
 
     private final int precision = 2;
     private final Rounding rounding = Rounding.ROUND_HALF_UP;
@@ -50,8 +49,6 @@ class TestEvaluator {
         try {
             //construct another type of operation depending on the input value
             //of the parameterised test
-            BigDecimal v1= new BigDecimal(value1);
-            BigDecimal v2= new BigDecimal(value2);
             switch (symbol) {
                 case "+"	->	assertEquals(0, BigInteger.valueOf(value1 + value2).compareTo((BigInteger) calc.eval(new Plus(params))));
                 case "-"	->	assertEquals(0, BigInteger.valueOf(value1 - value2).compareTo((BigInteger) calc.eval(new Minus(params))));

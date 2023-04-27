@@ -8,13 +8,6 @@ public class NotationChecker {
     private NotationChecker() {
     }
 
-    public static boolean verifyNotation(Expression e) {
-        if (isInfix(e) || isPrefix(e) || isPostfix(e)) {
-            return true;
-        }
-        return false;
-    }
-
     public static boolean verifyNotations(List<Expression> expressions, Notation notation) {
         for (Expression e : expressions) {
             if (notation == Notation.INFIX && !isInfix(e)) {

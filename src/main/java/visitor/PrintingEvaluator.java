@@ -96,11 +96,4 @@ public class PrintingEvaluator extends Visitor {
         }
     }
 
-    /** Get the string representation of this expression.
-     *
-     * @return the string representation of this expression
-     */
-    public String getStrExpression() {
-        return strExpression;
-    }
 }

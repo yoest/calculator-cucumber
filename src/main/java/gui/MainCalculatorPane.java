@@ -231,10 +231,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         calculatorField.setText(calculatorField.getText(0, caretCache-1) + "|" + calculatorField.getText(caretCache-1, calculatorField.getText().length()));
     }
 
-    public String getResults() {
-        return resultField.getText().replaceAll("\\|", "");
-    }
-
     /**
      * initialize all buttons
      * add event filter to all buttons
@@ -377,7 +373,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
                 throw new RuntimeException(e);
             }
             Expression lastExpression = last.getExpression();
-            MyNumber lastResult = (MyNumber) last.getComputed();
             synchronizeHistory();
             calculatorField.setText(lastExpression.toString());
             undoButton.setDisable(historyListView.getItems().isEmpty());
