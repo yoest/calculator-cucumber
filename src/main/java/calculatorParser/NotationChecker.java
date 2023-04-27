@@ -37,10 +37,7 @@ public class NotationChecker {
                 return false;
             }
         }
-        if (e instanceof calculator.MyNumber || e instanceof MyTime) {
-            return true;
-        }
-        return false;
+        return e instanceof MyNumber || e instanceof MyTime;
     }
 
     public static boolean isPrefix(Expression e) {
@@ -58,10 +55,7 @@ public class NotationChecker {
                 return false;
             }
         }
-        if (e instanceof calculator.MyNumber || e instanceof MyTime) {
-            return true;
-        }
-        return false;
+        return e instanceof MyNumber || e instanceof MyTime;
     }
 
     public static boolean isPostfix(Expression e) {
@@ -79,10 +73,7 @@ public class NotationChecker {
                 return false;
             }
         }
-        if (e instanceof calculator.MyNumber || e instanceof MyTime) {
-            return true;
-        }
-        return false;
+        return e instanceof MyNumber || e instanceof MyTime;
     }
 }
 

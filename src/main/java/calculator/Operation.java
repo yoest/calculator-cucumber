@@ -62,7 +62,7 @@ public abstract class Operation implements Expression
 	{
 		if (elist == null) {
 			throw new IllegalConstruction(""); }
-		else if (NotationChecker.verifyNotations(elist, n) == false) {
+		else if (!NotationChecker.verifyNotations(elist, n)) {
 			throw new IllegalConstruction("Notations are not the same");
 		}
 		else {

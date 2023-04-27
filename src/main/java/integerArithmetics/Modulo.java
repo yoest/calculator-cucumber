@@ -14,7 +14,7 @@ public class Modulo extends Operation {
    *
    * @param elist The list of Expressions to add
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Modulo(List < Expression >, Notation )
+   * @see #Modulo(List of Expression , Notation )
    */
   public /*constructor*/ Modulo(List<Expression> elist) throws IllegalConstruction {
     this(elist, null);
@@ -27,7 +27,7 @@ public class Modulo extends Operation {
    * @param elist The list of Expressions to add
    * @param n The Notation to be used to represent the operation
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Modulo(List<Expression>)
+   * @see #Modulo(List of Expression)
    */
   public Modulo(List<Expression> elist, Notation n) throws IllegalConstruction {
     super(elist,n);

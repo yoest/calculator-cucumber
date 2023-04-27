@@ -20,7 +20,7 @@ public final class Minus extends Operation
    *
    * @param elist The list of Expressions to subtract
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Minus(List<Expression>,Notation)
+   * @see #Minus(List of Expression,Notation)
    */
   public /*constructor*/ Minus(List<Expression> elist) throws IllegalConstruction {
   	this(elist, null);
@@ -33,8 +33,8 @@ public final class Minus extends Operation
    * @param elist The list of Expressions to subtract
    * @param n The Notation to be used to represent the operation
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Minus(List<Expression>)
-   * @see Operation#Operation(List<Expression>,Notation)
+   * @see #Minus(List of Expression)
+   * @see Operation#Operation(List of Expression,Notation)
    */
   public Minus(List<Expression> elist, Notation n) throws IllegalConstruction {
   	super(elist,n);

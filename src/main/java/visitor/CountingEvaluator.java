@@ -45,11 +45,9 @@ public class CountingEvaluator extends Visitor {
 
         for (Expression expression : expressions) {
 
-            Expression s = expression;
-
-            int currentDepth = computeDepthRec(s);
+            int currentDepth = computeDepthRec(expression);
             countDepth = Math.max(countDepth, currentDepth);
-            this.count(s);
+            this.count(expression);
         }
     }
 

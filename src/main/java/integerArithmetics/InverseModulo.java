@@ -14,7 +14,7 @@ public class InverseModulo extends Operation {
    *
    * @param elist The list of Expressions to add
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #InverseModulo(List < Expression >, Notation )
+   * @see #InverseModulo(List of Expression, Notation )
    */
   public /*constructor*/ InverseModulo(List<Expression> elist) throws IllegalConstruction {
     this(elist, null);
@@ -27,7 +27,7 @@ public class InverseModulo extends Operation {
    * @param elist The list of Expressions to add
    * @param n The Notation to be used to represent the operation
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #InverseModulo(List<Expression>)
+   * @see #InverseModulo(List of Expression)
    */
   public InverseModulo(List<Expression> elist, Notation n) throws IllegalConstruction {
     super(elist,n);
