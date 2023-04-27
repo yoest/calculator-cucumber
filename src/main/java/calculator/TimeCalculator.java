@@ -3,8 +3,6 @@ package calculator;
 import visitor.TimeEvaluator;
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
 
 public class TimeCalculator {
 

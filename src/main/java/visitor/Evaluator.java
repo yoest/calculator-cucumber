@@ -1,7 +1,6 @@
 package visitor;
 
 import calculator.Expression;
-import calculator.IllegalConstruction;
 import calculator.MyNumber;
 import calculator.MyTime;
 import calculator.Operation;

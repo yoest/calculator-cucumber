@@ -4,19 +4,18 @@ import calculator.*;
 import integerArithmetics.InverseModulo;
 import integerArithmetics.Modulo;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import real.Rounding;
 
-
-import java.math.BigInteger;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -147,7 +146,7 @@ public void thenTheOperationIs(String s, int val) throws IllegalConstruction {
 }
 
 @Then("the operation evaluates to {int}")
-public void thenTheOperationEvaluatesTo(int val) throws IllegalConstruction {
+public void thenTheOperationEvaluatesTo(int val) {
 	assertEquals(0, BigInteger.valueOf(val).compareTo((BigInteger) c.eval(op)));
 }
 @Then("the operation evaluates to {string} in decimal")
@@ -156,13 +155,13 @@ public void theOperationEvaluatesToResultInDecimal(String decimal) {
 	assertEquals(0, decimal.compareTo(result.toPlainString()));
 }
 @Then("the operation evaluates to {string} in radix {int}")
-public void thenTheOperationEvaluatesToInRadix(String val, int radix) throws IllegalConstruction {
+public void thenTheOperationEvaluatesToInRadix(String val, int radix) {
 	BigInteger result = (BigInteger) c.eval(op);
 	assertEquals(0, val.compareTo(result.toString(radix)));
 }
 
 @Then("the operation evaluates to {string} as a decimal number")
-public void thenTheOperationEvaluatesToAsADecimalNumber(String val) throws IllegalConstruction {
+public void thenTheOperationEvaluatesToAsADecimalNumber(String val) {
 	BigInteger result = (BigInteger) c.eval(op);
 	assertEquals(0, val.compareTo(result.toString()));
 }

@@ -3,10 +3,7 @@ package gui;
 import javafx.fxml.FXMLLoader;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
 
 public class Loader {
     public static FXMLLoader load(String fileName, Class classInPackage) {

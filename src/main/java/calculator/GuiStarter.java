@@ -6,8 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
-import java.io.File;
-
 public class GuiStarter extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {

@@ -236,7 +236,7 @@ public class TestParser {
     }
 
   @Test
-  void testIntegerMode() throws Exception {
+  void testIntegerMode() {
       String input = "1";
       parser p = new parser(new lexer(new java.io.StringReader(input)));
       Object result = null;
@@ -252,7 +252,7 @@ public class TestParser {
   }
 
   @Test
-  void testDecimalMode() throws Exception {
+  void testDecimalMode() {
     String input = "1.5";
     MainCalculatorPane.IS_INTEGER_MODE = false;
     parser p = new parser(new lexer(new java.io.StringReader(input)));

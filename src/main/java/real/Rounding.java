@@ -1,7 +1,6 @@
 package real;
 
 import java.math.RoundingMode;
-import java.util.ArrayList;
 
 public enum Rounding {
     ROUND_HALF_UP,

@@ -1,11 +1,7 @@
 package gui;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,13 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import unit_converter.*;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ConverterPane extends ContentPane implements Initializable {

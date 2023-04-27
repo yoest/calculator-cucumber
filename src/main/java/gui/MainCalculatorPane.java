@@ -1,6 +1,5 @@
 package gui;
 
-import calculator.Calculator;
 import calculator.Expression;
 import calculator.MyNumber;
 import calculator.Operation;

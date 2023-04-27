@@ -1,6 +1,5 @@
 package junit5tests;
 
-import org.junit.jupiter.api.BeforeEach;
 import real.Rounding;
 
 import static org.junit.jupiter.api.Assertions.*;

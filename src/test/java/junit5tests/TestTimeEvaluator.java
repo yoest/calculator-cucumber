@@ -3,7 +3,6 @@ package junit5tests;
 //Import Junit5 libraries for unit testing:
 
 import calculator.*;
-import org.codehaus.plexus.util.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

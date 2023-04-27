@@ -5,14 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import calculator.*;
-import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import real.Rounding;
 
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 import java.math.BigDecimal;
 
@@ -35,7 +33,7 @@ class TestEvaluator {
     }
 
     @Test
-    void testEvaluatorMyNumber() throws IllegalConstruction {
+    void testEvaluatorMyNumber() {
       assertEquals(0, BigInteger.valueOf(value1).compareTo((BigInteger) calc.eval(new MyNumber(value1))));
       //Fine because if I create a MyNumber with a int value, I can get the value back in bigInteger Format
       //TODO: Test with bigInteger
