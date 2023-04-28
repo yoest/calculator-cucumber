@@ -320,7 +320,7 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         });
         lastValueButton.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
 
-            calculatorField.insertText(caretCache+1, lastValue.toString());
+            calculatorField.insertText(caretCache, lastValue.toString());
             caretCache += lastValue.toString().length() + 1;
             disignFieldInput();
         });
@@ -546,7 +546,6 @@ public class MainCalculatorPane extends ContentPane implements Initializable {
         NUMBER_BUTTONS.add(button7);
         NUMBER_BUTTONS.add(button8);
         NUMBER_BUTTONS.add(button9);
-        NUMBER_BUTTONS.add(lastValueButton);
         MARK_BUTTONS.add(openMarkButton);
         MARK_BUTTONS.add(closeMarkButton);
         ARROW_BUTTONS.add(leftButton);
