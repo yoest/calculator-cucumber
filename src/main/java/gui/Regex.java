@@ -6,7 +6,7 @@ package gui;
  */
 public class Regex {
 
-    public static final String DECIMAL = "[0-9\\|%$+\\-*/()\\s\\.]*";
+    public static final String DECIMAL = "[0-9\\|%$+\\-*/()\\s\\.eE]*";
 
     public static final String TIME = "[0-9\\|.eEX%$+\\-*/()\\s:AMP]*";
     public static final String INTEGER_BASE_2 = "[01\\|%$+\\-/()\\s\\*]*";
