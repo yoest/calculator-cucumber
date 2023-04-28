@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"calculator"},{"l":"calculatorParser"},{"l":"gui"},{"l":"integerArithmetics"},{"l":"memory"},{"l":"real"},{"l":"timeCalculatorParser"},{"l":"unit_converter"},{"l":"visitor"}];updateSearchResults();
